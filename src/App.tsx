@@ -1,4 +1,6 @@
 import { useState, useEffect } from 'react';
+import { GoogleReCaptchaProvider } from 'react-google-recaptcha-v3';
+import { ContactForm } from './contact-form';
 import './App.css';
 
 function App() {
@@ -245,19 +247,13 @@ function App() {
           <p className={`section-subtitle ${isVisible['contact'] ? 'fade-in-up' : ''}`}>
             Ready to bring your ideas to life? Get in touch and let's discuss your project.
           </p>
-          <div className={`contact-info-container ${isVisible['contact'] ? 'fade-in-up' : ''}`}>
+          <div className={`contact-form-container ${isVisible['contact'] ? 'fade-in-up' : ''}`}>
+            <GoogleReCaptchaProvider
+              reCaptchaKey={import.meta.env.VITE_RECAPTCHA_SITE_KEY || 'your_recaptcha_site_key'}
+            >
+              <ContactForm />
+            </GoogleReCaptchaProvider>
             <div className="contact-info">
-              <div className="contact-item">
-                <div className="contact-icon">📧</div>
-                <div>
-                  <h4>Email</h4>
-                  <p>
-                    <a href="mailto:test@gmail.com" className="contact-link">
-                      test@gmail.com
-                    </a>
-                  </p>
-                </div>
-              </div>
               <div className="contact-item">
                 <div className="contact-icon">💬</div>
                 <div>

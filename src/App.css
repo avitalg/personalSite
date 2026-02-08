@@ -740,13 +740,16 @@ section {
   color: white;
 }
 
-.contact-info-container {
+.contact-form-container {
   max-width: 800px;
   margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
   opacity: 0;
 }
 
-.contact-info-container.fade-in-up {
+.contact-form-container.fade-in-up {
   opacity: 1;
 }
 
@@ -915,7 +918,7 @@ section {
     transform: translateX(5px);
   }
 
-  .contact-info {
+  .contact-form-container {
     grid-template-columns: 1fr;
   }
 
