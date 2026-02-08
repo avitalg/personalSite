@@ -1,11 +1,13 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import emailjs from '@emailjs/browser';
+import ReCAPTCHA from 'react-google-recaptcha';
 
 interface ContactFormProps {
-  executeRecaptcha?: (action: string) => Promise<string>;
+  recaptchaKey?: string;
 }
 
-export const ContactForm = ({ executeRecaptcha }: ContactFormProps = {}) => {
+export const ContactForm = ({ recaptchaKey }: ContactFormProps = {}) => {
+  const recaptchaRef = useRef<ReCAPTCHA>(null);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -20,25 +22,22 @@ export const ContactForm = ({ executeRecaptcha }: ContactFormProps = {}) => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    
+    // Check if reCAPTCHA is required and validated
+    if (recaptchaKey && recaptchaRef.current) {
+      const recaptchaValue = recaptchaRef.current.getValue();
+      if (!recaptchaValue) {
+        setFormStatus('error');
+        setTimeout(() => {
+          setFormStatus('idle');
+        }, 3000);
+        return;
+      }
+    }
+
     setFormStatus('sending');
 
     try {
-      // Verify reCAPTCHA (client-side protection)
-      // Note: reCAPTCHA v3 tokens are not sent to EmailJS as it doesn't support v3 validation
-      if (executeRecaptcha) {
-        try {
-          const recaptchaToken = await executeRecaptcha('contact_form');
-          // Token is verified client-side, but not sent to EmailJS
-          // EmailJS doesn't support reCAPTCHA v3 validation
-          console.log('reCAPTCHA verified:', recaptchaToken ? 'success' : 'failed');
-        } catch (error) {
-          console.warn('reCAPTCHA verification failed:', error);
-          // Continue with form submission even if reCAPTCHA fails
-          // You can uncomment the line below to block submission on reCAPTCHA failure
-          // throw new Error('reCAPTCHA verification failed');
-        }
-      }
-
       // EmailJS configuration
       const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID || 'your_service_id';
       const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID || 'your_template_id';
@@ -51,6 +50,14 @@ export const ContactForm = ({ executeRecaptcha }: ContactFormProps = {}) => {
         to_email: 'avitalglazer@gmail.com'
       };
 
+      // Include reCAPTCHA v2 token for EmailJS validation
+      if (recaptchaKey && recaptchaRef.current) {
+        const recaptchaToken = recaptchaRef.current.getValue();
+        if (recaptchaToken) {
+          emailData['g-recaptcha-response'] = recaptchaToken;
+        }
+      }
+
       await emailjs.send(
         serviceId,
         templateId,
@@ -61,6 +68,11 @@ export const ContactForm = ({ executeRecaptcha }: ContactFormProps = {}) => {
       setFormStatus('success');
       setFormData({ name: '', email: '', message: '' });
       
+      // Reset reCAPTCHA
+      if (recaptchaRef.current) {
+        recaptchaRef.current.reset();
+      }
+      
       // Reset success message after 5 seconds
       setTimeout(() => {
         setFormStatus('idle');
@@ -68,6 +80,11 @@ export const ContactForm = ({ executeRecaptcha }: ContactFormProps = {}) => {
     } catch (error) {
       console.error('Email sending failed:', error);
       setFormStatus('error');
+      
+      // Reset reCAPTCHA on error
+      if (recaptchaRef.current) {
+        recaptchaRef.current.reset();
+      }
       
       // Reset error message after 5 seconds
       setTimeout(() => {
@@ -111,6 +128,15 @@ export const ContactForm = ({ executeRecaptcha }: ContactFormProps = {}) => {
           required
         ></textarea>
       </div>
+      {recaptchaKey && (
+        <div className="form-group">
+          <ReCAPTCHA
+            ref={recaptchaRef}
+            sitekey={recaptchaKey}
+            size="normal"
+          />
+        </div>
+      )}
       {formStatus === 'success' && (
         <div className="form-message form-success">
           ✓ Message sent successfully! I'll get back to you soon.

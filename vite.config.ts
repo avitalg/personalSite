@@ -27,7 +27,7 @@ export default defineConfig({
       output: {
         manualChunks: {
           vendor: ['react', 'react-dom'],
-          recaptcha: ['react-google-recaptcha-v3'],
+          recaptcha: ['react-google-recaptcha'],
           emailjs: ['@emailjs/browser']
         },
         chunkFileNames: 'assets/js/[name]-[hash].js',

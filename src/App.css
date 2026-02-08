@@ -759,6 +759,12 @@ section {
   gap: 1.5rem;
 }
 
+.contact-form .g-recaptcha {
+  display: flex;
+  justify-content: center;
+  margin: 0.5rem 0;
+}
+
 .form-group {
   display: flex;
   flex-direction: column;
