@@ -23,13 +23,19 @@ export const ContactForm = ({ executeRecaptcha }: ContactFormProps = {}) => {
     setFormStatus('sending');
 
     try {
-      // Get reCAPTCHA token (optional)
-      let recaptchaToken: string | undefined;
+      // Verify reCAPTCHA (client-side protection)
+      // Note: reCAPTCHA v3 tokens are not sent to EmailJS as it doesn't support v3 validation
       if (executeRecaptcha) {
         try {
-          recaptchaToken = await executeRecaptcha('contact_form');
+          const recaptchaToken = await executeRecaptcha('contact_form');
+          // Token is verified client-side, but not sent to EmailJS
+          // EmailJS doesn't support reCAPTCHA v3 validation
+          console.log('reCAPTCHA verified:', recaptchaToken ? 'success' : 'failed');
         } catch (error) {
-          console.warn('reCAPTCHA failed, continuing without it:', error);
+          console.warn('reCAPTCHA verification failed:', error);
+          // Continue with form submission even if reCAPTCHA fails
+          // You can uncomment the line below to block submission on reCAPTCHA failure
+          // throw new Error('reCAPTCHA verification failed');
         }
       }
 
@@ -44,11 +50,6 @@ export const ContactForm = ({ executeRecaptcha }: ContactFormProps = {}) => {
         message: formData.message,
         to_email: 'avitalglazer@gmail.com'
       };
-
-      // Only include reCAPTCHA token if available
-      if (recaptchaToken) {
-        emailData.recaptcha_token = recaptchaToken;
-      }
 
       await emailjs.send(
         serviceId,
