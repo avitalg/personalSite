@@ -1,9 +1,11 @@
 import { useState } from 'react';
 import emailjs from '@emailjs/browser';
-import { useGoogleReCaptcha } from 'react-google-recaptcha-v3';
 
-export const ContactForm = () => {
-  const { executeRecaptcha } = useGoogleReCaptcha();
+interface ContactFormProps {
+  executeRecaptcha?: (action: string) => Promise<string>;
+}
+
+export const ContactForm = ({ executeRecaptcha }: ContactFormProps = {}) => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -21,28 +23,37 @@ export const ContactForm = () => {
     setFormStatus('sending');
 
     try {
-      // Get reCAPTCHA token
-      if (!executeRecaptcha) {
-        throw new Error('reCAPTCHA not loaded');
+      // Get reCAPTCHA token (optional)
+      let recaptchaToken: string | undefined;
+      if (executeRecaptcha) {
+        try {
+          recaptchaToken = await executeRecaptcha('contact_form');
+        } catch (error) {
+          console.warn('reCAPTCHA failed, continuing without it:', error);
+        }
       }
-
-      const recaptchaToken = await executeRecaptcha('contact_form');
 
       // EmailJS configuration
       const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID || 'your_service_id';
       const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID || 'your_template_id';
       const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY || 'your_public_key';
 
+      const emailData: Record<string, string> = {
+        from_name: formData.name,
+        from_email: formData.email,
+        message: formData.message,
+        to_email: 'avitalglazer@gmail.com'
+      };
+
+      // Only include reCAPTCHA token if available
+      if (recaptchaToken) {
+        emailData.recaptcha_token = recaptchaToken;
+      }
+
       await emailjs.send(
         serviceId,
         templateId,
-        {
-          from_name: formData.name,
-          from_email: formData.email,
-          message: formData.message,
-          to_email: 'avitalglazer@gmail.com',
-          recaptcha_token: recaptchaToken
-        },
+        emailData,
         publicKey
       );
 
@@ -119,4 +130,3 @@ export const ContactForm = () => {
     </form>
   );
 };
-

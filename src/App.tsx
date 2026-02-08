@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
-import { GoogleReCaptchaProvider } from 'react-google-recaptcha-v3';
-import { ContactForm } from './contact-form';
+import { ContactFormWrapper } from './contact-form-wrapper';
 import './App.css';
 
 function App() {
@@ -248,11 +247,7 @@ function App() {
             Ready to bring your ideas to life? Get in touch and let's discuss your project.
           </p>
           <div className={`contact-form-container ${isVisible['contact'] ? 'fade-in-up' : ''}`}>
-            <GoogleReCaptchaProvider
-              reCaptchaKey={import.meta.env.VITE_RECAPTCHA_SITE_KEY || 'your_recaptcha_site_key'}
-            >
-              <ContactForm />
-            </GoogleReCaptchaProvider>
+            <ContactFormWrapper />
             <div className="contact-info">
               <div className="contact-item">
                 <div className="contact-icon">💬</div>
