@@ -120,8 +120,8 @@ function App() {
               <span className="gradient-text">Experiences</span>
             </h1>
             <p className="hero-subtitle">
-              Full-stack developer specializing in modern web applications.
-              Turning ideas into scalable, high-performance solutions.
+              Full-stack developer specializing in modern web applications, React, TypeScript, and AI integration.
+              Turning ideas into scalable, high-performance solutions. Based in Israel, available for projects worldwide.
             </p>
             <div className="hero-buttons">
               <button className="btn-primary" onClick={() => scrollToSection('contact')}>
@@ -162,6 +162,11 @@ function App() {
                  with a strong focus on performance, clean architecture, and user experience. 
                  Combines solid engineering fundamentals with data-driven thinking and business 
                  understanding to deliver practical, impactful solutions.</p>
+              <p>With over 8 years of professional experience, I've worked with leading companies 
+                 including Outbrain, Promo.com, and BitTech, developing modern web applications 
+                 using React, TypeScript, Node.js, and various cutting-edge technologies. 
+                 I specialize in full-stack development, AI integration, performance optimization, 
+                 and creating exceptional user experiences.</p>
               <div className="skills">
                 <span className="skill-tag">React</span>
                 <span className="skill-tag">TypeScript</span>
@@ -201,8 +206,12 @@ function App() {
                       <h4 className="experience-company">{exp.company}</h4>
                     </div>
                     <div className="experience-meta">
-                      <span className="experience-period">{exp.period}</span>
-                      <span className="experience-location">📍 {exp.location}</span>
+                      <time className="experience-period" dateTime={exp.period.split(' - ')[0]}>
+                        {exp.period}
+                      </time>
+                      <span className="experience-location">
+                        📍 {exp.location}
+                      </span>
                     </div>
                   </div>
                   <p className="experience-description">{exp.description}</p>
@@ -225,7 +234,7 @@ function App() {
             Services
           </h2>
           <p className={`section-subtitle ${isVisible['services'] ? 'fade-in-up' : ''}`}>
-            Comprehensive development solutions tailored to your needs
+            Comprehensive development solutions tailored to your needs. Specializing in React, TypeScript, AI integration, and modern web technologies.
           </p>
           <div className="services-grid" role="list">
             {services.map((service, index) => (
@@ -250,7 +259,7 @@ function App() {
             Let's Work Together
           </h2>
           <p className={`section-subtitle ${isVisible['contact'] ? 'fade-in-up' : ''}`}>
-            Ready to bring your ideas to life? Get in touch and let's discuss your project.
+            Ready to bring your ideas to life? Get in touch and let's discuss your project. Available for freelance and contract work worldwide.
           </p>
           <div className={`contact-form-container ${isVisible['contact'] ? 'fade-in-up' : ''}`}>
             <ContactFormWrapper />
