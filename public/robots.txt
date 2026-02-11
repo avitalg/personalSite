@@ -1,0 +1,11 @@
+# robots.txt for avitalglazer.com
+
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://avitalglazer.com/sitemap.xml
+
+# Disallow admin or private areas (if any)
+# Disallow: /admin/
+# Disallow: /private/

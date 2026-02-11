@@ -91,23 +91,27 @@ function App() {
 
   return (
     <div className="app">
-      <nav className="navbar">
-        <div className="nav-container">
-          <div className="logo" onClick={() => scrollToSection('home')}>
-            <span className="logo-text">Avital</span>
-            <span className="logo-accent">Glazer</span>
+      <header>
+        <nav className="navbar" aria-label="Main navigation">
+          <div className="nav-container">
+            <div className="logo" onClick={() => scrollToSection('home')} role="button" aria-label="Go to home" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter') scrollToSection('home'); }}>
+              <span className="logo-text">Avital</span>
+              <span className="logo-accent">Glazer</span>
+            </div>
+            <ul className="nav-links">
+              <li><a href="#home" onClick={(e) => { e.preventDefault(); scrollToSection('home') }} className={activeSection === 'home' ? 'active' : ''} aria-label="Navigate to Home section">Home</a></li>
+              <li><a href="#about" onClick={(e) => { e.preventDefault(); scrollToSection('about') }} className={activeSection === 'about' ? 'active' : ''} aria-label="Navigate to About section">About</a></li>
+              <li><a href="#experience" onClick={(e) => { e.preventDefault(); scrollToSection('experience') }} className={activeSection === 'experience' ? 'active' : ''} aria-label="Navigate to Experience section">Experience</a></li>
+              <li><a href="#services" onClick={(e) => { e.preventDefault(); scrollToSection('services') }} className={activeSection === 'services' ? 'active' : ''} aria-label="Navigate to Services section">Services</a></li>
+              <li><a href="#contact" onClick={(e) => { e.preventDefault(); scrollToSection('contact') }} className={activeSection === 'contact' ? 'active' : ''} aria-label="Navigate to Contact section">Contact</a></li>
+            </ul>
           </div>
-          <ul className="nav-links">
-            <li><a href="#home" onClick={(e) => { e.preventDefault(); scrollToSection('home') }} className={activeSection === 'home' ? 'active' : ''}>Home</a></li>
-            <li><a href="#about" onClick={(e) => { e.preventDefault(); scrollToSection('about') }} className={activeSection === 'about' ? 'active' : ''}>About</a></li>
-            <li><a href="#experience" onClick={(e) => { e.preventDefault(); scrollToSection('experience') }} className={activeSection === 'experience' ? 'active' : ''}>Experience</a></li>
-            <li><a href="#services" onClick={(e) => { e.preventDefault(); scrollToSection('services') }} className={activeSection === 'services' ? 'active' : ''}>Services</a></li>
-            <li><a href="#contact" onClick={(e) => { e.preventDefault(); scrollToSection('contact') }} className={activeSection === 'contact' ? 'active' : ''}>Contact</a></li>
-          </ul>
-        </div>
-      </nav>
+        </nav>
+      </header>
 
-      <section id="home" className="hero">
+      <main>
+
+      <section id="home" className="hero" aria-label="Hero section">
         <div className="hero-content">
           <div className={`hero-text ${isVisible['home'] ? 'fade-in-up' : ''}`}>
             <h1 className="hero-title">
@@ -145,12 +149,12 @@ function App() {
         </div>
       </section>
 
-      <section id="about" className="about">
+      <section id="about" className="about" aria-labelledby="about-heading">
         <div className="container">
-          <h2 className={`section-title ${isVisible['about'] ? 'fade-in-up' : ''}`}>
+          <h2 id="about-heading" className={`section-title ${isVisible['about'] ? 'fade-in-up' : ''}`}>
             About Me
           </h2>
-          <div className="about-content">
+          <article className="about-content">
             <div className={`about-text ${isVisible['about'] ? 'fade-in-left' : ''}`}>
               <p>I'm a Software Engineer with a B.Sc. in Software Engineering from Shenkar
                  and an M.B.A. with a specialization in Data Science from the Hebrew University. 
@@ -170,24 +174,25 @@ function App() {
                 <span className="skill-tag">CI/CD</span>
               </div>
             </div>
-          </div>
+          </article>
         </div>
       </section>
 
-      <section id="experience" className="experience">
+      <section id="experience" className="experience" aria-labelledby="experience-heading">
         <div className="container">
-          <h2 className={`section-title ${isVisible['experience'] ? 'fade-in-up' : ''}`}>
+          <h2 id="experience-heading" className={`section-title ${isVisible['experience'] ? 'fade-in-up' : ''}`}>
             Experience
           </h2>
           <p className={`section-subtitle ${isVisible['experience'] ? 'fade-in-up' : ''}`}>
             My professional journey in software development
           </p>
-          <div className="experience-timeline">
+          <div className="experience-timeline" role="list">
             {experience.map((exp, index) => (
-              <div
+              <article
                 key={index}
                 className={`experience-item ${isVisible['experience'] ? 'fade-in-up' : ''}`}
                 style={{ animationDelay: `${index * 0.15}s` }}
+                role="listitem"
               >
                 <div className="experience-content">
                   <div className="experience-header">
@@ -207,40 +212,41 @@ function App() {
                     ))}
                   </div>
                 </div>
-                {index < experience.length - 1 && <div className="experience-connector"></div>}
-              </div>
+                {index < experience.length - 1 && <div className="experience-connector" aria-hidden="true"></div>}
+              </article>
             ))}
           </div>
         </div>
       </section>
 
-      <section id="services" className="services">
+      <section id="services" className="services" aria-labelledby="services-heading">
         <div className="container">
-          <h2 className={`section-title ${isVisible['services'] ? 'fade-in-up' : ''}`}>
+          <h2 id="services-heading" className={`section-title ${isVisible['services'] ? 'fade-in-up' : ''}`}>
             Services
           </h2>
           <p className={`section-subtitle ${isVisible['services'] ? 'fade-in-up' : ''}`}>
             Comprehensive development solutions tailored to your needs
           </p>
-          <div className="services-grid">
+          <div className="services-grid" role="list">
             {services.map((service, index) => (
-              <div
+              <article
                 key={index}
                 className={`service-card ${isVisible['services'] ? 'fade-in-up' : ''}`}
                 style={{ animationDelay: `${index * 0.1}s` }}
+                role="listitem"
               >
-                <div className="service-icon">{service.icon}</div>
+                <div className="service-icon" aria-hidden="true">{service.icon}</div>
                 <h3 className="service-title">{service.title}</h3>
                 <p className="service-description">{service.description}</p>
-              </div>
+              </article>
             ))}
           </div>
         </div>
       </section>
 
-      <section id="contact" className="contact">
+      <section id="contact" className="contact" aria-labelledby="contact-heading">
         <div className="container">
-          <h2 className={`section-title ${isVisible['contact'] ? 'fade-in-up' : ''}`}>
+          <h2 id="contact-heading" className={`section-title ${isVisible['contact'] ? 'fade-in-up' : ''}`}>
             Let's Work Together
           </h2>
           <p className={`section-subtitle ${isVisible['contact'] ? 'fade-in-up' : ''}`}>
@@ -276,8 +282,9 @@ function App() {
           </div>
         </div>
       </section>
+      </main>
 
-      <footer className="footer">
+      <footer className="footer" role="contentinfo">
         <div className="container">
           <p>&copy; 2025 Avital Glazer. All rights reserved.</p>
         </div>
