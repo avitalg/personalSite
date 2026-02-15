@@ -5,6 +5,7 @@ import './App.css';
 function App() {
   const [isVisible, setIsVisible] = useState<{ [key: string]: boolean }>({});
   const [activeSection, setActiveSection] = useState('home');
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -25,8 +26,21 @@ function App() {
     return () => observer.disconnect();
   }, []);
 
+  // Prevent body scroll when mobile menu is open
+  useEffect(() => {
+    if (isMobileMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [isMobileMenuOpen]);
+
   const scrollToSection = (id: string) => {
     document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+    setIsMobileMenuOpen(false); // Close mobile menu when navigating
   };
 
   const services = [
@@ -98,7 +112,17 @@ function App() {
               <span className="logo-text">Avital</span>
               <span className="logo-accent">Glazer</span>
             </div>
-            <ul className="nav-links">
+            <button 
+              className={`mobile-menu-toggle ${isMobileMenuOpen ? 'active' : ''}`}
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              aria-label="Toggle mobile menu"
+              aria-expanded={isMobileMenuOpen}
+            >
+              <span></span>
+              <span></span>
+              <span></span>
+            </button>
+            <ul className={`nav-links ${isMobileMenuOpen ? 'mobile-open' : ''}`}>
               <li><a href="#home" onClick={(e) => { e.preventDefault(); scrollToSection('home') }} className={activeSection === 'home' ? 'active' : ''} aria-label="Navigate to Home section">Home</a></li>
               <li><a href="#about" onClick={(e) => { e.preventDefault(); scrollToSection('about') }} className={activeSection === 'about' ? 'active' : ''} aria-label="Navigate to About section">About</a></li>
               <li><a href="#experience" onClick={(e) => { e.preventDefault(); scrollToSection('experience') }} className={activeSection === 'experience' ? 'active' : ''} aria-label="Navigate to Experience section">Experience</a></li>
@@ -141,6 +165,36 @@ function App() {
             </div>
             <div className="floating-card card-3">
               <div className="card-content">🚀</div>
+            </div>
+          </div>
+          <div className={`hero-mobile-content ${isVisible['home'] ? 'fade-in-up' : ''}`}>
+            <div className="tech-stack-mobile">
+              <div className="tech-item-mobile">
+                <span className="tech-icon">⚛️</span>
+                <span className="tech-name">React</span>
+              </div>
+              <div className="tech-item-mobile">
+                <span className="tech-icon">📘</span>
+                <span className="tech-name">TypeScript</span>
+              </div>
+              <div className="tech-item-mobile">
+                <span className="tech-icon">🤖</span>
+                <span className="tech-name">AI</span>
+              </div>
+              <div className="tech-item-mobile">
+                <span className="tech-icon">⚡</span>
+                <span className="tech-name">Node.js</span>
+              </div>
+            </div>
+            <div className="hero-stats-mobile">
+              <div className="stat-mobile">
+                <div className="stat-number-mobile">8+</div>
+                <div className="stat-label-mobile">Years Experience</div>
+              </div>
+              <div className="stat-mobile">
+                <div className="stat-number-mobile">100+</div>
+                <div className="stat-label-mobile">Projects</div>
+              </div>
             </div>
           </div>
         </div>

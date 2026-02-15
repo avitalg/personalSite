@@ -129,12 +129,14 @@ export const ContactForm = ({ recaptchaKey }: ContactFormProps = {}) => {
         ></textarea>
       </div>
       {recaptchaKey && (
-        <div className="form-group">
-          <ReCAPTCHA
-            ref={recaptchaRef}
-            sitekey={recaptchaKey}
-            size="normal"
-          />
+        <div className="form-group recaptcha-wrapper">
+          <div className="recaptcha-container">
+            <ReCAPTCHA
+              ref={recaptchaRef}
+              sitekey={recaptchaKey}
+              size="normal"
+            />
+          </div>
         </div>
       )}
       {formStatus === 'success' && (
