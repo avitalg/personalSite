@@ -1505,6 +1505,153 @@ section {
   }
 }
 
+/* Photography page (clean light-blue theme) */
+.photography-page {
+  background: #f6fbff;
+  color: #0f172a;
+}
+
+.photography-page .hero {
+  color: #0f172a;
+}
+
+.photography-page .gradient-text {
+  background: linear-gradient(135deg, #0ea5e9 0%, #1d4ed8 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.photography-page .photography-hero-title {
+  color: #0f172a;
+}
+
+.photography-page .photography-hero {
+  background: linear-gradient(135deg, #e6f6ff 0%, #dbeafe 100%);
+}
+
+.photography-page .hero::before {
+  opacity: 0.12;
+}
+
+.photography-page .hero-text {
+  color: #0f172a;
+}
+
+.photography-page .hero-subtitle {
+  color: rgba(15, 23, 42, 0.82);
+}
+
+.photography-page .hero-secondary-title {
+  font-size: 1.6rem;
+  font-weight: 800;
+  margin-bottom: 1.25rem;
+}
+
+.photography-page .hero-mobile-content .tech-item-mobile {
+  background: rgba(15, 23, 42, 0.06);
+  border-color: rgba(15, 23, 42, 0.16);
+}
+
+.photography-page .hero-mobile-content .tech-item-mobile:hover {
+  background: rgba(15, 23, 42, 0.09);
+}
+
+.photography-page .hero-mobile-content .tech-name {
+  color: rgba(15, 23, 42, 0.95);
+}
+
+.photography-page .hero-mobile-content .stat-mobile {
+  background: rgba(15, 23, 42, 0.06);
+  border-color: rgba(15, 23, 42, 0.16);
+}
+
+.photography-page .hero-mobile-content .stat-mobile:hover {
+  background: rgba(15, 23, 42, 0.09);
+}
+
+.photography-page .hero-mobile-content .stat-number-mobile {
+  color: #0f172a;
+}
+
+.photography-page .hero-mobile-content .stat-label-mobile {
+  color: rgba(15, 23, 42, 0.84);
+}
+
+.photography-page .btn-primary {
+  background: #ffffff;
+  color: #2563eb;
+}
+
+.photography-page .btn-secondary {
+  background: transparent;
+  color: #2563eb;
+  border: 2px solid rgba(37, 99, 235, 0.8);
+}
+
+.photography-page .btn-secondary:hover {
+  background: rgba(37, 99, 235, 0.1);
+  color: #1d4ed8;
+  transform: translateY(-2px);
+}
+
+.photography-page .floating-card {
+  background: rgba(255, 255, 255, 0.55);
+  border: 1px solid rgba(37, 99, 235, 0.18);
+}
+
+.photography-page .services {
+  background: #f6fbff;
+}
+
+.photography-page .about,
+.photography-page .photography-about {
+  background: #ffffff;
+}
+
+.photography-page .contact {
+  background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
+  color: #0f172a;
+}
+
+.photography-page .contact .section-title,
+.photography-page .contact .section-subtitle {
+  color: #0f172a;
+}
+
+.photography-page .contact-item h4 {
+  color: #0f172a;
+}
+
+.photography-page .contact-item .contact-icon {
+  color: #0f172a;
+}
+
+.photography-page .contact-item p {
+  color: rgba(15, 23, 42, 0.85);
+}
+
+.photography-page .contact-link {
+  color: #0f172a;
+  text-decoration: underline;
+}
+
+.photography-page .contact .form-input {
+  border: 2px solid rgba(15, 23, 42, 0.12);
+  background: rgba(255, 255, 255, 0.7);
+  color: #0f172a;
+}
+
+.photography-page .contact .form-input::placeholder {
+  color: rgba(15, 23, 42, 0.55);
+}
+
+.photography-page .contact .form-input:focus {
+  outline: none;
+  border-color: rgba(37, 99, 235, 0.55);
+  background: rgba(255, 255, 255, 0.85);
+}
+
 /* Touch device optimizations */
 @media (hover: none) and (pointer: coarse) {
   .btn-primary,

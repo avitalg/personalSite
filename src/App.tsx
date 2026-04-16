@@ -1,30 +1,66 @@
 import { useState, useEffect } from 'react';
 import { ContactFormWrapper } from './contact-form-wrapper';
+import { PhotographyPage } from './photography-page';
 import './App.css';
+
+const homeSectionIds = ['home', 'about', 'experience', 'services', 'contact'] as const;
 
 function App() {
   const [isVisible, setIsVisible] = useState<{ [key: string]: boolean }>({});
   const [activeSection, setActiveSection] = useState('home');
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [pathname, setPathname] = useState(() => window.location.pathname);
+
+  const normalizedPathname = pathname === '/' ? '/' : pathname.replace(/\/+$/, '');
+  const isHomeRoute = normalizedPathname === '/';
+  const isPhotographyRoute = normalizedPathname === '/photography';
 
   useEffect(() => {
+    const onPopState = () => setPathname(window.location.pathname);
+    window.addEventListener('popstate', onPopState);
+    return () => window.removeEventListener('popstate', onPopState);
+  }, []);
+
+  useEffect(() => {
+    if (!isHomeRoute) return;
+
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            setIsVisible((prev) => ({ ...prev, [entry.target.id]: true }));
-            setActiveSection(entry.target.id);
+            const targetId = (entry.target as HTMLElement).id;
+            if (!targetId) return;
+
+            setIsVisible((prev) => ({ ...prev, [targetId]: true }));
+            setActiveSection(targetId);
           }
         });
       },
       { threshold: 0.1 }
     );
 
-    const sections = document.querySelectorAll('section');
+    const sections = homeSectionIds
+      .map((id) => document.getElementById(id))
+      .filter((el): el is HTMLElement => Boolean(el));
+
     sections.forEach((section) => observer.observe(section));
 
     return () => observer.disconnect();
-  }, []);
+  }, [isHomeRoute]);
+
+  useEffect(() => {
+    // If someone lands on `/` with a hash (e.g. `/#services`), scroll there.
+    if (!isHomeRoute) return;
+    const hash = window.location.hash.replace('#', '');
+    if (!hash) return;
+    if (!homeSectionIds.includes(hash as (typeof homeSectionIds)[number])) return;
+
+    // Wait a tick so the DOM is ready.
+    setTimeout(() => {
+      document.getElementById(hash)?.scrollIntoView({ behavior: 'smooth' });
+      setIsMobileMenuOpen(false);
+    }, 0);
+  }, [isHomeRoute]);
 
   // Prevent body scroll when mobile menu is open
   useEffect(() => {
@@ -38,9 +74,25 @@ function App() {
     };
   }, [isMobileMenuOpen]);
 
-  const scrollToSection = (id: string) => {
+  function scrollToSection(id: string) {
     document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
     setIsMobileMenuOpen(false); // Close mobile menu when navigating
+  }
+
+  const navigateToSection = (id: string) => {
+    // On the photography page, keep "Contact" on-page.
+    if (id === 'contact' && isPhotographyRoute) {
+      scrollToSection(id);
+      return;
+    }
+
+    if (isHomeRoute) {
+      scrollToSection(id);
+      return;
+    }
+
+    // Otherwise, go back to the home page and scroll to the requested section.
+    window.location.href = `/#${id}`;
   };
 
   const services = [
@@ -105,246 +157,347 @@ function App() {
 
   return (
     <div className="app">
-      <header>
-        <nav className="navbar" aria-label="Main navigation">
-          <div className="nav-container">
-            <div className="logo" onClick={() => scrollToSection('home')} role="button" aria-label="Go to home" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter') scrollToSection('home'); }}>
-              <span className="logo-text">Avital</span>
-              <span className="logo-accent">Glazer</span>
+      {!isPhotographyRoute && (
+        <header>
+          <nav className="navbar" aria-label="Main navigation">
+            <div className="nav-container">
+              <div
+                className="logo"
+                onClick={() => navigateToSection('home')}
+                role="button"
+                aria-label="Go to home"
+                tabIndex={0}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter') navigateToSection('home');
+                }}
+              >
+                <span className="logo-text">Avital</span>
+                <span className="logo-accent">Glazer</span>
+              </div>
+              <button
+                className={`mobile-menu-toggle ${isMobileMenuOpen ? 'active' : ''}`}
+                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                aria-label="Toggle mobile menu"
+                aria-expanded={isMobileMenuOpen}
+              >
+                <span></span>
+                <span></span>
+                <span></span>
+              </button>
+              <ul className={`nav-links ${isMobileMenuOpen ? 'mobile-open' : ''}`}>
+                <li>
+                  <a
+                    href={isHomeRoute ? '#home' : '/#home'}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      navigateToSection('home');
+                    }}
+                    className={isHomeRoute && activeSection === 'home' ? 'active' : ''}
+                    aria-label="Navigate to Home section"
+                  >
+                    Home
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href={isHomeRoute ? '#about' : '/#about'}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      navigateToSection('about');
+                    }}
+                    className={isHomeRoute && activeSection === 'about' ? 'active' : ''}
+                    aria-label="Navigate to About section"
+                  >
+                    About
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href={isHomeRoute ? '#experience' : '/#experience'}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      navigateToSection('experience');
+                    }}
+                    className={isHomeRoute && activeSection === 'experience' ? 'active' : ''}
+                    aria-label="Navigate to Experience section"
+                  >
+                    Experience
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href={isHomeRoute ? '#services' : '/#services'}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      navigateToSection('services');
+                    }}
+                    className={isHomeRoute && activeSection === 'services' ? 'active' : ''}
+                    aria-label="Navigate to Services section"
+                  >
+                    Services
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href={isPhotographyRoute ? '#contact' : isHomeRoute ? '#contact' : '/#contact'}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      navigateToSection('contact');
+                    }}
+                    className={isHomeRoute && activeSection === 'contact' ? 'active' : ''}
+                    aria-label="Navigate to Contact section"
+                  >
+                    Contact
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="/photography"
+                    className={isPhotographyRoute ? 'active' : ''}
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    aria-label="Navigate to Photography page"
+                  >
+                    Photography
+                  </a>
+                </li>
+              </ul>
             </div>
-            <button 
-              className={`mobile-menu-toggle ${isMobileMenuOpen ? 'active' : ''}`}
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              aria-label="Toggle mobile menu"
-              aria-expanded={isMobileMenuOpen}
-            >
-              <span></span>
-              <span></span>
-              <span></span>
-            </button>
-            <ul className={`nav-links ${isMobileMenuOpen ? 'mobile-open' : ''}`}>
-              <li><a href="#home" onClick={(e) => { e.preventDefault(); scrollToSection('home') }} className={activeSection === 'home' ? 'active' : ''} aria-label="Navigate to Home section">Home</a></li>
-              <li><a href="#about" onClick={(e) => { e.preventDefault(); scrollToSection('about') }} className={activeSection === 'about' ? 'active' : ''} aria-label="Navigate to About section">About</a></li>
-              <li><a href="#experience" onClick={(e) => { e.preventDefault(); scrollToSection('experience') }} className={activeSection === 'experience' ? 'active' : ''} aria-label="Navigate to Experience section">Experience</a></li>
-              <li><a href="#services" onClick={(e) => { e.preventDefault(); scrollToSection('services') }} className={activeSection === 'services' ? 'active' : ''} aria-label="Navigate to Services section">Services</a></li>
-              <li><a href="#contact" onClick={(e) => { e.preventDefault(); scrollToSection('contact') }} className={activeSection === 'contact' ? 'active' : ''} aria-label="Navigate to Contact section">Contact</a></li>
-            </ul>
-          </div>
-        </nav>
-      </header>
+          </nav>
+        </header>
+      )}
 
       <main>
-
-      <section id="home" className="hero" aria-label="Hero section">
-        <div className="hero-content">
-          <div className={`hero-text ${isVisible['home'] ? 'fade-in-up' : ''}`}>
-            <h1 className="hero-title">
-              <span className="gradient-text">Building Digital</span>
-              <br />
-              <span className="gradient-text">Experiences</span>
-            </h1>
-            <p className="hero-subtitle">
-              Full-stack developer specializing in modern web applications, React, TypeScript, and AI integration.
-              Turning ideas into scalable, high-performance solutions. Based in Israel, available for projects worldwide.
-            </p>
-            <div className="hero-buttons">
-              <button className="btn-primary" onClick={() => scrollToSection('contact')}>
-                Get Started
-              </button>
-              <button className="btn-secondary" onClick={() => scrollToSection('experience')}>
-                View Experience
-              </button>
-            </div>
-          </div>
-          <div className={`hero-visual ${isVisible['home'] ? 'fade-in-right' : ''}`}>
-            <div className="floating-card card-1">
-              <div className="card-content">⚡</div>
-            </div>
-            <div className="floating-card card-2">
-              <div className="card-content">💻</div>
-            </div>
-            <div className="floating-card card-3">
-              <div className="card-content">🚀</div>
-            </div>
-          </div>
-          <div className={`hero-mobile-content ${isVisible['home'] ? 'fade-in-up' : ''}`}>
-            <div className="tech-stack-mobile">
-              <div className="tech-item-mobile">
-                <span className="tech-icon">⚛️</span>
-                <span className="tech-name">React</span>
-              </div>
-              <div className="tech-item-mobile">
-                <span className="tech-icon">📘</span>
-                <span className="tech-name">TypeScript</span>
-              </div>
-              <div className="tech-item-mobile">
-                <span className="tech-icon">🤖</span>
-                <span className="tech-name">AI</span>
-              </div>
-              <div className="tech-item-mobile">
-                <span className="tech-icon">⚡</span>
-                <span className="tech-name">Node.js</span>
-              </div>
-            </div>
-            <div className="hero-stats-mobile">
-              <div className="stat-mobile">
-                <div className="stat-number-mobile">8+</div>
-                <div className="stat-label-mobile">Years Experience</div>
-              </div>
-              <div className="stat-mobile">
-                <div className="stat-number-mobile">100+</div>
-                <div className="stat-label-mobile">Projects</div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="scroll-indicator">
-          <div className="mouse"></div>
-        </div>
-      </section>
-
-      <section id="about" className="about" aria-labelledby="about-heading">
-        <div className="container">
-          <h2 id="about-heading" className={`section-title ${isVisible['about'] ? 'fade-in-up' : ''}`}>
-            About Me
-          </h2>
-          <article className="about-content">
-            <div className={`about-text ${isVisible['about'] ? 'fade-in-left' : ''}`}>
-              <p>I'm a Software Engineer with a B.Sc. in Software Engineering from Shenkar
-                 and an M.B.A. with a specialization in Data Science from the Hebrew University. 
-                 Experienced in building high-quality, scalable frontend applications with React, 
-                 with a strong focus on performance, clean architecture, and user experience. 
-                 Combines solid engineering fundamentals with data-driven thinking and business 
-                 understanding to deliver practical, impactful solutions.</p>
-              <p>With over 8 years of professional experience, I've worked with leading companies 
-                 including Outbrain, Promo.com, and BitTech, developing modern web applications 
-                 using React, TypeScript, Node.js, and various cutting-edge technologies. 
-                 I specialize in full-stack development, AI integration, performance optimization, 
-                 and creating exceptional user experiences.</p>
-              <div className="skills">
-                <span className="skill-tag">React</span>
-                <span className="skill-tag">TypeScript</span>
-                <span className="skill-tag">Node.js</span>
-                <span className="skill-tag">Python</span>
-                <span className="skill-tag">JavaScript</span>
-                <span className="skill-tag">HTML</span>
-                <span className="skill-tag">CSS</span>
-                <span className="skill-tag">Git</span>
-                <span className="skill-tag">CI/CD</span>
-              </div>
-            </div>
-          </article>
-        </div>
-      </section>
-
-      <section id="experience" className="experience" aria-labelledby="experience-heading">
-        <div className="container">
-          <h2 id="experience-heading" className={`section-title ${isVisible['experience'] ? 'fade-in-up' : ''}`}>
-            Experience
-          </h2>
-          <p className={`section-subtitle ${isVisible['experience'] ? 'fade-in-up' : ''}`}>
-            My professional journey in software development
-          </p>
-          <div className="experience-timeline" role="list">
-            {experience.map((exp, index) => (
-              <article
-                key={index}
-                className={`experience-item ${isVisible['experience'] ? 'fade-in-up' : ''}`}
-                style={{ animationDelay: `${index * 0.15}s` }}
-                role="listitem"
-              >
-                <div className="experience-content">
-                  <div className="experience-header">
-                    <div>
-                      <h3 className="experience-role">{exp.role}</h3>
-                      <h4 className="experience-company">{exp.company}</h4>
-                    </div>
-                    <div className="experience-meta">
-                      <time className="experience-period" dateTime={exp.period.split(' - ')[0]}>
-                        {exp.period}
-                      </time>
-                      <span className="experience-location">
-                        📍 {exp.location}
-                      </span>
-                    </div>
-                  </div>
-                  <p className="experience-description">{exp.description}</p>
-                  <div className="experience-tech">
-                    {exp.technologies.map((tech, techIndex) => (
-                      <span key={techIndex} className="tech-badge">{tech}</span>
-                    ))}
-                  </div>
-                </div>
-                {index < experience.length - 1 && <div className="experience-connector" aria-hidden="true"></div>}
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section id="services" className="services" aria-labelledby="services-heading">
-        <div className="container">
-          <h2 id="services-heading" className={`section-title ${isVisible['services'] ? 'fade-in-up' : ''}`}>
-            Services
-          </h2>
-          <p className={`section-subtitle ${isVisible['services'] ? 'fade-in-up' : ''}`}>
-            Comprehensive development solutions tailored to your needs. Specializing in React, TypeScript, AI integration, and modern web technologies.
-          </p>
-          <div className="services-grid" role="list">
-            {services.map((service, index) => (
-              <article
-                key={index}
-                className={`service-card ${isVisible['services'] ? 'fade-in-up' : ''}`}
-                style={{ animationDelay: `${index * 0.1}s` }}
-                role="listitem"
-              >
-                <div className="service-icon" aria-hidden="true">{service.icon}</div>
-                <h3 className="service-title">{service.title}</h3>
-                <p className="service-description">{service.description}</p>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section id="contact" className="contact" aria-labelledby="contact-heading">
-        <div className="container">
-          <h2 id="contact-heading" className={`section-title ${isVisible['contact'] ? 'fade-in-up' : ''}`}>
-            Let's Work Together
-          </h2>
-          <p className={`section-subtitle ${isVisible['contact'] ? 'fade-in-up' : ''}`}>
-            Ready to bring your ideas to life? Get in touch and let's discuss your project. Available for freelance and contract work worldwide.
-          </p>
-          <div className={`contact-form-container ${isVisible['contact'] ? 'fade-in-up' : ''}`}>
-            <ContactFormWrapper />
-            <div className="contact-info">
-              <div className="contact-item">
-                <div className="contact-icon">💬</div>
-                <div>
-                  <h4>Let's Connect</h4>
-                  <p>Available for new projects</p>
-                </div>
-              </div>
-              <div className="contact-item">
-                <div className="contact-icon">🔗</div>
-                <div>
-                  <h4>LinkedIn</h4>
-                  <p>
-                    <a 
-                      href="https://www.linkedin.com/in/avital-glazer/" 
-                      target="_blank" 
-                      rel="noopener noreferrer"
-                      className="contact-link"
-                    >
-                      Connect with me on LinkedIn
-                    </a>
+        {isHomeRoute ? (
+          <>
+            <section id="home" className="hero" aria-label="Hero section">
+              <div className="hero-content">
+                <div className={`hero-text ${isVisible['home'] ? 'fade-in-up' : ''}`}>
+                  <h1 className="hero-title">
+                    <span className="gradient-text">Building Digital</span>
+                    <br />
+                    <span className="gradient-text">Experiences</span>
+                  </h1>
+                  <p className="hero-subtitle">
+                    Full-stack developer specializing in modern web applications, React, TypeScript, and AI
+                    integration. Turning ideas into scalable, high-performance solutions. Based in Israel, available
+                    for projects worldwide.
                   </p>
+                  <div className="hero-buttons">
+                    <button className="btn-primary" onClick={() => scrollToSection('contact')}>
+                      Get Started
+                    </button>
+                    <button className="btn-secondary" onClick={() => scrollToSection('experience')}>
+                      View Experience
+                    </button>
+                  </div>
+                </div>
+                <div className={`hero-visual ${isVisible['home'] ? 'fade-in-right' : ''}`}>
+                  <div className="floating-card card-1">
+                    <div className="card-content">⚡</div>
+                  </div>
+                  <div className="floating-card card-2">
+                    <div className="card-content">💻</div>
+                  </div>
+                  <div className="floating-card card-3">
+                    <div className="card-content">🚀</div>
+                  </div>
+                </div>
+                <div className={`hero-mobile-content ${isVisible['home'] ? 'fade-in-up' : ''}`}>
+                  <div className="tech-stack-mobile">
+                    <div className="tech-item-mobile">
+                      <span className="tech-icon">⚛️</span>
+                      <span className="tech-name">React</span>
+                    </div>
+                    <div className="tech-item-mobile">
+                      <span className="tech-icon">📘</span>
+                      <span className="tech-name">TypeScript</span>
+                    </div>
+                    <div className="tech-item-mobile">
+                      <span className="tech-icon">🤖</span>
+                      <span className="tech-name">AI</span>
+                    </div>
+                    <div className="tech-item-mobile">
+                      <span className="tech-icon">⚡</span>
+                      <span className="tech-name">Node.js</span>
+                    </div>
+                  </div>
+                  <div className="hero-stats-mobile">
+                    <div className="stat-mobile">
+                      <div className="stat-number-mobile">8+</div>
+                      <div className="stat-label-mobile">Years Experience</div>
+                    </div>
+                    <div className="stat-mobile">
+                      <div className="stat-number-mobile">100+</div>
+                      <div className="stat-label-mobile">Projects</div>
+                    </div>
+                  </div>
                 </div>
               </div>
-            </div>
-          </div>
-        </div>
-      </section>
+              <div className="scroll-indicator">
+                <div className="mouse"></div>
+              </div>
+            </section>
+
+            <section id="about" className="about" aria-labelledby="about-heading">
+              <div className="container">
+                <h2 id="about-heading" className={`section-title ${isVisible['about'] ? 'fade-in-up' : ''}`}>
+                  About Me
+                </h2>
+                <article className="about-content">
+                  <div className={`about-text ${isVisible['about'] ? 'fade-in-left' : ''}`}>
+                    <p>
+                      I'm a Software Engineer with a B.Sc. in Software Engineering from Shenkar and an M.B.A. with a
+                      specialization in Data Science from the Hebrew University. Experienced in building high-quality,
+                      scalable frontend applications with React, with a strong focus on performance, clean architecture,
+                      and user experience. Combines solid engineering fundamentals with data-driven thinking and
+                      business understanding to deliver practical, impactful solutions.
+                    </p>
+                    <p>
+                      With over 8 years of professional experience, I've worked with leading companies including
+                      Outbrain, Promo.com, and BitTech, developing modern web applications using React, TypeScript,
+                      Node.js, and various cutting-edge technologies. I specialize in full-stack development, AI
+                      integration, performance optimization, and creating exceptional user experiences.
+                    </p>
+                    <div className="skills">
+                      <span className="skill-tag">React</span>
+                      <span className="skill-tag">TypeScript</span>
+                      <span className="skill-tag">Node.js</span>
+                      <span className="skill-tag">Python</span>
+                      <span className="skill-tag">JavaScript</span>
+                      <span className="skill-tag">HTML</span>
+                      <span className="skill-tag">CSS</span>
+                      <span className="skill-tag">Git</span>
+                      <span className="skill-tag">CI/CD</span>
+                    </div>
+                  </div>
+                </article>
+              </div>
+            </section>
+
+            <section id="experience" className="experience" aria-labelledby="experience-heading">
+              <div className="container">
+                <h2
+                  id="experience-heading"
+                  className={`section-title ${isVisible['experience'] ? 'fade-in-up' : ''}`}
+                >
+                  Experience
+                </h2>
+                <p className={`section-subtitle ${isVisible['experience'] ? 'fade-in-up' : ''}`}>
+                  My professional journey in software development
+                </p>
+                <div className="experience-timeline" role="list">
+                  {experience.map((exp, index) => (
+                    <article
+                      key={index}
+                      className={`experience-item ${isVisible['experience'] ? 'fade-in-up' : ''}`}
+                      style={{ animationDelay: `${index * 0.15}s` }}
+                      role="listitem"
+                    >
+                      <div className="experience-content">
+                        <div className="experience-header">
+                          <div>
+                            <h3 className="experience-role">{exp.role}</h3>
+                            <h4 className="experience-company">{exp.company}</h4>
+                          </div>
+                          <div className="experience-meta">
+                            <time
+                              className="experience-period"
+                              dateTime={exp.period.split(' - ')[0]}
+                            >
+                              {exp.period}
+                            </time>
+                            <span className="experience-location">📍 {exp.location}</span>
+                          </div>
+                        </div>
+                        <p className="experience-description">{exp.description}</p>
+                        <div className="experience-tech">
+                          {exp.technologies.map((tech, techIndex) => (
+                            <span key={techIndex} className="tech-badge">
+                              {tech}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                      {index < experience.length - 1 && (
+                        <div className="experience-connector" aria-hidden="true"></div>
+                      )}
+                    </article>
+                  ))}
+                </div>
+              </div>
+            </section>
+
+            <section id="services" className="services" aria-labelledby="services-heading">
+              <div className="container">
+                <h2 id="services-heading" className={`section-title ${isVisible['services'] ? 'fade-in-up' : ''}`}>
+                  Services
+                </h2>
+                <p className={`section-subtitle ${isVisible['services'] ? 'fade-in-up' : ''}`}>
+                  Comprehensive development solutions tailored to your needs. Specializing in React, TypeScript,
+                  AI integration, and modern web technologies.
+                </p>
+                <div className="services-grid" role="list">
+                  {services.map((service, index) => (
+                    <article
+                      key={index}
+                      className={`service-card ${isVisible['services'] ? 'fade-in-up' : ''}`}
+                      style={{ animationDelay: `${index * 0.1}s` }}
+                      role="listitem"
+                    >
+                      <div className="service-icon" aria-hidden="true">
+                        {service.icon}
+                      </div>
+                      <h3 className="service-title">{service.title}</h3>
+                      <p className="service-description">{service.description}</p>
+                    </article>
+                  ))}
+                </div>
+              </div>
+            </section>
+
+            <section id="contact" className="contact" aria-labelledby="contact-heading">
+              <div className="container">
+                <h2 id="contact-heading" className={`section-title ${isVisible['contact'] ? 'fade-in-up' : ''}`}>
+                  Let's Work Together
+                </h2>
+                <p className={`section-subtitle ${isVisible['contact'] ? 'fade-in-up' : ''}`}>
+                  Ready to bring your ideas to life? Get in touch and let's discuss your project. Available for
+                  freelance and contract work worldwide.
+                </p>
+                <div className={`contact-form-container ${isVisible['contact'] ? 'fade-in-up' : ''}`}>
+                  <ContactFormWrapper />
+                  <div className="contact-info">
+                    <div className="contact-item">
+                      <div className="contact-icon">💬</div>
+                      <div>
+                        <h4>Let's Connect</h4>
+                        <p>Available for new projects</p>
+                      </div>
+                    </div>
+                    <div className="contact-item">
+                      <div className="contact-icon">🔗</div>
+                      <div>
+                        <h4>LinkedIn</h4>
+                        <p>
+                          <a
+                            href="https://www.linkedin.com/in/avital-glazer/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="contact-link"
+                          >
+                            Connect with me on LinkedIn
+                          </a>
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+          </>
+        ) : (
+          <PhotographyPage />
+        )}
       </main>
 
       <footer className="footer" role="contentinfo">
