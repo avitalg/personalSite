@@ -3,7 +3,7 @@ import { ContactFormWrapper } from './contact-form-wrapper';
 import { PhotographyPage } from './photography-page';
 import './App.css';
 
-const homeSectionIds = ['home', 'about', 'experience', 'services', 'contact'] as const;
+const homeSectionIds = ['home', 'about', 'services', 'contact'] as const;
 
 function App() {
   const [isVisible, setIsVisible] = useState<{ [key: string]: boolean }>({});
@@ -49,20 +49,17 @@ function App() {
   }, [isHomeRoute]);
 
   useEffect(() => {
-    // If someone lands on `/` with a hash (e.g. `/#services`), scroll there.
     if (!isHomeRoute) return;
     const hash = window.location.hash.replace('#', '');
     if (!hash) return;
     if (!homeSectionIds.includes(hash as (typeof homeSectionIds)[number])) return;
 
-    // Wait a tick so the DOM is ready.
     setTimeout(() => {
       document.getElementById(hash)?.scrollIntoView({ behavior: 'smooth' });
       setIsMobileMenuOpen(false);
     }, 0);
   }, [isHomeRoute]);
 
-  // Prevent body scroll when mobile menu is open
   useEffect(() => {
     if (isMobileMenuOpen) {
       document.body.style.overflow = 'hidden';
@@ -76,11 +73,10 @@ function App() {
 
   function scrollToSection(id: string) {
     document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
-    setIsMobileMenuOpen(false); // Close mobile menu when navigating
+    setIsMobileMenuOpen(false);
   }
 
   const navigateToSection = (id: string) => {
-    // On the photography page, keep "Contact" on-page.
     if (id === 'contact' && isPhotographyRoute) {
       scrollToSection(id);
       return;
@@ -91,7 +87,6 @@ function App() {
       return;
     }
 
-    // Otherwise, go back to the home page and scroll to the requested section.
     window.location.href = `/#${id}`;
   };
 
@@ -99,61 +94,56 @@ function App() {
     {
       icon: '💻',
       title: 'Web Development',
-      description: 'Modern, responsive websites built with React, TypeScript, and cutting-edge technologies.'
+      description: 'Modern, responsive websites built with React, TypeScript, and cutting-edge technologies.',
     },
     {
       icon: '⚡',
       title: 'Performance Optimization',
-      description: 'Speed up your applications with advanced optimization techniques and best practices.'
+      description: 'Speed up your applications with advanced optimization techniques and best practices.',
     },
     {
       icon: '🎨',
       title: 'UI/UX Design',
-      description: 'Beautiful, intuitive interfaces that users love to interact with.'
+      description: 'Beautiful, intuitive interfaces that users love to interact with.',
     },
     {
       icon: '🔧',
       title: 'API Development',
-      description: 'Robust backend services and RESTful APIs built for scale and reliability.'
+      description: 'Robust backend services and RESTful APIs built for scale and reliability.',
     },
     {
       icon: '🤖',
       title: 'AI Integration',
-      description: 'AI implemented in code. Integrating AI APIs and frameworks directly into applications to add intelligent features and capabilities.'
+      description:
+        'AI implemented in code. Integrating AI APIs and frameworks directly into applications to add intelligent features and capabilities.',
     },
     {
       icon: '✅',
       title: 'Testing',
-      description: 'Comprehensive testing strategies including unit tests, integration tests, and end-to-end testing. Ensuring code quality, reliability, and cross-browser compatibility.'
+      description:
+        'Comprehensive testing strategies including unit tests, integration tests, and end-to-end testing. Ensuring code quality, reliability, and cross-browser compatibility.',
     },
   ];
 
-  const experience = [
-    {
-      company: 'Outbrain',
-      role: 'Full Stack Developer',
-      period: '2021 - 2025',
-      location: 'Israel',
-      description: 'creating new UI experiences, suggesting improvements and innovative solutions, optimizing performance, writing tests and ensuring cross-browser compatibility.',
-      technologies: ['React', 'TypeScript', 'JavaScript', 'Node.js', 'Java']
-    },
-    {
-      company: 'Promo.com',
-      role: 'Full Stack Developer',
-      period: '2019 - 2021',
-      location: 'Israel',
-      description: 'Implemented and improved the video editor and video tools. Created pixel perfect UI while working with Storybook.',
-      technologies: ['React', 'Next.js', 'JavaScript', 'PHP', 'mongoDB', 'Golang']
-    },
-    {
-      company: 'BitTech',
-      role: 'Web Developer',
-      period: '2016 - 2019',
-      location: 'Israel',
-      description: 'Built responsive multi language websites using pixel perfect design and PSDs.',
-      technologies: ['Javascript', 'Vue.js', 'Wordpress', 'HTML', 'CSS']
-    }
+  const skills = [
+    'React',
+    'TypeScript',
+    'Node.js',
+    'Python',
+    'JavaScript',
+    'Figma',
+    'UI/UX',
+    'AI Integration',
+    'Git',
+    'CI/CD',
   ];
+
+  const navigateToPhotography = () => {
+    setIsMobileMenuOpen(false);
+    window.history.pushState({}, '', '/photography');
+    setPathname('/photography');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
 
   return (
     <div className="app">
@@ -213,19 +203,6 @@ function App() {
                 </li>
                 <li>
                   <a
-                    href={isHomeRoute ? '#experience' : '/#experience'}
-                    onClick={(e) => {
-                      e.preventDefault();
-                      navigateToSection('experience');
-                    }}
-                    className={isHomeRoute && activeSection === 'experience' ? 'active' : ''}
-                    aria-label="Navigate to Experience section"
-                  >
-                    Experience
-                  </a>
-                </li>
-                <li>
-                  <a
                     href={isHomeRoute ? '#services' : '/#services'}
                     onClick={(e) => {
                       e.preventDefault();
@@ -254,7 +231,10 @@ function App() {
                   <a
                     href="/photography"
                     className={isPhotographyRoute ? 'active' : ''}
-                    onClick={() => setIsMobileMenuOpen(false)}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      navigateToPhotography();
+                    }}
                     aria-label="Navigate to Photography page"
                   >
                     Photography
@@ -273,9 +253,9 @@ function App() {
               <div className="hero-content">
                 <div className={`hero-text ${isVisible['home'] ? 'fade-in-up' : ''}`}>
                   <h1 className="hero-title">
-                    <span className="gradient-text">Building Digital</span>
+                    Building Digital
                     <br />
-                    <span className="gradient-text">Experiences</span>
+                    <span className="hero-title-accent">Experiences</span>
                   </h1>
                   <p className="hero-subtitle">
                     Full-stack developer specializing in modern web applications, React, TypeScript, and AI
@@ -286,8 +266,8 @@ function App() {
                     <button className="btn-primary" onClick={() => scrollToSection('contact')}>
                       Get Started
                     </button>
-                    <button className="btn-secondary" onClick={() => scrollToSection('experience')}>
-                      View Experience
+                    <button className="btn-secondary" onClick={() => scrollToSection('about')}>
+                      About Me
                     </button>
                   </div>
                 </div>
@@ -340,90 +320,63 @@ function App() {
 
             <section id="about" className="about" aria-labelledby="about-heading">
               <div className="container">
-                <h2 id="about-heading" className={`section-title ${isVisible['about'] ? 'fade-in-up' : ''}`}>
-                  About Me
-                </h2>
-                <article className="about-content">
-                  <div className={`about-text ${isVisible['about'] ? 'fade-in-left' : ''}`}>
-                    <p>
-                      I'm a Software Engineer with a B.Sc. in Software Engineering from Shenkar and an M.B.A. with a
-                      specialization in Data Science from the Hebrew University. Experienced in building high-quality,
-                      scalable frontend applications with React, with a strong focus on performance, clean architecture,
-                      and user experience. Combines solid engineering fundamentals with data-driven thinking and
-                      business understanding to deliver practical, impactful solutions.
+                <header className={`about-header ${isVisible['about'] ? 'fade-in-up' : ''}`}>
+                  <h2 id="about-heading" className="section-title">
+                    About Me
+                  </h2>
+                  <p className="section-subtitle about-subtitle">
+                    Full-stack developer with a strong understanding of UI/UX, and professional photographer — based in
+                    Israel
+                  </p>
+                </header>
+
+                <article className={`about-panel ${isVisible['about'] ? 'fade-in-up' : ''}`}>
+                  <div className="about-block">
+                    <p className="about-lead">
+                      I build modern web products with React and TypeScript — pairing solid engineering with an
+                      understanding of how people actually use interfaces.
                     </p>
-                    <p>
-                      With over 8 years of professional experience, I've worked with leading companies including
-                      Outbrain, Promo.com, and BitTech, developing modern web applications using React, TypeScript,
-                      Node.js, and various cutting-edge technologies. I specialize in full-stack development, AI
-                      integration, performance optimization, and creating exceptional user experiences.
+                    <p className="about-detail">
+                      B.Sc. Software Engineering (Shenkar) · M.B.A. Data Science (Hebrew University) · 8+ years at
+                      Outbrain, Promo.com, and BitTech
                     </p>
-                    <div className="skills">
-                      <span className="skill-tag">React</span>
-                      <span className="skill-tag">TypeScript</span>
-                      <span className="skill-tag">Node.js</span>
-                      <span className="skill-tag">Python</span>
-                      <span className="skill-tag">JavaScript</span>
-                      <span className="skill-tag">HTML</span>
-                      <span className="skill-tag">CSS</span>
-                      <span className="skill-tag">Git</span>
-                      <span className="skill-tag">CI/CD</span>
+                  </div>
+
+                  <div className="about-block">
+                    <h3 className="about-block-label">Skills</h3>
+                    <ul className="about-skills" aria-label="Technical skills">
+                      {skills.map((skill) => (
+                        <li key={skill}>
+                          <span className="skill-tag">{skill}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  <div className="about-block about-block--photography">
+                    <div className="about-photography-copy">
+                      <h3 className="about-photography-title">Professional Photography</h3>
+                      <p className="about-photography-text">
+                        Product and catalog photography for brands and e-commerce — clean lighting, accurate color, and
+                        images ready for websites, lookbooks, and marketing campaigns.
+                      </p>
+                    </div>
+                    <div className="about-photography-actions">
+                      <button type="button" className="about-btn about-btn--primary" onClick={navigateToPhotography}>
+                        View portfolio
+                      </button>
+                      <a
+                        href="https://www.instagram.com/avitalg_photography/"
+                        className="about-btn about-btn--outline"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label="Photography on Instagram @avitalg_photography"
+                      >
+                        Instagram
+                      </a>
                     </div>
                   </div>
                 </article>
-              </div>
-            </section>
-
-            <section id="experience" className="experience" aria-labelledby="experience-heading">
-              <div className="container">
-                <h2
-                  id="experience-heading"
-                  className={`section-title ${isVisible['experience'] ? 'fade-in-up' : ''}`}
-                >
-                  Experience
-                </h2>
-                <p className={`section-subtitle ${isVisible['experience'] ? 'fade-in-up' : ''}`}>
-                  My professional journey in software development
-                </p>
-                <div className="experience-timeline" role="list">
-                  {experience.map((exp, index) => (
-                    <article
-                      key={index}
-                      className={`experience-item ${isVisible['experience'] ? 'fade-in-up' : ''}`}
-                      style={{ animationDelay: `${index * 0.15}s` }}
-                      role="listitem"
-                    >
-                      <div className="experience-content">
-                        <div className="experience-header">
-                          <div>
-                            <h3 className="experience-role">{exp.role}</h3>
-                            <h4 className="experience-company">{exp.company}</h4>
-                          </div>
-                          <div className="experience-meta">
-                            <time
-                              className="experience-period"
-                              dateTime={exp.period.split(' - ')[0]}
-                            >
-                              {exp.period}
-                            </time>
-                            <span className="experience-location">📍 {exp.location}</span>
-                          </div>
-                        </div>
-                        <p className="experience-description">{exp.description}</p>
-                        <div className="experience-tech">
-                          {exp.technologies.map((tech, techIndex) => (
-                            <span key={techIndex} className="tech-badge">
-                              {tech}
-                            </span>
-                          ))}
-                        </div>
-                      </div>
-                      {index < experience.length - 1 && (
-                        <div className="experience-connector" aria-hidden="true"></div>
-                      )}
-                    </article>
-                  ))}
-                </div>
               </div>
             </section>
 
@@ -433,8 +386,8 @@ function App() {
                   Services
                 </h2>
                 <p className={`section-subtitle ${isVisible['services'] ? 'fade-in-up' : ''}`}>
-                  Comprehensive development solutions tailored to your needs. Specializing in React, TypeScript,
-                  AI integration, and modern web technologies.
+                  Comprehensive development solutions tailored to your needs. Specializing in React, TypeScript, AI
+                  integration, and modern web technologies.
                 </p>
                 <div className="services-grid" role="list">
                   {services.map((service, index) => (
@@ -507,6 +460,6 @@ function App() {
       </footer>
     </div>
   );
-};
+}
 
 export { App };

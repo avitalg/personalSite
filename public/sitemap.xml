@@ -20,14 +20,6 @@
     <priority>0.8</priority>
   </url>
   
-  <!-- Experience Section -->
-  <url>
-    <loc>https://avitalglazer.com/#experience</loc>
-    <lastmod>2025-01-27</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  
   <!-- Services Section -->
   <url>
     <loc>https://avitalglazer.com/#services</loc>
@@ -42,6 +34,14 @@
     <lastmod>2025-01-27</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
+  </url>
+
+  <!-- Photography Page -->
+  <url>
+    <loc>https://avitalglazer.com/photography</loc>
+    <lastmod>2025-01-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
   </url>
   
 </urlset>

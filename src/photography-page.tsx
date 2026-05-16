@@ -91,7 +91,7 @@ export const PhotographyPage = () => {
             <h1 className="hero-title">
               <span className="photography-hero-title">אביטל גלזר צילום</span>
             </h1>
-            <h2 className="hero-secondary-title gradient-text">צילום עם לב ודיוק</h2>
+            <h2 className="hero-secondary-title">צילום עם לב ודיוק</h2>
             <p className="hero-subtitle">
               צילום אירועים, משפחות וזוגות, צילומי הריון וילדים, חתונות וצילומי תדמית לעסקים. שילוב של
               יצירתיות, תשומת לב לפרטים וליווי אישי לכל אורך הדרך.
@@ -257,6 +257,24 @@ export const PhotographyPage = () => {
                 <div>
                   <h4>בואו נתחבר</h4>
                   <p>זמינה לצילומים חדשים</p>
+                </div>
+              </div>
+              <div className="contact-item">
+                <div className="contact-icon" aria-hidden="true">
+                  📷
+                </div>
+                <div>
+                  <h4>Instagram</h4>
+                  <p>
+                    <a
+                      href="https://www.instagram.com/avitalg_photography/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="contact-link"
+                    >
+                      @avitalg_photography
+                    </a>
+                  </p>
                 </div>
               </div>
             </div>
