@@ -1,111 +1,73 @@
+import { useTranslation } from 'react-i18next';
 import { ContactFormWrapper } from './contact-form-wrapper';
+import { LanguageSwitcher } from './components/LanguageSwitcher';
+import type { Locale } from './routing';
 
-export const PhotographyPage = () => {
-  const services = [
-    {
-      icon: '📸',
-      title: 'צילום אירועים',
-      description:
-        'חתונות, בר/בת מצווה, ימי הולדת ואירועים עסקיים. תיעוד שמרגיש טבעי, עם תשומת לב לרגעים הקטנים.',
-    },
-    {
-      icon: '💞',
-      title: 'משפחות וזוגות',
-      description:
-        'צילום באווירה נעימה ובקצב נכון: סטיילינג מינימלי, קומפוזיציה מחמיאה ותוצאות שמרגישות כמו את/ה.',
-    },
-    {
-      icon: '🌿',
-      title: 'הריון וילדים',
-      description:
-        'ליווי מקצועי מהפגישה הראשונה ועד הבחירה הסופית. תיעוד של גדילה, צבע ואנרגיה אמיתית.',
-    },
-    {
-      icon: '🏢',
-      title: 'תדמית לעסקים',
-      description:
-        'צילום לצוות, בעלי עסקים ותכנים שיווקיים. התמונות מותאמות לאתר, לאינסטגרם ולמצגות מכירה.',
-    },
-    {
-      icon: '🎞️',
-      title: 'סטודיו או טבע',
-      description:
-        'אפשר לשלב סגנונות: מקלאסי-נקי בסטודיו ועד טבע אורבני או טבע רחב. כל בחירה בהתאם למה שאתם רוצים להעביר.',
-    },
-    {
-      icon: '✨',
-      title: 'עריכה וקבצים דיגיטליים',
-      description:
-        'תהליך עריכה מקצועי, תיקוני צבע ודגשים חכמים. מסירה מסודרת של קבצים באיכות גבוהה וגלריה דיגיטלית.',
-    },
-  ];
+type PhotographyPageProps = {
+  locale: Locale;
+  onSwitchLocale: (locale: Locale) => void;
+  onGoHome: () => void;
+};
 
-  const steps = [
-    {
-      icon: '1️⃣',
-      title: 'שיחת היכרות קצרה',
-      description: 'נבין מה חשוב לכם, מה הסגנון הרצוי ומתי מתקיים האירוע/הצילום.',
-    },
-    {
-      icon: '2️⃣',
-      title: 'תכנון וסגנון',
-      description:
-        'בחירת לוקיישן/סטיילינג, תיאום ציפיות ולו״ז. כדי שתדעו בדיוק למה להגיע.',
-    },
-    {
-      icon: '3️⃣',
-      title: 'צילום באווירה רגועה',
-      description: 'הכוונה מקצועית בלי לחץ: אתם במרכז, ואני אדאג לקומפוזיציה והרגעים.',
-    },
-    {
-      icon: '4️⃣',
-      title: 'עריכה, דירוג צבע וגלריה',
-      description:
-        'אבחר ואערוך בקפדנות, אשלח גלריה מסודרת ולאחר מכן נבצע התאמות לפי הצורך.',
-    },
-  ];
+const serviceKeys = ['catalog', 'brand', 'lifestyle', 'studio', 'ecommerce', 'retouch'] as const;
+const serviceIcons: Record<(typeof serviceKeys)[number], string> = {
+  catalog: '📸',
+  brand: '🏢',
+  lifestyle: '🌿',
+  studio: '🎞️',
+  ecommerce: '🛒',
+  retouch: '✨',
+};
 
-  const packages = [
-    {
-      icon: '🟦',
-      title: 'חבילה קומפקטית',
-      description: 'מתאימה לאירועים קטנים או לצילום ממוקד. חוויה קצרה ומדויקת עם עריכה מלאה.',
-    },
-    {
-      icon: '🟣',
-      title: 'חבילה מלאה (Signature)',
-      description: 'כוללת זמן צילום נדיב יותר, עריכה מקצועית והתמקדות בסיפור מאוחד וברצף תמונות.',
-    },
-    {
-      icon: '🟩',
-      title: 'חבילה פרימיום',
-      description: 'למי שרוצה ליווי מקיף יותר: תכנון מראש, סטיילינג, ורפרנס לתוצאות “וואו”.',
-    },
-  ];
+const stepKeys = ['brief', 'plan', 'shoot', 'delivery'] as const;
+const stepIcons: Record<(typeof stepKeys)[number], string> = {
+  brief: '1️⃣',
+  plan: '2️⃣',
+  shoot: '3️⃣',
+  delivery: '4️⃣',
+};
+
+const packageKeys = ['compact', 'signature', 'premium'] as const;
+const packageIcons: Record<(typeof packageKeys)[number], string> = {
+  compact: '🟦',
+  signature: '🟣',
+  premium: '🟩',
+};
+
+const mobileTags = [
+  { key: 'mobileEvents' as const, icon: '📦' },
+  { key: 'mobileCouples' as const, icon: '📋' },
+  { key: 'mobileKids' as const, icon: '✨' },
+  { key: 'mobileBusiness' as const, icon: '🛒' },
+];
+
+export function PhotographyPage({ locale, onSwitchLocale, onGoHome }: PhotographyPageProps) {
+  const { t } = useTranslation();
 
   return (
-    <div className="photography-page" dir="rtl">
-      <section className="hero photography-hero" aria-label="Hero section">
+    <div className="photography-page">
+      <header className="photo-topbar">
+        <button type="button" className="photo-topbar__brand" onClick={onGoHome}>
+          <span className="logo-text">Avital</span>
+          <span className="logo-accent">Glazer</span>
+        </button>
+        <LanguageSwitcher locale={locale} onSwitch={onSwitchLocale} />
+      </header>
+
+      <section className="hero photography-hero" aria-label={t('hero.ariaLabel')}>
         <div className="hero-content">
           <div className="hero-text">
             <h1 className="hero-title">
-              <span className="photography-hero-title">אביטל גלזר צילום</span>
+              <span className="photography-hero-title">{t('photo.heroTitle')}</span>
             </h1>
-            <h2 className="hero-secondary-title">צילום עם לב ודיוק</h2>
-            <p className="hero-subtitle">
-              צילום אירועים, משפחות וזוגות, צילומי הריון וילדים, חתונות וצילומי תדמית לעסקים. שילוב של
-              יצירתיות, תשומת לב לפרטים וליווי אישי לכל אורך הדרך.
-            </p>
+            <h2 className="hero-secondary-title">{t('photo.heroSubtitle')}</h2>
+            <p className="hero-subtitle">{t('photo.heroText')}</p>
             <div className="hero-buttons">
-              <a href="#contact" className="btn-primary btn-large" aria-label="קבעו שיחה">
-                קבעו שיחה
+              <a href="#contact" className="btn-primary btn-large">
+                {t('photo.ctaBook')}
               </a>
-              <a
-                href="#photography-services"
-                className="btn-secondary btn-large"
-                aria-label="למה לבחור בי"
-              >
-                מה השירותים
+              <a href="#photography-services" className="btn-secondary btn-large">
+                {t('photo.ctaServices')}
               </a>
             </div>
           </div>
@@ -123,32 +85,22 @@ export const PhotographyPage = () => {
           </div>
 
           <div className="hero-mobile-content fade-in-up">
-            <div className="tech-stack-mobile" aria-label="תחומי צילום">
-              <div className="tech-item-mobile">
-                <span className="tech-icon">🎉</span>
-                <span className="tech-name">אירועים</span>
-              </div>
-              <div className="tech-item-mobile">
-                <span className="tech-icon">👫</span>
-                <span className="tech-name">זוגות</span>
-              </div>
-              <div className="tech-item-mobile">
-                <span className="tech-icon">👶</span>
-                <span className="tech-name">ילדים</span>
-              </div>
-              <div className="tech-item-mobile">
-                <span className="tech-icon">🏢</span>
-                <span className="tech-name">תדמית</span>
-              </div>
+            <div className="tech-stack-mobile">
+              {mobileTags.map(({ key, icon }) => (
+                <div key={key} className="tech-item-mobile">
+                  <span className="tech-icon">{icon}</span>
+                  <span className="tech-name">{t(`photo.${key}`)}</span>
+                </div>
+              ))}
             </div>
-            <div className="hero-stats-mobile" aria-label="הדגשים">
+            <div className="hero-stats-mobile">
               <div className="stat-mobile">
                 <div className="stat-number-mobile">24h</div>
-                <div className="stat-label-mobile">זמינות לתשובה</div>
+                <div className="stat-label-mobile">{t('photo.statResponse')}</div>
               </div>
               <div className="stat-mobile">
                 <div className="stat-number-mobile">Pro</div>
-                <div className="stat-label-mobile">עריכה קפדנית</div>
+                <div className="stat-label-mobile">{t('photo.statPro')}</div>
               </div>
             </div>
           </div>
@@ -158,25 +110,23 @@ export const PhotographyPage = () => {
       <section id="photography-services" className="services" aria-labelledby="photo-services-heading">
         <div className="container">
           <h2 id="photo-services-heading" className="section-title">
-            השירותים שלי
+            {t('photo.servicesTitle')}
           </h2>
-          <p className="section-subtitle">
-            כל צילום מתחיל בהקשבה לסגנון ולציפיות שלכם, וממשיך לתוצאה איכותית עם ליווי מקצועי בכל שלב.
-          </p>
+          <p className="section-subtitle">{t('photo.servicesSubtitle')}</p>
 
           <div className="services-grid" role="list">
-            {services.map((service, index) => (
+            {serviceKeys.map((key, index) => (
               <article
-                key={index}
+                key={key}
                 className="service-card fade-in-up"
                 style={{ animationDelay: `${index * 0.1}s` }}
                 role="listitem"
               >
                 <div className="service-icon" aria-hidden="true">
-                  {service.icon}
+                  {serviceIcons[key]}
                 </div>
-                <h3 className="service-title">{service.title}</h3>
-                <p className="service-description">{service.description}</p>
+                <h3 className="service-title">{t(`photo.serviceItems.${key}.title`)}</h3>
+                <p className="service-description">{t(`photo.serviceItems.${key}.description`)}</p>
               </article>
             ))}
           </div>
@@ -186,23 +136,23 @@ export const PhotographyPage = () => {
       <section className="about photography-about" id="photo-process" aria-labelledby="photo-process-heading">
         <div className="container">
           <h2 id="photo-process-heading" className="section-title">
-            איך זה עובד
+            {t('photo.processTitle')}
           </h2>
-          <p className="section-subtitle">תהליך ברור, אווירה רגועה ותוצאה שמרגישה מדויקת.</p>
+          <p className="section-subtitle">{t('photo.processSubtitle')}</p>
 
           <div className="services-grid" role="list">
-            {steps.map((step, index) => (
+            {stepKeys.map((key, index) => (
               <article
-                key={index}
+                key={key}
                 className="service-card fade-in-up"
                 style={{ animationDelay: `${index * 0.1}s` }}
                 role="listitem"
               >
                 <div className="service-icon" aria-hidden="true">
-                  {step.icon}
+                  {stepIcons[key]}
                 </div>
-                <h3 className="service-title">{step.title}</h3>
-                <p className="service-description">{step.description}</p>
+                <h3 className="service-title">{t(`photo.steps.${key}.title`)}</h3>
+                <p className="service-description">{t(`photo.steps.${key}.description`)}</p>
               </article>
             ))}
           </div>
@@ -212,25 +162,23 @@ export const PhotographyPage = () => {
       <section className="services" aria-labelledby="photo-packages-heading">
         <div className="container">
           <h2 id="photo-packages-heading" className="section-title">
-            חבילות מומלצות
+            {t('photo.packagesTitle')}
           </h2>
-          <p className="section-subtitle">
-            אפשר להתאים לכל פרויקט. בחרו חבילה לפי אופי הצילום, ואז נדייק יחד דרך שיחת ההיכרות.
-          </p>
+          <p className="section-subtitle">{t('photo.packagesSubtitle')}</p>
 
           <div className="services-grid" role="list">
-            {packages.map((pkg, index) => (
+            {packageKeys.map((key, index) => (
               <article
-                key={index}
+                key={key}
                 className="service-card fade-in-up"
                 style={{ animationDelay: `${index * 0.1}s` }}
                 role="listitem"
               >
                 <div className="service-icon" aria-hidden="true">
-                  {pkg.icon}
+                  {packageIcons[key]}
                 </div>
-                <h3 className="service-title">{pkg.title}</h3>
-                <p className="service-description">{pkg.description}</p>
+                <h3 className="service-title">{t(`photo.packages.${key}.title`)}</h3>
+                <p className="service-description">{t(`photo.packages.${key}.description`)}</p>
               </article>
             ))}
           </div>
@@ -240,11 +188,9 @@ export const PhotographyPage = () => {
       <section id="contact" className="contact" aria-labelledby="photography-contact-heading">
         <div className="container">
           <h2 id="photography-contact-heading" className="section-title">
-            בואו נדבר על הצילום הבא שלכם
+            {t('photo.contactTitle')}
           </h2>
-          <p className="section-subtitle">
-            רוצים לסגור תאריך? השאירו פרטים, ואחזור אליכם בהקדם. אפשר גם לכל התייעצות לגבי סגנון או לוקיישן.
-          </p>
+          <p className="section-subtitle">{t('photo.contactSubtitle')}</p>
 
           <div className="contact-form-container fade-in-up">
             <ContactFormWrapper />
@@ -255,8 +201,8 @@ export const PhotographyPage = () => {
                   💬
                 </div>
                 <div>
-                  <h4>בואו נתחבר</h4>
-                  <p>זמינה לצילומים חדשים</p>
+                  <h4>{t('contact.connect')}</h4>
+                  <p>{t('photo.contactAvailable')}</p>
                 </div>
               </div>
               <div className="contact-item">
@@ -264,13 +210,14 @@ export const PhotographyPage = () => {
                   📷
                 </div>
                 <div>
-                  <h4>Instagram</h4>
+                  <h4>{t('about.instagram')}</h4>
                   <p>
                     <a
                       href="https://www.instagram.com/avitalg_photography/"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="contact-link"
+                      aria-label={t('about.instagramAria')}
                     >
                       @avitalg_photography
                     </a>
@@ -283,5 +230,4 @@ export const PhotographyPage = () => {
       </section>
     </div>
   );
-};
-
+}

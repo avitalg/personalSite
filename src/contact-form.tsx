@@ -1,4 +1,5 @@
 import { useState, useRef } from 'react';
+import { useTranslation } from 'react-i18next';
 import emailjs from '@emailjs/browser';
 import ReCAPTCHA from 'react-google-recaptcha';
 
@@ -7,6 +8,7 @@ interface ContactFormProps {
 }
 
 export const ContactForm = ({ recaptchaKey }: ContactFormProps = {}) => {
+  const { t } = useTranslation();
   const recaptchaRef = useRef<ReCAPTCHA>(null);
   const [formData, setFormData] = useState({
     name: '',
@@ -99,7 +101,7 @@ export const ContactForm = ({ recaptchaKey }: ContactFormProps = {}) => {
         <input 
           type="text" 
           name="name"
-          placeholder="Your Name" 
+          placeholder={t('form.name')} 
           className="form-input" 
           value={formData.name}
           onChange={handleInputChange}
@@ -110,7 +112,7 @@ export const ContactForm = ({ recaptchaKey }: ContactFormProps = {}) => {
         <input 
           type="email" 
           name="email"
-          placeholder="Your Email" 
+          placeholder={t('form.email')} 
           className="form-input" 
           value={formData.email}
           onChange={handleInputChange}
@@ -120,7 +122,7 @@ export const ContactForm = ({ recaptchaKey }: ContactFormProps = {}) => {
       <div className="form-group">
         <textarea 
           name="message"
-          placeholder="Your Message" 
+          placeholder={t('form.message')} 
           rows={5} 
           className="form-input"
           value={formData.message}
@@ -141,20 +143,18 @@ export const ContactForm = ({ recaptchaKey }: ContactFormProps = {}) => {
       )}
       {formStatus === 'success' && (
         <div className="form-message form-success">
-          ✓ Message sent successfully! I'll get back to you soon.
+          {t('form.success')}
         </div>
       )}
       {formStatus === 'error' && (
-        <div className="form-message form-error">
-          ✗ Failed to send message. Please try again or email me directly.
-        </div>
+        <div className="form-message form-error">{t('form.error')}</div>
       )}
       <button 
         type="submit" 
         className="btn-primary btn-large"
         disabled={formStatus === 'sending'}
       >
-        {formStatus === 'sending' ? 'Sending...' : 'Send Message'}
+        {formStatus === 'sending' ? t('form.sending') : t('form.send')}
       </button>
     </form>
   );

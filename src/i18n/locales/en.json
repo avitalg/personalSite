@@ -1,0 +1,175 @@
+{
+  "seo": {
+    "title": "Avital Glazer - Full Stack Developer | React, TypeScript, AI | Israel",
+    "description": "Professional Full Stack Developer with 8+ years in React, TypeScript, Node.js, and AI integration. Based in Israel, available for projects worldwide.",
+    "photographyTitle": "Avital Glazer Photography | Professional & Catalog",
+    "photographyDescription": "Product, catalog, and brand photography. Clean lighting, accurate color, and professional delivery."
+  },
+  "nav": {
+    "home": "Home",
+    "about": "About",
+    "services": "Services",
+    "contact": "Contact",
+    "photography": "Photography",
+    "mainNav": "Main navigation",
+    "goHome": "Go to home",
+    "langHe": "עברית",
+    "langEn": "English",
+    "switchToHe": "Switch to Hebrew",
+    "switchToEn": "Switch to English"
+  },
+  "hero": {
+    "titleLine1": "Building Digital",
+    "titleLine2": "Experiences",
+    "subtitle": "Full-stack developer specializing in modern web applications, React, TypeScript, and AI integration. Turning ideas into scalable, high-performance solutions. Based in Israel, available worldwide.",
+    "ctaPrimary": "Get Started",
+    "ctaSecondary": "About Me",
+    "ariaLabel": "Hero section",
+    "years": "Years Experience",
+    "projects": "Projects"
+  },
+  "about": {
+    "title": "About Me",
+    "subtitle": "Full-stack developer with a strong understanding of UI/UX, and professional photographer — based in Israel",
+    "lead": "I build modern web products with React and TypeScript — pairing solid engineering with an understanding of how people actually use interfaces.",
+    "detail": "B.Sc. Software Engineering (Shenkar) · M.B.A. Data Science (Hebrew University) · 8+ years at Outbrain, Promo.com, and BitTech",
+    "skillsLabel": "Skills",
+    "skillsAria": "Technical skills",
+    "photoTitle": "Professional Photography",
+    "photoText": "Product and catalog photography for brands and e-commerce — clean lighting, accurate color, and images ready for websites, lookbooks, and marketing campaigns.",
+    "viewPortfolio": "View portfolio",
+    "instagram": "Instagram",
+    "instagramAria": "Photography on Instagram @avitalg_photography"
+  },
+  "services": {
+    "title": "Services",
+    "subtitle": "Comprehensive development solutions tailored to your needs. Specializing in React, TypeScript, AI integration, and modern web technologies.",
+    "items": {
+      "web": {
+        "title": "Web Development",
+        "description": "Modern, responsive websites built with React, TypeScript, and cutting-edge technologies."
+      },
+      "perf": {
+        "title": "Performance Optimization",
+        "description": "Speed up your applications with advanced optimization techniques and best practices."
+      },
+      "uiux": {
+        "title": "UI/UX Design",
+        "description": "Beautiful, intuitive interfaces that users love to interact with."
+      },
+      "api": {
+        "title": "API Development",
+        "description": "Robust backend services and RESTful APIs built for scale and reliability."
+      },
+      "ai": {
+        "title": "AI Integration",
+        "description": "AI in code — integrating APIs and frameworks to add intelligent features to applications."
+      },
+      "testing": {
+        "title": "Testing",
+        "description": "Comprehensive testing strategies — unit, integration, and E2E for quality and reliability."
+      }
+    }
+  },
+  "contact": {
+    "title": "Let's Work Together",
+    "subtitle": "Ready to bring your ideas to life? Get in touch and let's discuss your project. Available for freelance and contract work worldwide.",
+    "connect": "Let's Connect",
+    "available": "Available for new projects",
+    "linkedin": "LinkedIn",
+    "linkedinCta": "Connect with me on LinkedIn"
+  },
+  "form": {
+    "name": "Your Name",
+    "email": "Your Email",
+    "message": "Your Message",
+    "send": "Send Message",
+    "sending": "Sending...",
+    "success": "✓ Message sent successfully! I'll get back to you soon.",
+    "error": "✗ Failed to send message. Please try again or email me directly.",
+    "captchaRequired": "✗ Please complete the reCAPTCHA before sending."
+  },
+  "footer": {
+    "rights": "© {{year}} Avital Glazer. All rights reserved."
+  },
+  "photo": {
+    "heroTitle": "Avital Glazer Photography",
+    "heroSubtitle": "Professional photography with heart and precision",
+    "heroText": "Product, catalog, and brand photography for businesses. Creativity, attention to detail, and personal guidance throughout.",
+    "ctaBook": "Book a call",
+    "ctaServices": "Services",
+    "mobileEvents": "Products",
+    "mobileCouples": "Catalog",
+    "mobileKids": "Branding",
+    "mobileBusiness": "E-commerce",
+    "statResponse": "Response time",
+    "statPro": "Pro retouching",
+    "servicesTitle": "My Services",
+    "servicesSubtitle": "Every shoot starts with understanding your style and goals, with professional guidance at every step.",
+    "serviceItems": {
+      "catalog": {
+        "title": "Catalog & product",
+        "description": "Product images for online stores, catalogs, and campaigns — accurate color and consistent look."
+      },
+      "brand": {
+        "title": "Business branding",
+        "description": "Team, founder, and marketing photography — tailored for web, social, and presentations."
+      },
+      "lifestyle": {
+        "title": "Lifestyle & storytelling",
+        "description": "Images that tell your brand story — in studio or on location."
+      },
+      "studio": {
+        "title": "Studio or location",
+        "description": "Professional lighting and clean backgrounds — matched to your brand needs."
+      },
+      "ecommerce": {
+        "title": "E-commerce",
+        "description": "Formats for sales platforms, including color variants and multiple angles."
+      },
+      "retouch": {
+        "title": "Editing & delivery",
+        "description": "Color grading, retouching, and organized delivery of high-quality files."
+      }
+    },
+    "processTitle": "How it works",
+    "processSubtitle": "A clear process, relaxed atmosphere, and results that feel right.",
+    "steps": {
+      "brief": {
+        "title": "Intro call",
+        "description": "We'll understand your brand, style, and goals for the shoot."
+      },
+      "plan": {
+        "title": "Planning & styling",
+        "description": "Location, lighting, and timeline — so you know exactly what to expect."
+      },
+      "shoot": {
+        "title": "Shoot day",
+        "description": "Professional guidance at a comfortable pace — I handle composition and details."
+      },
+      "delivery": {
+        "title": "Edit & delivery",
+        "description": "Careful editing, a organized gallery, and revisions as needed."
+      }
+    },
+    "packagesTitle": "Recommended packages",
+    "packagesSubtitle": "Customizable for any project. We'll choose the right package on our intro call.",
+    "packages": {
+      "compact": {
+        "title": "Compact package",
+        "description": "Focused projects or smaller catalogs — precise experience with full editing."
+      },
+      "signature": {
+        "title": "Signature package",
+        "description": "More shoot time, professional editing, and a cohesive visual story."
+      },
+      "premium": {
+        "title": "Premium package",
+        "description": "Full support: advance planning, styling, and premium-level results."
+      }
+    },
+    "contactTitle": "Let's talk about your next shoot",
+    "contactSubtitle": "Leave your details and I'll get back to you soon. Happy to advise on style or location.",
+    "contactAvailable": "Available for new shoots"
+  }
+}

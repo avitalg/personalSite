@@ -1,0 +1,41 @@
+# Avital Glazer
+
+> Full-stack developer (React, TypeScript, Node.js, AI integration) and professional product/catalog photographer. Based in Israel. Available for projects in Israel and worldwide.
+
+## Main pages
+
+- Home (Hebrew, default): https://avitalglazer.com/he
+- Home (English): https://avitalglazer.com/en
+- Photography (Hebrew): https://avitalglazer.com/he/photography
+- Photography (English): https://avitalglazer.com/en/photography
+
+## Services (development)
+
+- Web development with React and TypeScript
+- Performance optimization
+- UI/UX-aware product development
+- API and backend development
+- AI integration in applications
+- Testing (unit, integration, E2E)
+
+## Photography
+
+- Product and catalog photography for e-commerce and brands
+- Business branding and lifestyle imagery
+- Studio or on-location shoots
+- Professional retouching and delivery
+
+## Background
+
+- 8+ years experience; previously at Outbrain, Promo.com, and BitTech
+- B.Sc. Software Engineering (Shenkar); M.B.A. Data Science (Hebrew University)
+
+## Contact & profiles
+
+- Email: avitalglazer@gmail.com
+- LinkedIn: https://www.linkedin.com/in/avital-glazer/
+- Photography Instagram: https://www.instagram.com/avitalg_photography/
+
+## Sitemap
+
+https://avitalglazer.com/sitemap.xml

@@ -6,6 +6,9 @@ Allow: /
 # Sitemap location
 Sitemap: https://avitalglazer.com/sitemap.xml
 
+# LLM-readable site summary (https://llmstxt.org)
+# https://avitalglazer.com/llms.txt
+
 # Disallow admin or private areas (if any)
 # Disallow: /admin/
 # Disallow: /private/
