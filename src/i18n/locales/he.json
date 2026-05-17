@@ -1,7 +1,7 @@
 {
   "seo": {
     "title": "אביטל גלזר - מפתחת Full Stack | React, TypeScript, AI | ישראל",
-    "description": "מפתחת Full Stack מקצועית עם 8+ שנות ניסיון ב-React, TypeScript, Node.js ואינטגרציית AI. ממוקמת בישראל, זמינה לפרויקטים בישראל ובעולם.",
+    "description": "מפתחת Full Stack מקצועית עם 8+ שנות ניסיון ב-React, TypeScript, Node.js ואינטגרציית AI.",
     "photographyTitle": "אביטל גלזר צילום | צילום מקצועי וקטלוג",
     "photographyDescription": "צילום מוצרים, קטלוג ותדמית לעסקים ומותגים. תאורה נקייה, צבע מדויק ומסירה מקצועית."
   },
@@ -19,9 +19,10 @@
     "switchToEn": "Switch to English"
   },
   "hero": {
-    "titleLine1": "בונה חוויות",
-    "titleLine2": "דיגיטליות",
-    "subtitle": "מפתחת Full Stack המתמחה באפליקציות מודרניות, React, TypeScript ואינטגרציית AI. הופכת רעיונות לפתרונות מהירים וסקיילביליים. ממוקמת בישראל, זמינה לפרויקטים בעולם.",
+    "eyebrow": "Full Stack · React · TypeScript · AI",
+    "titleLine1": "הופכת רעיונות",
+    "titleLine2": "למוצרים דיגיטליים",
+    "subtitle": "מפתחת Full Stack המתמחה באפליקציות מודרניות ואינטגרציית AI. פתרונות מהירים, סקיילביליים וממוקדי משתמש.",
     "ctaPrimary": "בואו נתחיל",
     "ctaSecondary": "אודותיי",
     "ariaLabel": "אזור פתיחה",

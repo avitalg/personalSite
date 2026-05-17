@@ -24,6 +24,13 @@ const serviceIcons: Record<(typeof serviceKeys)[number], string> = {
 
 const skills = ['React', 'TypeScript', 'Node.js', 'Python', 'JavaScript', 'Figma', 'UI/UX', 'AI Integration', 'Git', 'CI/CD'];
 
+const heroTech = [
+  { name: 'React', icon: '⚛️' },
+  { name: 'TypeScript', icon: '📘' },
+  { name: 'Node.js', icon: '⚡' },
+  { name: 'AI', icon: '🤖' },
+] as const;
+
 function App() {
   const { t } = useTranslation();
   const { route, isHome, isPhotography, navigate, switchLocale, goHomeSection, scrollToSection } = useRoute();
@@ -205,35 +212,14 @@ function App() {
                     </button>
                   </div>
                 </div>
-                <div className={`hero-visual ${isVisible['home'] ? 'fade-in-right' : ''}`} aria-hidden="true">
-                  <div className="floating-card card-1">
-                    <div className="card-content">⚡</div>
-                  </div>
-                  <div className="floating-card card-2">
-                    <div className="card-content">💻</div>
-                  </div>
-                  <div className="floating-card card-3">
-                    <div className="card-content">🚀</div>
-                  </div>
-                </div>
                 <div className={`hero-mobile-content ${isVisible['home'] ? 'fade-in-up' : ''}`}>
                   <div className="tech-stack-mobile">
-                    <div className="tech-item-mobile">
-                      <span className="tech-icon">⚛️</span>
-                      <span className="tech-name">React</span>
-                    </div>
-                    <div className="tech-item-mobile">
-                      <span className="tech-icon">📘</span>
-                      <span className="tech-name">TypeScript</span>
-                    </div>
-                    <div className="tech-item-mobile">
-                      <span className="tech-icon">🤖</span>
-                      <span className="tech-name">AI</span>
-                    </div>
-                    <div className="tech-item-mobile">
-                      <span className="tech-icon">⚡</span>
-                      <span className="tech-name">Node.js</span>
-                    </div>
+                    {heroTech.map((tech) => (
+                      <div key={tech.name} className="tech-item-mobile">
+                        <span className="tech-icon">{tech.icon}</span>
+                        <span className="tech-name">{tech.name}</span>
+                      </div>
+                    ))}
                   </div>
                   <div className="hero-stats-mobile">
                     <div className="stat-mobile">

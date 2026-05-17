@@ -19,9 +19,10 @@
     "switchToEn": "Switch to English"
   },
   "hero": {
+    "eyebrow": "Full Stack · React · TypeScript · AI",
     "titleLine1": "Building Digital",
     "titleLine2": "Experiences",
-    "subtitle": "Full-stack developer specializing in modern web applications, React, TypeScript, and AI integration. Turning ideas into scalable, high-performance solutions. Based in Israel, available worldwide.",
+    "subtitle": "Full-stack developer specializing in modern web apps and AI integration. Scalable, high-performance solutions with a strong focus on user experience.",
     "ctaPrimary": "Get Started",
     "ctaSecondary": "About Me",
     "ariaLabel": "Hero section",
