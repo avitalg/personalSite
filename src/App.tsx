@@ -10,9 +10,11 @@ import './App.css';
 
 const homeSectionIds = ['home', 'about', 'services', 'contact'] as const;
 
-const serviceKeys = ['web', 'perf', 'uiux', 'api', 'ai', 'testing'] as const;
+const serviceKeys = ['web', 'brandSite', 'catalogBiz', 'perf', 'uiux', 'api', 'ai', 'testing'] as const;
 const serviceIcons: Record<(typeof serviceKeys)[number], string> = {
   web: '💻',
+  brandSite: '🖼️',
+  catalogBiz: '📋',
   perf: '⚡',
   uiux: '🎨',
   api: '🔧',

@@ -121,6 +121,8 @@ export function buildJsonLd(locale: Locale, page: PageKind, t: TFunction) {
     areaServed: 'Worldwide',
     serviceType: [
       'Web Development',
+      'Branding and Showcase Websites',
+      'Business Catalog Photography',
       'Full Stack Development',
       'React Development',
       'TypeScript Development',

@@ -11,6 +11,8 @@
 
 ## Services (development)
 
+- Branding and showcase websites for businesses (development only)
+- Business catalog photography (products and catalogs for shops and businesses, separate photography service)
 - Web development with React and TypeScript
 - Performance optimization
 - UI/UX-aware product development

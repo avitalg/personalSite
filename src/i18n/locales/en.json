@@ -30,24 +30,32 @@
   },
   "about": {
     "title": "About Me",
-    "subtitle": "Full-stack developer with a strong understanding of UI/UX, and professional photographer — based in Israel",
-    "lead": "I build modern web products with React and TypeScript — pairing solid engineering with an understanding of how people actually use interfaces.",
+    "subtitle": "Full-stack developer with a strong understanding of UI/UX, and professional photographer, based in Israel",
+    "lead": "I build modern web products with React and TypeScript, pairing solid engineering with an understanding of how people actually use interfaces.",
     "detail": "B.Sc. Software Engineering (Shenkar) · M.B.A. Data Science (Hebrew University) · 8+ years at Outbrain, Promo.com, and BitTech",
     "skillsLabel": "Skills",
     "skillsAria": "Technical skills",
     "photoTitle": "Professional Photography",
-    "photoText": "Product and catalog photography for brands and e-commerce — clean lighting, accurate color, and images ready for websites, lookbooks, and marketing campaigns.",
+    "photoText": "Business catalog, product, and brand photography for e-commerce. Clean lighting, accurate color, and images ready for websites, lookbooks, and marketing campaigns.",
     "viewPortfolio": "View portfolio",
     "instagram": "Instagram",
     "instagramAria": "Photography on Instagram @avitalg_photography"
   },
   "services": {
     "title": "Services",
-    "subtitle": "Comprehensive development solutions tailored to your needs. Specializing in React, TypeScript, AI integration, and modern web technologies.",
+    "subtitle": "Comprehensive development solutions tailored to your needs, including showcase websites and business catalog photography (photography offered separately). Specializing in React, TypeScript, AI integration, and modern web technologies.",
     "items": {
       "web": {
         "title": "Web Development",
         "description": "Modern, responsive websites built with React, TypeScript, and cutting-edge technologies."
+      },
+      "brandSite": {
+        "title": "Showcase websites",
+        "description": "Professional branding websites for businesses: clean design, clear UX, and a strong online presentation of your brand and services."
+      },
+      "catalogBiz": {
+        "title": "Business catalog photography",
+        "description": "Professional product and catalog photography for shops and businesses. Accurate images for your website, social media, and marketing materials."
       },
       "perf": {
         "title": "Performance Optimization",
@@ -63,11 +71,11 @@
       },
       "ai": {
         "title": "AI Integration",
-        "description": "AI in code — integrating APIs and frameworks to add intelligent features to applications."
+        "description": "AI in code, integrating APIs and frameworks to add intelligent features to applications."
       },
       "testing": {
         "title": "Testing",
-        "description": "Comprehensive testing strategies — unit, integration, and E2E for quality and reliability."
+        "description": "Comprehensive testing strategies, unit, integration, and E2E for quality and reliability."
       }
     }
   },
@@ -108,20 +116,20 @@
     "servicesSubtitle": "Every shoot starts with understanding your style and goals, with professional guidance at every step.",
     "serviceItems": {
       "catalog": {
-        "title": "Catalog & product",
-        "description": "Product images for online stores, catalogs, and campaigns — accurate color and consistent look."
+        "title": "Business catalog photography",
+        "description": "Product and catalog photography for shops and businesses: for websites, e-commerce, catalogs, and campaigns. Accurate color and consistent look."
       },
       "brand": {
         "title": "Business branding",
-        "description": "Team, founder, and marketing photography — tailored for web, social, and presentations."
+        "description": "Team, founder, and marketing photography, tailored for web, social, and presentations."
       },
       "lifestyle": {
         "title": "Lifestyle & storytelling",
-        "description": "Images that tell your brand story — in studio or on location."
+        "description": "Images that tell your brand story, in studio or on location."
       },
       "studio": {
         "title": "Studio or location",
-        "description": "Professional lighting and clean backgrounds — matched to your brand needs."
+        "description": "Professional lighting and clean backgrounds, matched to your brand needs."
       },
       "ecommerce": {
         "title": "E-commerce",
@@ -141,11 +149,11 @@
       },
       "plan": {
         "title": "Planning & styling",
-        "description": "Location, lighting, and timeline — so you know exactly what to expect."
+        "description": "Location, lighting, and timeline, so you know exactly what to expect."
       },
       "shoot": {
         "title": "Shoot day",
-        "description": "Professional guidance at a comfortable pace — I handle composition and details."
+        "description": "Professional guidance at a comfortable pace. I handle composition and details."
       },
       "delivery": {
         "title": "Edit & delivery",
@@ -157,7 +165,7 @@
     "packages": {
       "compact": {
         "title": "Compact package",
-        "description": "Focused projects or smaller catalogs — precise experience with full editing."
+        "description": "Focused projects or smaller catalogs, precise experience with full editing."
       },
       "signature": {
         "title": "Signature package",
