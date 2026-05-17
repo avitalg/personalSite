@@ -74,7 +74,7 @@
   content: '';
   position: absolute;
   bottom: -5px;
-  left: 0;
+  inset-inline-start: 0;
   width: 0;
   height: 2px;
   background: var(--pastel-blue);
@@ -2021,24 +2021,7 @@ section {
   padding-top: 4rem;
 }
 
-/* RTL adjustments */
-[dir='rtl'] .nav-container {
-  flex-direction: row-reverse;
-}
-
-[dir='rtl'] .nav-links {
-  flex-direction: row-reverse;
-}
-
-[dir='rtl'] .hero-buttons,
-[dir='rtl'] .about-photography-actions {
-  flex-direction: row-reverse;
-}
-
-[dir='rtl'] .contact-form-container {
-  direction: rtl;
-}
-
+/* RTL: rely on document dir for flex order; only tune inputs and mobile drawer */
 [dir='rtl'] .form-input {
   text-align: right;
 }
@@ -2054,8 +2037,11 @@ section {
     margin-top: 0.5rem;
   }
 
-  [dir='rtl'] .nav-links.mobile-open,
-  [dir='ltr'] .nav-links.mobile-open {
-    flex-direction: column;
+  [dir='rtl'] .nav-links {
+    transform: translateX(-100%);
+  }
+
+  [dir='rtl'] .nav-links.mobile-open {
+    transform: translateX(0);
   }
 }
