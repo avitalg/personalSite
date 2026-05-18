@@ -66,6 +66,10 @@
         "title": "עיצוב UI/UX",
         "description": "ממשקים אינטואיטיביים ויפים שמשתמשים אוהבים."
       },
+      "mentoring": {
+        "title": "הדרכה וייעוץ",
+        "description": "הדרכה וייעוץ טכנולוגי לצוותים ויזמים: React, TypeScript, ארכיטקטורה, UI/UX ואינטגרציית AI."
+      },
       "api": {
         "title": "פיתוח API",
         "description": "שירותי backend ו-RESTful APIs בנויים לסקייל ואמינות."

@@ -16,6 +16,7 @@
 - Web development with React and TypeScript
 - Performance optimization
 - UI/UX-aware product development
+- Technical training and consulting (React, TypeScript, architecture, AI)
 - API and backend development
 - AI integration in applications
 - Testing (unit, integration, E2E)

@@ -66,6 +66,10 @@
         "title": "UI/UX Design",
         "description": "Beautiful, intuitive interfaces that users love to interact with."
       },
+      "mentoring": {
+        "title": "Training & consulting",
+        "description": "Technical training and consulting for teams and founders: React, TypeScript, architecture, UI/UX, and AI integration."
+      },
       "api": {
         "title": "API Development",
         "description": "Robust backend services and RESTful APIs built for scale and reliability."

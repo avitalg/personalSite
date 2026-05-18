@@ -130,6 +130,7 @@ export function buildJsonLd(locale: Locale, page: PageKind, t: TFunction) {
       'API Development',
       'Performance Optimization',
       'UI/UX Design',
+      'Technical Training and Consulting',
       'Testing',
     ],
   };
