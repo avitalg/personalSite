@@ -7,13 +7,10 @@ const sameAs = [
 ];
 
 const skills = [
-  'React',
-  'TypeScript',
-  'JavaScript',
-  'Node.js',
+  'Web Development',
   'AI Integration',
   'UI/UX',
-  'Web Development',
+  'JavaScript',
   'API Development',
   'Performance Optimization',
   'Testing',
@@ -124,8 +121,6 @@ export function buildJsonLd(locale: Locale, page: PageKind, t: TFunction) {
       'Branding and Showcase Websites',
       'Business Catalog Photography',
       'Full Stack Development',
-      'React Development',
-      'TypeScript Development',
       'AI Integration',
       'API Development',
       'Performance Optimization',

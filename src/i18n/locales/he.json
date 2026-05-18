@@ -1,7 +1,7 @@
 {
   "seo": {
-    "title": "אביטל גלזר - מפתחת Full Stack | React, TypeScript, AI | ישראל",
-    "description": "מפתחת Full Stack מקצועית עם 8+ שנות ניסיון ב-React, TypeScript, Node.js ואינטגרציית AI.",
+    "title": "אביטל גלזר - מפתחת Full Stack | AI | ישראל",
+    "description": "מפתחת Full Stack מקצועית עם 8+ שנות ניסיון בפיתוח מודרני ואינטגרציית AI.",
     "photographyTitle": "אביטל גלזר צילום | צילום מקצועי וקטלוג",
     "photographyDescription": "צילום מוצרים, קטלוג ותדמית לעסקים ומותגים. תאורה נקייה, צבע מדויק ומסירה מקצועית."
   },
@@ -19,36 +19,41 @@
     "switchToEn": "Switch to English"
   },
   "hero": {
-    "eyebrow": "Full Stack · React · TypeScript · AI",
+    "eyebrow": "Full Stack · פיתוח web · AI",
+    "tech": {
+      "web": "פיתוח אתרים",
+      "ai": "AI",
+      "ux": "UI/UX",
+      "perf": "ביצועים"
+    },
     "titleLine1": "הופכת רעיונות",
     "titleLine2": "למוצרים דיגיטליים",
     "subtitle": "מפתחת Full Stack המתמחה באפליקציות מודרניות ואינטגרציית AI. פתרונות מהירים, סקיילביליים וממוקדי משתמש.",
     "ctaPrimary": "בואו נתחיל",
     "ctaSecondary": "אודותיי",
     "ariaLabel": "אזור פתיחה",
-    "years": "שנות ניסיון",
-    "projects": "פרויקטים"
+    "years": "שנות ניסיון"
   },
   "about": {
     "title": "אודותיי",
     "subtitle": "מפתחת Full Stack עם הבנה עמוקה ב-UI/UX וצלמת מקצועית",
-    "lead": "אני בונה מוצרים דיגיטליים מודרניים עם React ו-TypeScript, ומשלבת הנדסה איכותית עם הבנה של איך אנשים באמת משתמשים בממשקים.",
+    "lead": "אני מייצרת מוצרים דיגיטליים מודרניים, ומשלבת הנדסה איכותית עם הבנה של איך אנשים באמת משתמשים בממשקים.",
     "detail": "B.Sc הנדסת תוכנה (שנקר) · M.B.A מדעי הנתונים (האוניברסיטה העברית) · 8+ שנים ב-Outbrain, Promo.com ו-BitTech",
+    "highlightsAria": "השכלה וניסיון מקצועי",
     "skillsLabel": "מיומנויות",
     "skillsAria": "מיומנויות טכניות",
-    "photoTitle": "צילום מקצועי",
-    "photoText": "צילום קטלוג לעסק, מוצרים ותדמית למותגים ואיקומרס. תאורה נקייה, צבע מדויק ותמונות מוכנות לאתרים, לוקבוק וקמפיינים שיווקיים.",
+    "skillTags": ["פיתוח web", "UI/UX", "אינטגרציית AI", "Python", "JavaScript", "Figma", "Git", "CI/CD"],
     "viewPortfolio": "לצפייה בעבודות",
     "instagram": "Instagram",
     "instagramAria": "צילום באינסטגרם @avitalg_photography"
   },
   "services": {
     "title": "שירותים",
-    "subtitle": "פתרונות פיתוח מקיפים המותאמים לצרכים שלכם, כולל אתרי תדמית וצילום קטלוג לעסק (שירותי צילום בנפרד). התמחות ב-React, TypeScript, אינטגרציית AI וטכנולוגיות מודרניות.",
+    "subtitle": "פתרונות פיתוח מקיפים המותאמים לצרכים שלכם, כולל אתרי תדמית והרמת פרוייקטים.",
     "items": {
       "web": {
         "title": "פיתוח אתרים",
-        "description": "אתרים מודרניים ורספונסיביים ב-React, TypeScript וטכנולוגיות מתקדמות."
+        "description": "אתרים מודרניים ורספונסיבים באמצעות טכנולוגיות מתקדמות."
       },
       "brandSite": {
         "title": "אתרי תדמית",
@@ -68,7 +73,7 @@
       },
       "mentoring": {
         "title": "הדרכה וייעוץ",
-        "description": "הדרכה וייעוץ טכנולוגי לצוותים ויזמים: React, TypeScript, ארכיטקטורה, UI/UX ואינטגרציית AI."
+        "description": "הדרכה וייעוץ טכנולוגי לצוותים ויזמים: ארכיטקטורה, UI/UX ואינטגרציית AI."
       },
       "api": {
         "title": "פיתוח API",

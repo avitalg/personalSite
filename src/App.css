@@ -297,7 +297,6 @@
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 1rem;
-  margin-bottom: 2rem;
 }
 
 .tech-item-mobile {
@@ -331,9 +330,13 @@
 }
 
 .hero-stats-mobile {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  display: flex;
+  justify-content: center;
   gap: 1rem;
+}
+
+.hero-stats-mobile .stat-mobile {
+  min-width: 10rem;
 }
 
 .stat-mobile {
@@ -363,62 +366,6 @@
   font-size: 0.9rem;
   color: var(--text-secondary);
   font-weight: 500;
-}
-
-/* Scroll Indicator */
-.scroll-indicator {
-  position: absolute;
-  bottom: 2rem;
-  left: 50%;
-  transform: translateX(-50%);
-  animation: bounce 2s infinite;
-}
-
-@media (max-width: 768px) {
-  .scroll-indicator {
-    display: none;
-  }
-}
-
-.mouse {
-  width: 30px;
-  height: 50px;
-  border: 2px solid var(--pastel-blue);
-  border-radius: 15px;
-  position: relative;
-}
-
-.mouse::before {
-  content: '';
-  position: absolute;
-  top: 8px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 4px;
-  height: 8px;
-  background: var(--pastel-pink);
-  border-radius: 2px;
-  animation: scroll 2s infinite;
-}
-
-@keyframes bounce {
-  0%, 100% {
-    transform: translateX(-50%) translateY(0);
-  }
-  50% {
-    transform: translateX(-50%) translateY(-10px);
-  }
-}
-
-@keyframes scroll {
-  0% {
-    opacity: 1;
-    transform: translateX(-50%) translateY(0);
-  }
-  100% {
-    opacity: 0;
-    transform: translateX(-50%) translateY(20px);
-  }
 }
 
 /* Sections */
@@ -511,48 +458,124 @@ section {
 
 /* About Section */
 .about {
-  background: var(--white);
+  padding-top: 5rem;
+  padding-bottom: 2.5rem;
+  background:
+    linear-gradient(180deg, var(--pastel-blue-50) 0%, var(--white) 28%),
+    var(--white);
+  position: relative;
 }
 
 .about-header {
   text-align: center;
-  margin-bottom: 2.5rem;
+  margin-bottom: 2.75rem;
 }
 
 .about-subtitle {
   margin-bottom: 0;
+  max-width: 36rem;
+  margin-inline: auto;
 }
 
 .about-panel {
-  max-width: 40rem;
+  max-width: 920px;
   margin: 0 auto;
-  background: var(--white);
+  padding: clamp(1.5rem, 3vw, 2rem);
+  background: rgba(255, 255, 255, 0.92);
   border: 1px solid var(--border-light);
-  border-radius: 20px;
-  overflow: hidden;
+  border-radius: 24px;
+  box-shadow:
+    0 8px 32px rgba(126, 184, 232, 0.08),
+    0 1px 0 rgba(255, 255, 255, 0.9) inset;
 }
 
-.about-block {
-  padding: 1.75rem 2rem;
+.about-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(240px, 280px);
+  gap: clamp(1.75rem, 4vw, 2.5rem);
+  align-items: start;
 }
 
-.about-block + .about-block {
-  border-top: 1px solid var(--border-light);
+.about-main {
+  padding-inline-end: 0.5rem;
 }
 
 .about-lead {
-  font-size: 1.125rem;
-  line-height: 1.7;
+  font-size: clamp(1.1rem, 2.2vw, 1.25rem);
+  line-height: 1.75;
   color: var(--text-primary);
-  margin: 0 0 0.75rem;
+  margin: 0 0 1.5rem;
   font-weight: 500;
+  padding-inline-start: 1rem;
+  border-inline-start: 3px solid var(--pastel-blue);
 }
 
-.about-detail {
-  font-size: 0.95rem;
-  line-height: 1.65;
-  color: var(--text-muted);
+.about-highlights {
+  list-style: none;
+  padding: 0;
   margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.about-highlight {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  font-size: 0.95rem;
+  line-height: 1.55;
+  color: var(--text-secondary);
+}
+
+.about-highlight__dot {
+  flex-shrink: 0;
+  width: 8px;
+  height: 8px;
+  margin-top: 0.45rem;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--pastel-blue) 0%, var(--pastel-pink) 100%);
+  box-shadow: 0 0 0 4px var(--pastel-blue-50);
+}
+
+.about-aside {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.about-experience-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  padding: 1.5rem 1.25rem;
+  border-radius: 18px;
+  text-align: center;
+  background: linear-gradient(160deg, var(--pastel-blue-50) 0%, var(--pastel-pink-50) 100%);
+  border: 1px solid var(--pastel-blue-200);
+}
+
+.about-experience-card__value {
+  font-size: 2.5rem;
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  color: var(--pastel-blue-dark);
+}
+
+.about-experience-card__label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.about-skills-card {
+  padding: 1.25rem 1.35rem;
+  border-radius: 18px;
+  background: var(--white);
+  border: 1px solid var(--border-light);
 }
 
 .about-block-label {
@@ -561,7 +584,7 @@ section {
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--text-muted);
-  margin: 0 0 0.875rem;
+  margin: 0 0 1rem;
 }
 
 .about-skills {
@@ -578,17 +601,38 @@ section {
 }
 
 .about-panel .skill-tag {
-  font-size: 0.85rem;
-  padding: 0.35rem 0.8rem;
-  background: var(--bg-subtle);
-  border-color: var(--border);
-  color: var(--text-secondary);
+  font-size: 0.82rem;
+  padding: 0.4rem 0.85rem;
+  background: var(--white);
+  border: 1px solid var(--pastel-blue-200);
+  border-radius: 999px;
+  color: var(--pastel-blue-dark);
+  font-weight: 500;
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
 .about-panel .skill-tag:hover {
-  background: var(--pastel-blue-50);
-  border-color: var(--pastel-blue-200);
-  color: var(--pastel-blue-dark);
+  background: var(--pastel-blue);
+  border-color: var(--pastel-blue);
+  color: var(--white);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-soft);
+}
+
+.about-panel .about-skills li:nth-child(even) .skill-tag {
+  border-color: var(--pastel-pink-200);
+  color: var(--pastel-pink-dark);
+}
+
+.about-panel .about-skills li:nth-child(even) .skill-tag:hover {
+  background: var(--pastel-pink);
+  border-color: var(--pastel-pink);
+  color: var(--white);
 }
 
 .about-block--photography {
@@ -885,6 +929,8 @@ section {
 
 /* Services Section */
 .services {
+  padding-top: 2.5rem;
+  padding-bottom: 6rem;
   background: var(--white);
 }
 
@@ -1212,54 +1258,44 @@ section {
     max-width: 100%;
   }
 
-  .about-header {
-    margin-bottom: 2rem;
+  .about-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
   }
 
-  .about-subtitle {
-    padding: 0 0.5rem;
-  }
-
-  .about-panel {
+  .about-main {
+    padding-inline-end: 0;
     text-align: center;
   }
 
-  .about-block {
-    padding: 1.5rem 1.25rem;
-    text-align: center;
+  .about-lead {
+    padding-inline-start: 0;
+    border-inline-start: none;
+    padding-bottom: 0.75rem;
+    border-bottom: 2px solid var(--pastel-blue-100);
+    margin-inline: auto;
+    max-width: 32rem;
   }
 
-  .about-lead,
-  .about-detail,
-  .about-photography-text {
-    margin-left: auto;
-    margin-right: auto;
+  .about-highlights {
+    align-items: center;
+    max-width: 28rem;
+    margin-inline: auto;
+  }
+
+  .about-highlight {
+    text-align: start;
+    max-width: 100%;
+  }
+
+  .about-aside {
+    max-width: 22rem;
+    margin-inline: auto;
+    width: 100%;
   }
 
   .about-skills {
     justify-content: center;
-  }
-
-  .about-block--photography {
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-  }
-
-  .about-photography-copy {
-    width: 100%;
-  }
-
-  .about-photography-actions {
-    width: 100%;
-    max-width: 20rem;
-    margin: 0 auto;
-    flex-direction: column;
-    align-items: stretch;
-  }
-
-  .about-btn {
-    width: 100%;
   }
 
   .experience-timeline {
@@ -1373,6 +1409,16 @@ section {
     padding: 4rem 0;
   }
 
+  .about {
+    padding-top: 4rem;
+    padding-bottom: 2rem;
+  }
+
+  .services {
+    padding-top: 2rem;
+    padding-bottom: 4rem;
+  }
+
   .container {
     padding: 0 1.5rem;
   }
@@ -1469,24 +1515,12 @@ section {
     font-size: 0.85rem;
   }
 
-  .about-text p {
-    font-size: 1rem;
+  .about-panel {
+    padding: 1.25rem;
   }
 
-  .about-lead {
-    font-size: 1.05rem;
-  }
-
-  .about-detail {
-    font-size: 0.9rem;
-  }
-
-  .about-photography-title {
-    font-size: 1.05rem;
-  }
-
-  .about-photography-actions {
-    max-width: 100%;
+  .about-experience-card__value {
+    font-size: 2.15rem;
   }
 
   .contact-form-container {
@@ -1561,6 +1595,16 @@ section {
 
   section {
     padding: 3rem 0;
+  }
+
+  .about {
+    padding-top: 3rem;
+    padding-bottom: 1.5rem;
+  }
+
+  .services {
+    padding-top: 1.5rem;
+    padding-bottom: 3rem;
   }
 
   .container {

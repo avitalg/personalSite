@@ -23,19 +23,23 @@ const serviceIcons: Record<(typeof serviceKeys)[number], string> = {
   testing: '✅',
 };
 
-const skills = ['React', 'TypeScript', 'Node.js', 'Python', 'JavaScript', 'Figma', 'UI/UX', 'AI Integration', 'Git', 'CI/CD'];
-
-const heroTech = [
-  { name: 'React', icon: '⚛️' },
-  { name: 'TypeScript', icon: '📘' },
-  { name: 'Node.js', icon: '⚡' },
-  { name: 'AI', icon: '🤖' },
-] as const;
+const heroTechKeys = ['web', 'ai', 'ux', 'perf'] as const;
+const heroTechIcons: Record<(typeof heroTechKeys)[number], string> = {
+  web: '💻',
+  ai: '🤖',
+  ux: '🎨',
+  perf: '⚡',
+};
 
 function App() {
   const { t } = useTranslation();
   const { route, isHome, isPhotography, navigate, switchLocale, goHomeSection, scrollToSection } = useRoute();
   const { locale } = route;
+  const skills = t('about.skillTags', { returnObjects: true }) as string[];
+  const aboutHighlights = t('about.detail')
+    .split('·')
+    .map((item) => item.trim())
+    .filter(Boolean);
 
   const [isVisible, setIsVisible] = useState<Record<string, boolean>>({});
   const [activeSection, setActiveSection] = useState('home');
@@ -215,27 +219,14 @@ function App() {
                 </div>
                 <div className={`hero-mobile-content ${isVisible['home'] ? 'fade-in-up' : ''}`}>
                   <div className="tech-stack-mobile">
-                    {heroTech.map((tech) => (
-                      <div key={tech.name} className="tech-item-mobile">
-                        <span className="tech-icon">{tech.icon}</span>
-                        <span className="tech-name">{tech.name}</span>
+                    {heroTechKeys.map((key) => (
+                      <div key={key} className="tech-item-mobile">
+                        <span className="tech-icon">{heroTechIcons[key]}</span>
+                        <span className="tech-name">{t(`hero.tech.${key}`)}</span>
                       </div>
                     ))}
                   </div>
-                  <div className="hero-stats-mobile">
-                    <div className="stat-mobile">
-                      <div className="stat-number-mobile">8+</div>
-                      <div className="stat-label-mobile">{t('hero.years')}</div>
-                    </div>
-                    <div className="stat-mobile">
-                      <div className="stat-number-mobile">100+</div>
-                      <div className="stat-label-mobile">{t('hero.projects')}</div>
-                    </div>
-                  </div>
                 </div>
-              </div>
-              <div className="scroll-indicator" aria-hidden="true">
-                <div className="mouse"></div>
               </div>
             </section>
 
@@ -249,45 +240,36 @@ function App() {
                 </header>
 
                 <article className={`about-panel ${isVisible['about'] ? 'fade-in-up' : ''}`}>
-                  <div className="about-block">
-                    <p className="about-lead">{t('about.lead')}</p>
-                    <p className="about-detail">{t('about.detail')}</p>
-                  </div>
-
-                  <div className="about-block">
-                    <h3 className="about-block-label">{t('about.skillsLabel')}</h3>
-                    <ul className="about-skills" aria-label={t('about.skillsAria')}>
-                      {skills.map((skill) => (
-                        <li key={skill}>
-                          <span className="skill-tag">{skill}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-
-                  <div className="about-block about-block--photography">
-                    <div className="about-photography-copy">
-                      <h3 className="about-photography-title">{t('about.photoTitle')}</h3>
-                      <p className="about-photography-text">{t('about.photoText')}</p>
+                  <div className="about-grid">
+                    <div className="about-main">
+                      <p className="about-lead">{t('about.lead')}</p>
+                      <ul className="about-highlights" aria-label={t('about.highlightsAria')}>
+                        {aboutHighlights.map((item) => (
+                          <li key={item} className="about-highlight">
+                            <span className="about-highlight__dot" aria-hidden="true" />
+                            <span>{item}</span>
+                          </li>
+                        ))}
+                      </ul>
                     </div>
-                    <div className="about-photography-actions">
-                      <button
-                        type="button"
-                        className="about-btn about-btn--primary"
-                        onClick={() => navigate(locale, 'photography')}
-                      >
-                        {t('about.viewPortfolio')}
-                      </button>
-                      <a
-                        href="https://www.instagram.com/avitalg_photography/"
-                        className="about-btn about-btn--outline"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        aria-label={t('about.instagramAria')}
-                      >
-                        {t('about.instagram')}
-                      </a>
-                    </div>
+
+                    <aside className="about-aside">
+                      <div className="about-experience-card" aria-label={t('hero.years')}>
+                        <span className="about-experience-card__value">8+</span>
+                        <span className="about-experience-card__label">{t('hero.years')}</span>
+                      </div>
+
+                      <div className="about-skills-card">
+                        <h3 className="about-block-label">{t('about.skillsLabel')}</h3>
+                        <ul className="about-skills" aria-label={t('about.skillsAria')}>
+                          {skills.map((skill) => (
+                            <li key={skill}>
+                              <span className="skill-tag">{skill}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    </aside>
                   </div>
                 </article>
               </div>

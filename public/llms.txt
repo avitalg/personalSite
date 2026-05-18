@@ -1,6 +1,6 @@
 # Avital Glazer
 
-> Full-stack developer (React, TypeScript, Node.js, AI integration) and professional product/catalog photographer. Based in Israel. Available for projects in Israel and worldwide.
+> Full-stack developer (modern web development, AI integration) and professional product/catalog photographer. Based in Israel. Available for projects in Israel and worldwide.
 
 ## Main pages
 
@@ -13,10 +13,10 @@
 
 - Branding and showcase websites for businesses (development only)
 - Business catalog photography (products and catalogs for shops and businesses, separate photography service)
-- Web development with React and TypeScript
+- Modern web development
 - Performance optimization
 - UI/UX-aware product development
-- Technical training and consulting (React, TypeScript, architecture, AI)
+- Technical training and consulting (architecture, UI/UX, AI)
 - API and backend development
 - AI integration in applications
 - Testing (unit, integration, E2E)

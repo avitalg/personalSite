@@ -1,7 +1,7 @@
 {
   "seo": {
-    "title": "Avital Glazer - Full Stack Developer | React, TypeScript, AI | Israel",
-    "description": "Professional Full Stack Developer with 8+ years in React, TypeScript, Node.js, and AI integration. Based in Israel, available for projects worldwide.",
+    "title": "Avital Glazer - Full Stack Developer | AI | Israel",
+    "description": "Professional Full Stack Developer with 8+ years in modern development and AI integration.",
     "photographyTitle": "Avital Glazer Photography | Professional & Catalog",
     "photographyDescription": "Product, catalog, and brand photography. Clean lighting, accurate color, and professional delivery."
   },
@@ -19,36 +19,41 @@
     "switchToEn": "Switch to English"
   },
   "hero": {
-    "eyebrow": "Full Stack · React · TypeScript · AI",
-    "titleLine1": "Building Digital",
-    "titleLine2": "Experiences",
-    "subtitle": "Full-stack developer specializing in modern web apps and AI integration. Scalable, high-performance solutions with a strong focus on user experience.",
+    "eyebrow": "Full Stack · Web · AI",
+    "tech": {
+      "web": "Web development",
+      "ai": "AI",
+      "ux": "UI/UX",
+      "perf": "Performance"
+    },
+    "titleLine1": "Turning ideas",
+    "titleLine2": "into digital products",
+    "subtitle": "Full-stack developer specializing in modern applications and AI integration. Fast, scalable, user-focused solutions.",
     "ctaPrimary": "Get Started",
     "ctaSecondary": "About Me",
     "ariaLabel": "Hero section",
-    "years": "Years Experience",
-    "projects": "Projects"
+    "years": "Years Experience"
   },
   "about": {
     "title": "About Me",
-    "subtitle": "Full-stack developer with a strong understanding of UI/UX, and professional photographer, based in Israel",
-    "lead": "I build modern web products with React and TypeScript, pairing solid engineering with an understanding of how people actually use interfaces.",
+    "subtitle": "Full-stack developer with a strong understanding of UI/UX, and professional photographer",
+    "lead": "I create modern digital products, combining quality engineering with an understanding of how people actually use interfaces.",
     "detail": "B.Sc. Software Engineering (Shenkar) · M.B.A. Data Science (Hebrew University) · 8+ years at Outbrain, Promo.com, and BitTech",
+    "highlightsAria": "Education and professional experience",
     "skillsLabel": "Skills",
     "skillsAria": "Technical skills",
-    "photoTitle": "Professional Photography",
-    "photoText": "Business catalog, product, and brand photography for e-commerce. Clean lighting, accurate color, and images ready for websites, lookbooks, and marketing campaigns.",
+    "skillTags": ["Web development", "UI/UX", "AI integration", "Python", "JavaScript", "Figma", "Git", "CI/CD"],
     "viewPortfolio": "View portfolio",
     "instagram": "Instagram",
     "instagramAria": "Photography on Instagram @avitalg_photography"
   },
   "services": {
     "title": "Services",
-    "subtitle": "Comprehensive development solutions tailored to your needs, including showcase websites and business catalog photography (photography offered separately). Specializing in React, TypeScript, AI integration, and modern web technologies.",
+    "subtitle": "Comprehensive development solutions tailored to your needs, including showcase websites and project kickoff.",
     "items": {
       "web": {
         "title": "Web Development",
-        "description": "Modern, responsive websites built with React, TypeScript, and cutting-edge technologies."
+        "description": "Modern, responsive websites built with advanced technologies."
       },
       "brandSite": {
         "title": "Showcase websites",
@@ -68,7 +73,7 @@
       },
       "mentoring": {
         "title": "Training & consulting",
-        "description": "Technical training and consulting for teams and founders: React, TypeScript, architecture, UI/UX, and AI integration."
+        "description": "Technical training and consulting for teams and founders: architecture, UI/UX, and AI integration."
       },
       "api": {
         "title": "API Development",
@@ -76,7 +81,7 @@
       },
       "ai": {
         "title": "AI Integration",
-        "description": "AI in code, integrating APIs and frameworks to add intelligent features to applications."
+        "description": "AI in code, APIs and frameworks to add intelligent features to applications."
       },
       "testing": {
         "title": "Testing",
