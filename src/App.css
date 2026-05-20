@@ -127,16 +127,23 @@
 /* Hero Section */
 .hero {
   min-height: 100vh;
+  min-height: 100dvh;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 7rem 2rem 5rem;
+  box-sizing: border-box;
   background:
     radial-gradient(ellipse 70% 50% at 100% 0%, var(--pastel-blue-50) 0%, transparent 55%),
     radial-gradient(ellipse 60% 45% at 0% 100%, var(--pastel-pink-50) 0%, transparent 50%),
     var(--white);
   position: relative;
   overflow: hidden;
+}
+
+section#home.hero {
+  min-height: 100vh;
+  min-height: 100dvh;
 }
 
 .hero::before {
@@ -934,6 +941,124 @@ section {
   background: var(--white);
 }
 
+/* Home services: compact grid; full viewport height on wide screens only */
+section#services.services {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-top: max(2.5rem, 5.25rem);
+  padding-bottom: clamp(1.5rem, 4vh, 2.75rem);
+}
+
+@media (min-width: 900px) {
+  section#services.services {
+    min-height: 100dvh;
+    min-height: 100vh;
+  }
+}
+
+section#services.services .section-subtitle {
+  margin-bottom: clamp(1.25rem, 3vh, 2rem);
+}
+
+section#services.services .services-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(0.65rem, 1.2vw, 1rem);
+  align-content: center;
+}
+
+section#services.services .service-card {
+  padding: clamp(1rem, 1.75vw, 1.35rem) clamp(1rem, 2vw, 1.35rem);
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+section#services.services .service-icon {
+  font-size: clamp(1.75rem, 2.8vw, 2.25rem);
+  margin-bottom: 0.45rem;
+  animation: none;
+}
+
+section#services.services .service-title {
+  font-size: clamp(0.95rem, 1.35vw, 1.15rem);
+  margin-bottom: 0.4rem;
+  line-height: 1.25;
+}
+
+section#services.services .service-description {
+  font-size: clamp(0.78rem, 1.05vw, 0.88rem);
+  line-height: 1.45;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+section#services.services .section-title {
+  font-size: clamp(1.85rem, 3.5vw, 2.65rem);
+  margin-bottom: 0.5rem;
+}
+
+section#services.services .section-title::after {
+  margin-top: 0.5rem;
+}
+
+@media (max-width: 899px) and (min-width: 769px) {
+  section#services.services .services-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-height: 720px) and (min-width: 900px) {
+  section#services.services {
+    padding-top: max(1.75rem, 4.5rem);
+    padding-bottom: 1rem;
+  }
+
+  section#services.services .section-subtitle {
+    margin-bottom: 0.85rem;
+  }
+
+  section#services.services .service-description {
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+  }
+}
+
+@media (max-width: 768px) {
+  section#services.services {
+    justify-content: flex-start;
+  }
+
+  section#services.services .services-grid {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+
+  section#services.services .service-title {
+    font-size: 1.2rem;
+  }
+
+  section#services.services .service-description {
+    font-size: 0.95rem;
+    -webkit-line-clamp: unset;
+    line-clamp: unset;
+    display: block;
+    overflow: visible;
+  }
+
+  section#services.services .service-icon {
+    font-size: 2.25rem;
+  }
+}
+
+section#services.services .service-card:hover {
+  transform: translateY(-2px);
+}
+
 .services-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -1382,7 +1507,11 @@ section {
 
   .hero {
     padding: 6rem 1.25rem 3rem;
-    min-height: auto;
+  }
+
+  section#home.hero {
+    min-height: 100vh;
+    min-height: 100dvh;
   }
 
 
@@ -1572,7 +1701,11 @@ section {
 
   .hero {
     padding: 5rem 1rem 2rem;
-    min-height: 85vh;
+  }
+
+  section#home.hero {
+    min-height: 100vh;
+    min-height: 100dvh;
   }
 
   .hero-title {
@@ -1941,8 +2074,12 @@ section {
 /* Landscape mobile */
 @media (max-width: 896px) and (orientation: landscape) {
   .hero {
-    min-height: auto;
     padding: 5rem 1.5rem 2rem;
+  }
+
+  section#home.hero {
+    min-height: 100vh;
+    min-height: 100dvh;
   }
 
   .hero-title {
