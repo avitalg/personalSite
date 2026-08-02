@@ -1,25 +1,26 @@
 # Avital Glazer
 
-> Full-stack developer (modern web development, AI integration) and professional product/catalog photographer. Based in Israel. Available for projects in Israel and worldwide.
+> Product Data Analyst with 8+ years in technology, combining analytical skills with a software engineering background. Experienced with SQL, Python, Hive, Presto, Tableau, Redash, and Mixpanel. Based in Israel. Available for freelance and contract work.
 
 ## Main pages
 
-- Home (Hebrew, default): https://avitalglazer.com/he
-- Home (English): https://avitalglazer.com/en
-- Photography (Hebrew): https://avitalglazer.com/he/photography
-- Photography (English): https://avitalglazer.com/en/photography
+- Home: https://avitalglazer.com/
+- Photography: https://avitalglazer.com/photography
+- Case study — Outbrain Ad Analytics Dashboard: https://avitalglazer.com/portfolio/outbrain-ad-analytics
 
-## Services (development)
+## Services (analytics)
 
-- Branding and showcase websites for businesses (development only)
-- Business catalog photography (products and catalogs for shops and businesses, separate photography service)
-- Modern web development
-- Performance optimization
-- UI/UX-aware product development
-- Technical training and consulting (architecture, UI/UX, AI)
-- API and backend development
-- AI integration in applications
-- Testing (unit, integration, E2E)
+- Product analytics and KPI monitoring
+- Dashboard development (Tableau, Redash, Metabase)
+- Experimentation / A/B testing support
+- SQL and Python analysis
+- Event tracking and data quality
+- Funnel and journey analysis
+- Analytics consulting and mentoring
+
+## Portfolio
+
+- Outbrain Content Recommendation & Ad Analytics Dashboard: synthetic schema inspired by https://www.kaggle.com/competitions/outbrain-click-prediction/; dataset generator (created with Cursor) at https://github.com/avitalglazer/outbrain; Python ETL + Tableau Public dashboard.
 
 ## Photography
 
@@ -30,13 +31,18 @@
 
 ## Background
 
-- 8+ years experience; previously at Outbrain, Promo.com, and BitTech
-- B.Sc. Software Engineering (Shenkar); M.B.A. Data Science (Hebrew University)
+- Software Engineer – Product Analytics Focus at Outbrain (2021–2025)
+- Full Stack Developer at Promo.com (2019–2021)
+- Frontend Developer at BitTech (2016–2019)
+- Advanced Data Analytics Program, Smart Brain Data College (2026)
+- MBA, Data Science specialization, Hebrew University (2020–2022)
+- B.Sc. Software Engineering, Shenkar (2014–2017)
 
 ## Contact & profiles
 
 - Email: avitalglazer@gmail.com
 - LinkedIn: https://www.linkedin.com/in/avital-glazer/
+- GitHub: https://github.com/avitalglazer
 - Photography Instagram: https://www.instagram.com/avitalg_photography/
 
 ## Sitemap

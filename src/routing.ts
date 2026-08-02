@@ -1,66 +1,62 @@
-export type Locale = 'he' | 'en';
+export type PageKind = 'home' | 'photography' | 'portfolioCase';
 
-export const defaultLocale: Locale = 'he';
-export const locales: Locale[] = ['he', 'en'];
 export const siteUrl = 'https://avitalglazer.com';
 
-export type PageKind = 'home' | 'photography';
-
 export type ParsedRoute = {
-  locale: Locale;
   page: PageKind;
   pathname: string;
+  slug?: string;
 };
-
-function isLocale(value: string): value is Locale {
-  return value === 'he' || value === 'en';
-}
 
 export function parsePath(pathname: string): ParsedRoute {
   const clean = pathname.replace(/\/+$/, '') || '/';
   const segments = clean.split('/').filter(Boolean);
 
-  let locale: Locale = defaultLocale;
-  let rest = segments;
+  // Legacy locale prefixes (/he, /en) are stripped; page is what follows
+  const rest =
+    segments[0] === 'he' || segments[0] === 'en' ? segments.slice(1) : segments;
 
-  if (segments[0] && isLocale(segments[0])) {
-    locale = segments[0];
-    rest = segments.slice(1);
+  if (rest[0] === 'photography') {
+    return { page: 'photography', pathname: clean };
   }
 
-  const page: PageKind = rest[0] === 'photography' ? 'photography' : 'home';
+  if (rest[0] === 'portfolio' && rest[1]) {
+    return { page: 'portfolioCase', pathname: clean, slug: rest[1] };
+  }
 
-  return { locale, page, pathname: clean };
+  return { page: 'home', pathname: clean };
 }
 
-export function localePath(locale: Locale, page: PageKind = 'home', hash?: string): string {
-  const base = page === 'photography' ? `/${locale}/photography` : `/${locale}`;
-  return hash ? `${base}#${hash}` : base;
+export function pagePath(page: PageKind = 'home', hashOrSlug?: string): string {
+  if (page === 'photography') {
+    return hashOrSlug ? `/photography#${hashOrSlug}` : '/photography';
+  }
+  if (page === 'portfolioCase') {
+    return hashOrSlug ? `/portfolio/${hashOrSlug}` : '/portfolio';
+  }
+  return hashOrSlug ? `/#${hashOrSlug}` : '/';
 }
 
-export function canonicalUrl(locale: Locale, page: PageKind = 'home'): string {
-  return `${siteUrl}${localePath(locale, page)}`;
+export function canonicalUrl(page: PageKind = 'home', slug?: string): string {
+  if (page === 'photography') return `${siteUrl}/photography`;
+  if (page === 'portfolioCase' && slug) return `${siteUrl}/portfolio/${slug}`;
+  return siteUrl;
 }
 
-/** Redirect legacy URLs (/photography, /#about) to localized paths */
+/** Redirect legacy localized URLs to English-only paths */
 export function resolveLegacyRedirect(pathname: string, hash: string): string | null {
   const clean = pathname.replace(/\/+$/, '') || '/';
   const segments = clean.split('/').filter(Boolean);
 
-  if (segments.length === 0) {
-    return localePath(defaultLocale, 'home', hash || undefined);
-  }
-
-  if (segments[0] === 'photography' && !isLocale(segments[0])) {
-    return localePath(defaultLocale, 'photography', hash || undefined);
-  }
-
-  if (segments.length === 1 && isLocale(segments[0])) {
-    return null;
-  }
-
-  if (!isLocale(segments[0]) && segments[0] !== 'photography') {
-    return localePath(defaultLocale, 'home', hash || undefined);
+  if (segments[0] === 'he' || segments[0] === 'en') {
+    const rest = segments.slice(1);
+    if (rest[0] === 'photography') {
+      return pagePath('photography', hash || undefined);
+    }
+    if (rest[0] === 'portfolio' && rest[1]) {
+      return pagePath('portfolioCase', rest[1]);
+    }
+    return pagePath('home', hash || undefined);
   }
 
   return null;

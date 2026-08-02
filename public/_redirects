@@ -1,3 +1,7 @@
-/    /he    301
-/photography    /he/photography    301
+/he    /    301
+/en    /    301
+/he/photography    /photography    301
+/en/photography    /photography    301
+/photography    /photography/index.html    200
+/portfolio/*    /portfolio/:splat/index.html    200
 /*    /index.html    200

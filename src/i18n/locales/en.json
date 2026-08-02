@@ -1,7 +1,7 @@
 {
   "seo": {
-    "title": "Avital Glazer - Full Stack Developer | AI | Israel",
-    "description": "Professional Full Stack Developer with 8+ years in modern development and AI integration.",
+    "title": "Avital Glazer - Product Data Analyst | Israel",
+    "description": "Product Data Analyst with 8+ years in tech. SQL, Python, dashboards, experimentation, and actionable product insights. Based in Israel.",
     "photographyTitle": "Avital Glazer Photography | Professional & Catalog",
     "photographyDescription": "Product, catalog, and brand photography. Clean lighting, accurate color, and professional delivery."
   },
@@ -9,89 +9,90 @@
     "home": "Home",
     "about": "About",
     "services": "Services",
+    "portfolio": "Portfolio",
     "contact": "Contact",
     "photography": "Photography",
     "mainNav": "Main navigation",
-    "goHome": "Go to home",
-    "langHe": "עברית",
-    "langEn": "English",
-    "switchToHe": "Switch to Hebrew",
-    "switchToEn": "Switch to English"
+    "goHome": "Go to home"
   },
   "hero": {
-    "eyebrow": "Full Stack · Web · AI",
     "tech": {
-      "web": "Web development",
-      "ai": "AI",
-      "ux": "UI/UX",
-      "perf": "Performance"
+      "sql": "SQL",
+      "python": "Python",
+      "dashboards": "Dashboards",
+      "experiments": "A/B Testing"
     },
-    "titleLine1": "Turning ideas",
-    "titleLine2": "into digital products",
-    "subtitle": "Full-stack developer specializing in modern applications and AI integration. Fast, scalable, user-focused solutions.",
-    "ctaPrimary": "Get Started",
+    "titleLine1": "Turning product data",
+    "titleLine2": "into clear decisions",
+    "subtitle": "Product Data Analyst with a software engineering background. I analyze large-scale product and user-behavior data, build KPI dashboards, support experiments, and deliver insights teams can act on.",
+    "ctaPrimary": "Get in touch",
     "ctaSecondary": "About Me",
     "ariaLabel": "Hero section",
     "years": "Years Experience"
   },
   "about": {
     "title": "About Me",
-    "subtitle": "Full-stack developer with a strong understanding of UI/UX, and professional photographer",
-    "lead": "I create modern digital products, combining quality engineering with an understanding of how people actually use interfaces.",
-    "detail": "B.Sc. Software Engineering (Shenkar) · M.B.A. Data Science (Hebrew University) · 8+ years at Outbrain, Promo.com, and BitTech",
+    "subtitle": "Product Data Analyst with 8+ years in technology and a software engineering foundation",
+    "lead": "I combine strong analytical skills with an engineering background to turn product and business questions into reliable data, clear metrics, and actionable insights.",
+    "detail": "MBA, Data Science (Hebrew University) · Advanced Data Analytics (Smart Brain) · B.Sc. Software Engineering (Shenkar) · Outbrain, Promo.com, BitTech",
     "highlightsAria": "Education and professional experience",
     "skillsLabel": "Skills",
     "skillsAria": "Technical skills",
-    "skillTags": ["Web development", "UI/UX", "AI integration", "Python", "JavaScript", "Figma", "Git", "CI/CD"],
+    "skillTags": ["SQL", "Python", "Tableau", "Redash", "Mixpanel", "Hive", "Presto", "A/B Testing", "KPI Analysis", "Data Modeling"],
     "viewPortfolio": "View portfolio",
     "instagram": "Instagram",
     "instagramAria": "Photography on Instagram @avitalg_photography"
   },
   "services": {
     "title": "Services",
-    "subtitle": "Comprehensive development solutions tailored to your needs, including showcase websites and project kickoff.",
+    "subtitle": "Product analytics support from metric definition and data quality through dashboards, experiments, and insights.",
     "items": {
-      "web": {
-        "title": "Web Development",
-        "description": "Modern, responsive websites built with advanced technologies."
+      "productAnalytics": {
+        "title": "Product Analytics",
+        "description": "Analyze product, user-behavior, and performance data to support product and UI decisions."
       },
-      "brandSite": {
-        "title": "Showcase websites",
-        "description": "Professional branding websites for businesses: clean design, clear UX, and a strong online presentation of your brand and services."
+      "dashboards": {
+        "title": "KPI Dashboards",
+        "description": "Build and maintain dashboards for KPIs, usage patterns, feature adoption, and performance trends."
       },
-      "catalogBiz": {
-        "title": "Business catalog photography",
-        "description": "Professional product and catalog photography for shops and businesses. Accurate images for your website, social media, and marketing materials."
+      "experiments": {
+        "title": "Experimentation",
+        "description": "Support A/B tests with tracking validation, analysis, and clear evaluation of experiment results."
       },
-      "perf": {
-        "title": "Performance Optimization",
-        "description": "Speed up your applications with advanced optimization techniques and best practices."
+      "sqlPython": {
+        "title": "SQL & Python Analysis",
+        "description": "Translate product questions into analytical queries using SQL, Python, Hive, Presto, and related tools."
       },
-      "uiux": {
-        "title": "UI/UX Design",
-        "description": "Beautiful, intuitive interfaces that users love to interact with."
+      "tracking": {
+        "title": "Event Tracking",
+        "description": "Design and validate product events and tracking so behavioral data is reliable and usable."
+      },
+      "dataQuality": {
+        "title": "Data Quality & Pipelines",
+        "description": "Design schemas and pipelines, investigate data-quality issues, and keep analytics foundations solid."
+      },
+      "mixpanel": {
+        "title": "Funnel & Journey Analysis",
+        "description": "Analyze user journeys, funnels, engagement, and conversion patterns with tools like Mixpanel."
+      },
+      "consulting": {
+        "title": "Analytics Consulting",
+        "description": "Independently lead analytical projects from problem definition through delivery for product and growth teams."
       },
       "mentoring": {
-        "title": "Training & consulting",
-        "description": "Technical training and consulting for teams and founders: architecture, UI/UX, and AI integration."
-      },
-      "api": {
-        "title": "API Development",
-        "description": "Robust backend services and RESTful APIs built for scale and reliability."
-      },
-      "ai": {
-        "title": "AI Integration",
-        "description": "AI in code, APIs and frameworks to add intelligent features to applications."
-      },
-      "testing": {
-        "title": "Testing",
-        "description": "Comprehensive testing strategies, unit, integration, and E2E for quality and reliability."
+        "title": "Mentoring & Reviews",
+        "description": "Mentor teammates, review analytical and engineering work, and help teams raise data quality standards."
       }
     }
   },
+  "portfolio": {
+    "title": "Portfolio",
+    "subtitle": "Selected analytics case studies: dashboards, ETL, and product insights.",
+    "readCase": "Read case study →"
+  },
   "contact": {
     "title": "Let's Work Together",
-    "subtitle": "Ready to bring your ideas to life? Get in touch and let's discuss your project. Available for freelance and contract work worldwide.",
+    "subtitle": "Looking for product analytics support, dashboards, or experiment analysis? Get in touch. Available for freelance and contract work.",
     "connect": "Let's Connect",
     "available": "Available for new projects",
     "linkedin": "LinkedIn",

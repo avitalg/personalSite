@@ -1,11 +1,9 @@
 import { useTranslation } from 'react-i18next';
 import { ContactFormWrapper } from './contact-form-wrapper';
-import { LanguageSwitcher } from './components/LanguageSwitcher';
-import type { Locale } from './routing';
+import { ClientOnly } from './components/ClientOnly';
+import { pagePath } from './routing';
 
 type PhotographyPageProps = {
-  locale: Locale;
-  onSwitchLocale: (locale: Locale) => void;
   onGoHome: () => void;
 };
 
@@ -41,17 +39,27 @@ const mobileTags = [
   { key: 'mobileBusiness' as const, icon: '🛒' },
 ];
 
-export function PhotographyPage({ locale, onSwitchLocale, onGoHome }: PhotographyPageProps) {
+export function PhotographyPage({ onGoHome }: PhotographyPageProps) {
   const { t } = useTranslation();
 
   return (
     <div className="photography-page">
       <header className="photo-topbar">
-        <button type="button" className="photo-topbar__brand" onClick={onGoHome}>
+        <a
+          className="photo-topbar__brand"
+          href={pagePath('home')}
+          onClick={
+            onGoHome
+              ? (e) => {
+                  e.preventDefault();
+                  onGoHome();
+                }
+              : undefined
+          }
+        >
           <span className="logo-text">Avital</span>
           <span className="logo-accent">Glazer</span>
-        </button>
-        <LanguageSwitcher locale={locale} onSwitch={onSwitchLocale} />
+        </a>
       </header>
 
       <section className="hero photography-hero" aria-label={t('hero.ariaLabel')}>
@@ -193,7 +201,15 @@ export function PhotographyPage({ locale, onSwitchLocale, onGoHome }: Photograph
           <p className="section-subtitle">{t('photo.contactSubtitle')}</p>
 
           <div className="contact-form-container fade-in-up">
-            <ContactFormWrapper />
+            <ClientOnly
+              fallback={
+                <p className="contact-ssr-fallback">
+                  <a href="mailto:avitalglazer@gmail.com">avitalglazer@gmail.com</a>
+                </p>
+              }
+            >
+              <ContactFormWrapper />
+            </ClientOnly>
 
             <div className="contact-info">
               <div className="contact-item">

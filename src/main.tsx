@@ -4,10 +4,8 @@ import { HelmetProvider } from 'react-helmet-async';
 import './index.css';
 import { App } from './App.tsx';
 import { initI18n } from './i18n/config';
-import { parsePath } from './routing';
 
-const { locale } = parsePath(window.location.pathname);
-initI18n(locale);
+initI18n();
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>

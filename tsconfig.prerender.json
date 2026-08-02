@@ -1,0 +1,12 @@
+{
+  "extends": "./tsconfig.app.json",
+  "compilerOptions": {
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "noEmit": true,
+    "jsx": "react-jsx",
+    "noUnusedLocals": false,
+    "types": ["node"]
+  },
+  "include": ["scripts/**/*.ts", "src/entry-server.tsx", "src/SiteApp.tsx", "src/**/*.tsx", "src/**/*.ts"]
+}
