@@ -127,9 +127,8 @@ export function buildJsonLd(page: PageKind, t: TFunction, slug?: string) {
       : [
           { '@type': 'ListItem', position: 1, name: t('nav.home'), item: `${homeUrl}/#home` },
           { '@type': 'ListItem', position: 2, name: t('nav.about'), item: `${homeUrl}/#about` },
-          { '@type': 'ListItem', position: 3, name: t('nav.services'), item: `${homeUrl}/#services` },
-          { '@type': 'ListItem', position: 4, name: t('nav.portfolio'), item: `${homeUrl}/#portfolio` },
-          { '@type': 'ListItem', position: 5, name: t('nav.contact'), item: `${homeUrl}/#contact` },
+          { '@type': 'ListItem', position: 3, name: t('nav.portfolio'), item: `${homeUrl}/#portfolio` },
+          { '@type': 'ListItem', position: 4, name: t('nav.contact'), item: `${homeUrl}/#contact` },
         ],
   };
 

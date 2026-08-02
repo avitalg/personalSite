@@ -8,7 +8,6 @@
   "nav": {
     "home": "Home",
     "about": "About",
-    "services": "Services",
     "portfolio": "Portfolio",
     "contact": "Contact",
     "photography": "Photography",
@@ -36,56 +35,19 @@
     "title": "About Me",
     "subtitle": "Product Data Analyst with 8+ years in technology and a software engineering foundation",
     "lead": "I combine strong analytical skills with an engineering background to turn product and business questions into reliable data, clear metrics, and actionable insights.",
-    "detail": "MBA, Data Science (Hebrew University) · Advanced Data Analytics (Smart Brain) · B.Sc. Software Engineering (Shenkar) · Outbrain, Promo.com, BitTech",
-    "highlightsAria": "Education and professional experience",
+    "educationLabel": "Education",
+    "education": [
+      "MBA, Data Science — Hebrew University",
+      "B.Sc. Software Engineering — Shenkar"
+    ],
+    "experienceLabel": "Where I've worked",
+    "companies": ["Outbrain", "Promo.com", "BitTech"],
     "skillsLabel": "Skills",
     "skillsAria": "Technical skills",
     "skillTags": ["SQL", "Python", "Tableau", "Redash", "Mixpanel", "Hive", "Presto", "A/B Testing", "KPI Analysis", "Data Modeling", "Scripting", "AI Tools"],
     "viewPortfolio": "View portfolio",
     "instagram": "Instagram",
     "instagramAria": "Photography on Instagram @avitalg_photography"
-  },
-  "services": {
-    "title": "Services",
-    "subtitle": "Product analytics support from metric definition and data quality through dashboards, experiments, and insights.",
-    "items": {
-      "productAnalytics": {
-        "title": "Product Analytics",
-        "description": "Analyze product, user-behavior, and performance data to support product and UI decisions."
-      },
-      "dashboards": {
-        "title": "KPI Dashboards",
-        "description": "Build and maintain dashboards for KPIs, usage patterns, feature adoption, and performance trends."
-      },
-      "experiments": {
-        "title": "Experimentation",
-        "description": "Support A/B tests with tracking validation, analysis, and clear evaluation of experiment results."
-      },
-      "sqlPython": {
-        "title": "SQL & Python Analysis",
-        "description": "Translate product questions into analytical queries using SQL, Python, Hive, Presto, and related tools."
-      },
-      "tracking": {
-        "title": "Event Tracking",
-        "description": "Design and validate product events and tracking so behavioral data is reliable and usable."
-      },
-      "dataQuality": {
-        "title": "Data Quality & Pipelines",
-        "description": "Design schemas and pipelines, investigate data-quality issues, and keep analytics foundations solid."
-      },
-      "mixpanel": {
-        "title": "Funnel & Journey Analysis",
-        "description": "Analyze user journeys, funnels, engagement, and conversion patterns with tools like Mixpanel."
-      },
-      "consulting": {
-        "title": "Analytics Consulting",
-        "description": "Independently lead analytical projects from problem definition through delivery for product and growth teams."
-      },
-      "mentoring": {
-        "title": "Mentoring & Reviews",
-        "description": "Mentor teammates, review analytical and engineering work, and help teams raise data quality standards."
-      }
-    }
   },
   "portfolio": {
     "title": "Portfolio",

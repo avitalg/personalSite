@@ -7,30 +7,7 @@ import { ClientOnly } from './components/ClientOnly';
 import { getPortfolioCase, listPortfolioCases } from './portfolio/cases';
 import { pagePath, type PageKind } from './routing';
 
-const homeSectionIds = ['home', 'about', 'services', 'portfolio', 'contact'] as const;
-
-const serviceKeys = [
-  'productAnalytics',
-  'dashboards',
-  'experiments',
-  'sqlPython',
-  'tracking',
-  'dataQuality',
-  'mixpanel',
-  'consulting',
-  'mentoring',
-] as const;
-const serviceIcons: Record<(typeof serviceKeys)[number], string> = {
-  productAnalytics: '📊',
-  dashboards: '📈',
-  experiments: '🧪',
-  sqlPython: '🧮',
-  tracking: '📡',
-  dataQuality: '🧱',
-  mixpanel: '🧭',
-  consulting: '💡',
-  mentoring: '🎓',
-};
+const homeSectionIds = ['home', 'about', 'portfolio', 'contact'] as const;
 
 const heroTechKeys = ['sql', 'python', 'dashboards', 'experiments', 'aiTools'] as const;
 const heroTechIcons: Record<(typeof heroTechKeys)[number], string> = {
@@ -56,10 +33,8 @@ export function SiteApp({ page, slug, onNavigate, onGoHomeSection }: SiteAppProp
   const caseStudy = isPortfolioCase ? getPortfolioCase(slug) : undefined;
   const cases = listPortfolioCases();
   const skills = t('about.skillTags', { returnObjects: true }) as string[];
-  const aboutHighlights = t('about.detail')
-    .split('·')
-    .map((item) => item.trim())
-    .filter(Boolean);
+  const education = t('about.education', { returnObjects: true }) as string[];
+  const companies = t('about.companies', { returnObjects: true }) as string[];
 
   const [isVisible, setIsVisible] = useState<Record<string, boolean>>({});
   const [activeSection, setActiveSection] = useState('home');
@@ -74,14 +49,6 @@ export function SiteApp({ page, slug, onNavigate, onGoHomeSection }: SiteAppProp
       window.location.href = `${homeBase}#${sectionId}`;
     }
     setIsMobileMenuOpen(false);
-  };
-
-  const handlePhotographyNav = (e: React.MouseEvent) => {
-    if (onNavigate) {
-      e.preventDefault();
-      onNavigate('photography');
-      setIsMobileMenuOpen(false);
-    }
   };
 
   const openCase = (caseSlug: string, e?: React.MouseEvent) => {
@@ -168,7 +135,6 @@ export function SiteApp({ page, slug, onNavigate, onGoHomeSection }: SiteAppProp
                   [
                     ['home', t('nav.home')],
                     ['about', t('nav.about')],
-                    ['services', t('nav.services')],
                     ['portfolio', t('nav.portfolio')],
                     ['contact', t('nav.contact')],
                   ] as const
@@ -188,15 +154,6 @@ export function SiteApp({ page, slug, onNavigate, onGoHomeSection }: SiteAppProp
                     </a>
                   </li>
                 ))}
-                <li>
-                  <a
-                    href={pagePath('photography')}
-                    onClick={onNavigate ? handlePhotographyNav : undefined}
-                    className={isPhotography ? 'active' : ''}
-                  >
-                    {t('nav.photography')}
-                  </a>
-                </li>
               </ul>
             </div>
           </nav>
@@ -252,65 +209,50 @@ export function SiteApp({ page, slug, onNavigate, onGoHomeSection }: SiteAppProp
                   <p className="section-subtitle about-subtitle">{t('about.subtitle')}</p>
                 </header>
 
-                <article className={`about-panel ${isVisible['about'] ? 'fade-in-up' : ''}`}>
-                  <div className="about-grid">
-                    <div className="about-main">
-                      <p className="about-lead">{t('about.lead')}</p>
-                      <ul className="about-highlights" aria-label={t('about.highlightsAria')}>
-                        {aboutHighlights.map((item) => (
-                          <li key={item} className="about-highlight">
-                            <span className="about-highlight__dot" aria-hidden="true" />
-                            <span>{item}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
+                <div className={`about-body ${isVisible['about'] ? 'fade-in-up' : ''}`}>
+                  <div className="about-copy">
+                    <p className="about-lead">{t('about.lead')}</p>
 
-                    <aside className="about-aside">
-                      <div className="about-experience-card" aria-label={t('hero.years')}>
-                        <span className="about-experience-card__value">8+</span>
-                        <span className="about-experience-card__label">{t('hero.years')}</span>
+                    <div className="about-meta">
+                      <div className="about-meta__group">
+                        <h3 className="about-meta__label">{t('about.educationLabel')}</h3>
+                        <ul className="about-meta__list">
+                          {education.map((item) => (
+                            <li key={item}>{item}</li>
+                          ))}
+                        </ul>
                       </div>
 
-                      <div className="about-skills-card">
-                        <h3 className="about-block-label">{t('about.skillsLabel')}</h3>
-                        <ul className="about-skills" aria-label={t('about.skillsAria')}>
-                          {skills.map((skill) => (
-                            <li key={skill}>
-                              <span className="skill-tag">{skill}</span>
+                      <div className="about-meta__group">
+                        <h3 className="about-meta__label">{t('about.experienceLabel')}</h3>
+                        <ul className="about-companies" aria-label={t('about.experienceLabel')}>
+                          {companies.map((company) => (
+                            <li key={company}>
+                              <span className="about-company">{company}</span>
                             </li>
                           ))}
                         </ul>
                       </div>
-                    </aside>
+                    </div>
                   </div>
-                </article>
-              </div>
-            </section>
 
-            <section id="services" className="services" aria-labelledby="services-heading">
-              <div className="container">
-                <h2 id="services-heading" className={`section-title ${isVisible['services'] ? 'fade-in-up' : ''}`}>
-                  {t('services.title')}
-                </h2>
-                <p className={`section-subtitle ${isVisible['services'] ? 'fade-in-up' : ''}`}>
-                  {t('services.subtitle')}
-                </p>
-                <div className="services-grid" role="list">
-                  {serviceKeys.map((key, index) => (
-                    <article
-                      key={key}
-                      className={`service-card ${isVisible['services'] ? 'fade-in-up' : ''}`}
-                      style={{ animationDelay: `${index * 0.1}s` }}
-                      role="listitem"
-                    >
-                      <div className="service-icon" aria-hidden="true">
-                        {serviceIcons[key]}
-                      </div>
-                      <h3 className="service-title">{t(`services.items.${key}.title`)}</h3>
-                      <p className="service-description">{t(`services.items.${key}.description`)}</p>
-                    </article>
-                  ))}
+                  <aside className="about-aside">
+                    <p className="about-stat" aria-label={`8+ ${t('hero.years')}`}>
+                      <span className="about-stat__value">8+</span>
+                      <span className="about-stat__label">{t('hero.years')}</span>
+                    </p>
+
+                    <div className="about-skills-block">
+                      <h3 className="about-meta__label">{t('about.skillsLabel')}</h3>
+                      <ul className="about-skills" aria-label={t('about.skillsAria')}>
+                        {skills.map((skill) => (
+                          <li key={skill}>
+                            <span className="skill-tag">{skill}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </aside>
                 </div>
               </div>
             </section>
