@@ -16,11 +16,13 @@
     "goHome": "Go to home"
   },
   "hero": {
+    "techAria": "Core skills",
     "tech": {
       "sql": "SQL",
       "python": "Python",
       "dashboards": "Dashboards",
-      "experiments": "A/B Testing"
+      "experiments": "A/B Testing",
+      "aiTools": "AI Tools"
     },
     "titleLine1": "Turning product data",
     "titleLine2": "into clear decisions",
@@ -38,7 +40,7 @@
     "highlightsAria": "Education and professional experience",
     "skillsLabel": "Skills",
     "skillsAria": "Technical skills",
-    "skillTags": ["SQL", "Python", "Tableau", "Redash", "Mixpanel", "Hive", "Presto", "A/B Testing", "KPI Analysis", "Data Modeling"],
+    "skillTags": ["SQL", "Python", "Tableau", "Redash", "Mixpanel", "Hive", "Presto", "A/B Testing", "KPI Analysis", "Data Modeling", "Scripting", "AI Tools"],
     "viewPortfolio": "View portfolio",
     "instagram": "Instagram",
     "instagramAria": "Photography on Instagram @avitalg_photography"
@@ -87,14 +89,17 @@
   },
   "portfolio": {
     "title": "Portfolio",
-    "subtitle": "Selected analytics case studies: dashboards, ETL, and product insights.",
     "readCase": "Read case study →"
   },
   "contact": {
     "title": "Let's Work Together",
-    "subtitle": "Looking for product analytics support, dashboards, or experiment analysis? Get in touch. Available for freelance and contract work.",
+    "intro": [
+      "I'm looking for opportunities to build impactful products, solve complex problems, and collaborate with talented teams.",
+      "With experience in full-stack development, product analytics, and data-driven decision making, I bring a combination of engineering expertise and business perspective to create meaningful user experiences.",
+      "Open to full-time opportunities where I can contribute, learn, and grow."
+    ],
     "connect": "Let's Connect",
-    "available": "Available for new projects",
+    "available": "Open to full-time opportunities",
     "linkedin": "LinkedIn",
     "linkedinCta": "Connect with me on LinkedIn"
   },

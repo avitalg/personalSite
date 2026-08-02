@@ -295,7 +295,7 @@ section#home.hero {
 /* Hero extras (tech stack + stats) */
 .hero-mobile-content {
   width: 100%;
-  max-width: 520px;
+  max-width: 560px;
   opacity: 0;
 }
 
@@ -304,39 +304,100 @@ section#home.hero {
 }
 
 .tech-stack-mobile {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.55rem 0.6rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
 }
 
 .tech-item-mobile {
-  display: flex;
-  flex-direction: column;
+  display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
-  padding: 1rem;
-  background: rgba(255, 255, 255, 0.9);
-  border-radius: 14px;
-  border: 1px solid var(--border-light);
-  box-shadow: var(--shadow-card);
-  transition: all 0.3s ease;
+  gap: 0.45rem;
+  padding: 0.55rem 0.95rem 0.55rem 0.75rem;
+  background: rgba(255, 255, 255, 0.88);
+  border-radius: 999px;
+  border: 1px solid var(--pastel-blue-200);
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
+  transition:
+    transform 0.25s ease,
+    border-color 0.25s ease,
+    background 0.25s ease,
+    box-shadow 0.25s ease;
+  animation: tech-chip-in 0.45s ease both;
+  animation-delay: calc(var(--tech-i, 0) * 60ms);
+}
+
+.hero-mobile-content:not(.fade-in-up) .tech-item-mobile {
+  animation: none;
+  opacity: 0;
+}
+
+.tech-item-mobile:nth-child(even) {
+  border-color: var(--pastel-pink-200);
 }
 
 .tech-item-mobile:hover {
-  border-color: var(--pastel-blue-200);
-  transform: translateY(-3px);
+  transform: translateY(-2px);
+  background: var(--pastel-blue);
+  border-color: var(--pastel-blue);
+  box-shadow: var(--shadow-soft);
+}
+
+.tech-item-mobile:nth-child(even):hover {
+  background: var(--pastel-pink);
+  border-color: var(--pastel-pink);
+}
+
+.tech-item-mobile:hover .tech-name {
+  color: var(--white);
 }
 
 .tech-icon {
-  font-size: 2rem;
-  display: block;
+  font-size: 1.05rem;
+  line-height: 1;
+  display: grid;
+  place-items: center;
+  width: 1.65rem;
+  height: 1.65rem;
+  border-radius: 50%;
+  background: var(--pastel-blue-50);
+  flex-shrink: 0;
+}
+
+.tech-item-mobile:nth-child(even) .tech-icon {
+  background: var(--pastel-pink-50);
+}
+
+.tech-item-mobile:hover .tech-icon {
+  background: rgba(255, 255, 255, 0.28);
 }
 
 .tech-name {
-  font-size: 0.85rem;
+  font-size: 0.86rem;
   font-weight: 600;
-  color: var(--text-secondary);
+  color: var(--pastel-blue-dark);
   text-align: center;
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+}
+
+.tech-item-mobile:nth-child(even) .tech-name {
+  color: var(--pastel-pink-dark);
+}
+
+@keyframes tech-chip-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .hero-stats-mobile {
@@ -1771,6 +1832,28 @@ section#services.services .service-card:hover {
   color: var(--text-primary);
 }
 
+.contact-intro {
+  max-width: 720px;
+  margin: 0 auto 2.75rem;
+  text-align: center;
+  opacity: 0;
+}
+
+.contact-intro.fade-in-up {
+  opacity: 1;
+}
+
+.contact-intro p {
+  margin: 0 0 1rem;
+  font-size: 1.05rem;
+  line-height: 1.7;
+  color: var(--text-secondary);
+}
+
+.contact-intro p:last-child {
+  margin-bottom: 0;
+}
+
 .contact-form-container {
   max-width: 800px;
   margin: 0 auto;
@@ -2195,19 +2278,21 @@ section#services.services .service-card:hover {
   }
 
   .tech-stack-mobile {
-    gap: 0.75rem;
+    gap: 0.45rem 0.5rem;
   }
 
   .tech-item-mobile {
-    padding: 0.75rem 0.5rem;
+    padding: 0.48rem 0.8rem 0.48rem 0.65rem;
   }
 
   .tech-icon {
-    font-size: 1.75rem;
+    width: 1.45rem;
+    height: 1.45rem;
+    font-size: 0.95rem;
   }
 
   .tech-name {
-    font-size: 0.75rem;
+    font-size: 0.8rem;
   }
 
   .stat-mobile {
@@ -2356,19 +2441,21 @@ section#services.services .service-card:hover {
   }
 
   .tech-stack-mobile {
-    gap: 0.5rem;
+    gap: 0.4rem 0.45rem;
   }
 
   .tech-item-mobile {
-    padding: 0.75rem 0.25rem;
+    padding: 0.42rem 0.72rem 0.42rem 0.58rem;
   }
 
   .tech-icon {
-    font-size: 1.5rem;
+    width: 1.35rem;
+    height: 1.35rem;
+    font-size: 0.9rem;
   }
 
   .tech-name {
-    font-size: 0.7rem;
+    font-size: 0.76rem;
   }
 
   .hero-stats-mobile {
@@ -2487,16 +2574,34 @@ section#services.services .service-card:hover {
 }
 
 .photography-page .hero-mobile-content .tech-item-mobile {
-  background: rgba(15, 23, 42, 0.06);
-  border-color: rgba(15, 23, 42, 0.16);
+  background: rgba(255, 255, 255, 0.72);
+  border-color: rgba(15, 23, 42, 0.14);
+}
+
+.photography-page .hero-mobile-content .tech-item-mobile:nth-child(even) {
+  border-color: rgba(15, 23, 42, 0.14);
 }
 
 .photography-page .hero-mobile-content .tech-item-mobile:hover {
-  background: rgba(15, 23, 42, 0.09);
+  background: rgba(15, 23, 42, 0.88);
+  border-color: rgba(15, 23, 42, 0.88);
 }
 
-.photography-page .hero-mobile-content .tech-name {
-  color: rgba(15, 23, 42, 0.95);
+.photography-page .hero-mobile-content .tech-icon {
+  background: rgba(15, 23, 42, 0.06);
+}
+
+.photography-page .hero-mobile-content .tech-item-mobile:nth-child(even) .tech-icon {
+  background: rgba(15, 23, 42, 0.06);
+}
+
+.photography-page .hero-mobile-content .tech-name,
+.photography-page .hero-mobile-content .tech-item-mobile:nth-child(even) .tech-name {
+  color: rgba(15, 23, 42, 0.92);
+}
+
+.photography-page .hero-mobile-content .tech-item-mobile:hover .tech-name {
+  color: #fff;
 }
 
 .photography-page .hero-mobile-content .stat-mobile {

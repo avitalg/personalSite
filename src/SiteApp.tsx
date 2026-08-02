@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, type CSSProperties } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ContactFormWrapper } from './contact-form-wrapper';
 import { PhotographyPage } from './photography-page';
@@ -32,12 +32,13 @@ const serviceIcons: Record<(typeof serviceKeys)[number], string> = {
   mentoring: '🎓',
 };
 
-const heroTechKeys = ['sql', 'python', 'dashboards', 'experiments'] as const;
+const heroTechKeys = ['sql', 'python', 'dashboards', 'experiments', 'aiTools'] as const;
 const heroTechIcons: Record<(typeof heroTechKeys)[number], string> = {
   sql: '🧮',
   python: '🐍',
   dashboards: '📈',
   experiments: '🧪',
+  aiTools: '✨',
 };
 
 export type SiteAppProps = {
@@ -224,14 +225,20 @@ export function SiteApp({ page, slug, onNavigate, onGoHomeSection }: SiteAppProp
                   </div>
                 </div>
                 <div className={`hero-mobile-content ${isVisible['home'] ? 'fade-in-up' : ''}`}>
-                  <div className="tech-stack-mobile">
-                    {heroTechKeys.map((key) => (
-                      <div key={key} className="tech-item-mobile">
-                        <span className="tech-icon">{heroTechIcons[key]}</span>
+                  <ul className="tech-stack-mobile" aria-label={t('hero.techAria')}>
+                    {heroTechKeys.map((key, index) => (
+                      <li
+                        key={key}
+                        className="tech-item-mobile"
+                        style={{ '--tech-i': index } as CSSProperties}
+                      >
+                        <span className="tech-icon" aria-hidden="true">
+                          {heroTechIcons[key]}
+                        </span>
                         <span className="tech-name">{t(`hero.tech.${key}`)}</span>
-                      </div>
+                      </li>
                     ))}
-                  </div>
+                  </ul>
                 </div>
               </div>
             </section>
@@ -313,9 +320,6 @@ export function SiteApp({ page, slug, onNavigate, onGoHomeSection }: SiteAppProp
                 <h2 id="portfolio-heading" className={`section-title ${isVisible['portfolio'] ? 'fade-in-up' : ''}`}>
                   {t('portfolio.title')}
                 </h2>
-                <p className={`section-subtitle ${isVisible['portfolio'] ? 'fade-in-up' : ''}`}>
-                  {t('portfolio.subtitle')}
-                </p>
                 <div className="projects-grid" role="list">
                   {cases.map((item, index) => (
                     <article
@@ -349,9 +353,11 @@ export function SiteApp({ page, slug, onNavigate, onGoHomeSection }: SiteAppProp
                 <h2 id="contact-heading" className={`section-title ${isVisible['contact'] ? 'fade-in-up' : ''}`}>
                   {t('contact.title')}
                 </h2>
-                <p className={`section-subtitle ${isVisible['contact'] ? 'fade-in-up' : ''}`}>
-                  {t('contact.subtitle')}
-                </p>
+                <div className={`contact-intro ${isVisible['contact'] ? 'fade-in-up' : ''}`}>
+                  {(t('contact.intro', { returnObjects: true }) as string[]).map((paragraph) => (
+                    <p key={paragraph.slice(0, 48)}>{paragraph}</p>
+                  ))}
+                </div>
                 <div className={`contact-form-container ${isVisible['contact'] ? 'fade-in-up' : ''}`}>
                   <ClientOnly fallback={contactFallback}>
                     <ContactFormWrapper />

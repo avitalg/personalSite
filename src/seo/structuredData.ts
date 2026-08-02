@@ -19,6 +19,8 @@ const skills = [
   'Event Tracking',
   'Tableau',
   'Mixpanel',
+  'Scripting',
+  'AI Tools',
 ];
 
 export function buildJsonLd(page: PageKind, t: TFunction, slug?: string) {
