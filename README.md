@@ -69,6 +69,21 @@ This website includes comprehensive SEO optimization:
 
 4. **Verify Structured Data**: Test your structured data using [Google's Rich Results Test](https://search.google.com/test/rich-results)
 
+## Analytics (GoatCounter)
+
+Free, cookie-less traffic analytics via [GoatCounter](https://www.goatcounter.com/). The site script is in `index.html` (`avitalglazer.goatcounter.com`). If your GoatCounter site code differs, update `data-goatcounter` there.
+
+**Where visitors come from:** open your GoatCounter dashboard → **Referrers**.
+
+**SPA note:** the first page load is counted by the script; in-app route changes are counted from `src/hooks/useRoute.ts`.
+
+**UTM when sharing** (so campaigns show up in paths/referrers), e.g.:
+`https://avitalglazer.com/?utm_source=linkedin&utm_medium=social&utm_campaign=profile`
+
+**Verify after deploy:** open the live site once (`https://avitalglazer.com`), confirm a hit in GoatCounter, then open a portfolio case and confirm a second path appears.
+
+Note: GoatCounter **ignores localhost** by default. Local `npm run dev` will not show hits unless you temporarily add `data-goatcounter-settings='{"allow_local": true}'` on the script tag. Production is what counts.
+
 ## Deployment
 
 After building (`npm run build`), upload the `dist` folder to any static hosting service like Vercel, Netlify, or GitHub Pages.

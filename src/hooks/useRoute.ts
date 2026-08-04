@@ -1,4 +1,5 @@
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { trackPageview } from '../analytics/goatcounter';
 import {
   canonicalUrl,
   pagePath,
@@ -9,6 +10,7 @@ import {
 
 export function useRoute() {
   const [pathname, setPathname] = useState(() => window.location.pathname);
+  const skipInitialGoatcounter = useRef(true);
 
   const route = useMemo(() => parsePath(pathname), [pathname]);
 
@@ -30,6 +32,15 @@ export function useRoute() {
     window.addEventListener('popstate', onPopState);
     return () => window.removeEventListener('popstate', onPopState);
   }, []);
+
+  // Script auto-counts the first load; only count SPA navigations after that.
+  useEffect(() => {
+    if (skipInitialGoatcounter.current) {
+      skipInitialGoatcounter.current = false;
+      return;
+    }
+    trackPageview();
+  }, [pathname]);
 
   const navigate = useCallback((page: PageKind, hashOrSlug?: string) => {
     const next = pagePath(page, hashOrSlug);

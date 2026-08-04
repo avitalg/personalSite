@@ -95,19 +95,27 @@ function buildHead(page: PageKind, slug?: string): string {
   <body>`;
 }
 
-function extractAssets(template: string): { css: string; js: string } {
+function extractAssets(template: string): { css: string; js: string; analytics: string } {
   const cssMatch = template.match(/<link rel="stylesheet"[^>]+>/g);
   const jsMatch = template.match(/<script type="module"[^>]+><\/script>/g);
+  const analyticsMatch = template.match(
+    /<!--\s*GoatCounter[\s\S]*?-->\s*<script[\s\S]*?data-goatcounter[\s\S]*?<\/script>|<script[^>]*data-goatcounter[^>]*>\s*<\/script>/i
+  );
   return {
     css: cssMatch?.join('\n    ') ?? '',
     js: jsMatch?.join('\n    ') ?? '',
+    analytics: analyticsMatch?.[0]?.trim() ?? '',
   };
 }
 
 function main() {
   const templatePath = join(distDir, 'index.html');
   const template = readFileSync(templatePath, 'utf8');
-  const { css, js } = extractAssets(template);
+  const { css, js, analytics } = extractAssets(template);
+
+  if (!analytics) {
+    console.warn('prerender: warning — GoatCounter script not found in dist/index.html');
+  }
 
   for (const route of routes) {
     const appHtml = renderPage(route.page, route.slug);
@@ -115,6 +123,7 @@ function main() {
     const html = `${head}
     <div id="root">${appHtml}</div>
     ${js}
+    ${analytics}
   </body>
 </html>
 `;
