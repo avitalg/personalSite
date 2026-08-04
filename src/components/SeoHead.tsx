@@ -34,6 +34,10 @@ export function SeoHead({ page, slug }: SeoHeadProps) {
       <title>{title}</title>
       <meta name="title" content={title} />
       <meta name="description" content={description} />
+      <meta name="geo.region" content="IL" />
+      <meta name="geo.placename" content="Israel" />
+      <meta name="geo.position" content="31.7683;35.2137" />
+      <meta name="ICBM" content="31.7683, 35.2137" />
       <link rel="canonical" href={canonical} />
       <meta property="og:type" content="website" />
       <meta property="og:url" content={canonical} />

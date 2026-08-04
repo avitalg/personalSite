@@ -157,25 +157,5 @@ export function buildJsonLd(page: PageKind, t: TFunction, slug?: string) {
     return [person, website, webPage, breadcrumb, photographyService];
   }
 
-  const professionalService = {
-    '@context': 'https://schema.org',
-    '@type': 'ProfessionalService',
-    name: 'Avital Glazer - Product Data Analytics',
-    description: t('seo.description'),
-    url: homeUrl,
-    provider: { '@type': 'Person', name: 'Avital Glazer', email: 'avitalglazer@gmail.com', url: homeUrl, sameAs },
-    areaServed: 'Worldwide',
-    serviceType: [
-      'Product Analytics',
-      'KPI Dashboard Development',
-      'A/B Testing Analysis',
-      'SQL and Python Analysis',
-      'Event Tracking',
-      'Data Quality',
-      'Funnel Analysis',
-      'Analytics Consulting',
-    ],
-  };
-
-  return [person, website, webPage, breadcrumb, professionalService];
+  return [person, website, webPage, breadcrumb];
 }

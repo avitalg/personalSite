@@ -1,23 +1,16 @@
 # Avital Glazer
 
-> Product Data Analyst with 8+ years in technology, combining analytical skills with a software engineering background. Experienced with SQL, Python, Hive, Presto, Tableau, Redash, and Mixpanel. Based in Israel. Available for freelance and contract work.
+> Product Data Analyst with a software engineering background. Experienced with SQL, Python, Hive, Presto, Tableau, Redash, Mixpanel, scripting, and AI tools. Based in Israel. Open to full-time opportunities.
 
 ## Main pages
 
 - Home: https://avitalglazer.com/
-- Photography: https://avitalglazer.com/photography
 - Case study — Outbrain Ad Analytics Dashboard: https://avitalglazer.com/portfolio/outbrain-ad-analytics
+- Photography: https://avitalglazer.com/photography
 
 ## Portfolio
 
 - Outbrain Content Recommendation & Ad Analytics Dashboard: synthetic schema inspired by https://www.kaggle.com/competitions/outbrain-click-prediction/; dataset generator (created with Cursor) at https://github.com/avitalglazer/outbrain; Python ETL + Tableau Public dashboard.
-
-## Photography
-
-- Product and catalog photography for e-commerce and brands
-- Business branding and lifestyle imagery
-- Studio or on-location shoots
-- Professional retouching and delivery
 
 ## Background
 

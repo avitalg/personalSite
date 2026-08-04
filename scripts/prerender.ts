@@ -77,6 +77,10 @@ function buildHead(page: PageKind, slug?: string): string {
     <meta name="title" content="${escapeHtml(title)}" />
     <meta name="description" content="${escapeHtml(description)}" />
     <meta name="robots" content="index, follow, max-image-preview:large" />
+    <meta name="geo.region" content="IL" />
+    <meta name="geo.placename" content="Israel" />
+    <meta name="geo.position" content="31.7683;35.2137" />
+    <meta name="ICBM" content="31.7683, 35.2137" />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="${canonical}" />
     <meta property="og:title" content="${escapeHtml(title)}" />
