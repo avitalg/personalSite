@@ -1436,15 +1436,114 @@ section {
   margin-bottom: 0.55rem;
 }
 
-.case-section ul {
+.case-section__subheading {
+  font-size: 1.02rem;
+  font-weight: 700;
+  margin: 0.85rem 0 0.45rem;
+  color: var(--text-primary);
+}
+
+.case-section ul,
+.case-section ol {
   padding-inline-start: 1.25rem;
   color: var(--text-secondary);
   line-height: 1.6;
-  margin: 0.35rem 0 0;
+  margin: 0.35rem 0 0.65rem;
 }
 
 .case-section li {
-  margin-bottom: 0.4rem;
+  margin-bottom: 0.55rem;
+}
+
+.case-section li strong {
+  color: var(--text-primary);
+  font-weight: 700;
+}
+
+.case-section p strong {
+  color: var(--text-primary);
+}
+
+.case-table-wrap {
+  margin: 0.85rem 0 1rem;
+  overflow-x: auto;
+  border-radius: 12px;
+  border: 1px solid var(--border-light);
+  background: var(--white);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.85) inset;
+  -webkit-overflow-scrolling: touch;
+}
+
+.case-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+  line-height: 1.45;
+}
+
+.case-table caption {
+  caption-side: top;
+  text-align: start;
+  padding: 0.7rem 0.95rem 0.55rem;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--text-muted, #64748b);
+  background: rgba(239, 246, 255, 0.65);
+  border-bottom: 1px solid var(--border-light);
+}
+
+.case-table th,
+.case-table td {
+  padding: 0.55rem 0.95rem;
+  text-align: start;
+  border-bottom: 1px solid var(--border-light);
+  color: var(--text-secondary);
+}
+
+.case-table th {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--text-muted, #64748b);
+  background: rgba(248, 250, 252, 0.95);
+}
+
+.case-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.case-table tbody tr:hover td {
+  background: rgba(239, 246, 255, 0.45);
+}
+
+.case-table__num {
+  text-align: end;
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: 'tnum';
+}
+
+.case-table td.case-table__num {
+  white-space: nowrap;
+}
+
+.case-code {
+  margin: 0.85rem 0 1rem;
+  padding: 1rem 1.1rem;
+  border-radius: 12px;
+  border: 1px solid var(--border-light);
+  background: #1e293b;
+  color: #e2e8f0;
+  font-size: 0.78rem;
+  line-height: 1.55;
+  overflow-x: auto;
+  white-space: pre;
+}
+
+.case-code code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
 }
 
 .case-figure {

@@ -1,6 +1,7 @@
 import { Helmet } from 'react-helmet-async';
 import { useTranslation } from 'react-i18next';
 import { getPortfolioCase } from '../portfolio/cases';
+import { portfolioCaseOgImage } from '../portfolio/case-images';
 import { buildJsonLd } from '../seo/structuredData';
 import { canonicalUrl, siteUrl, type PageKind } from '../routing';
 
@@ -25,8 +26,11 @@ export function SeoHead({ page, slug }: SeoHeadProps) {
       ? t('seo.photographyDescription')
       : t('seo.description');
   const canonical = canonicalUrl(page, slug);
-  const ogImage = caseStudy?.tableau.staticImageUrl ?? `${siteUrl}/logo-512.png`;
+  const ogImage = caseStudy ? portfolioCaseOgImage(caseStudy) : `${siteUrl}/logo-512.png`;
   const jsonLd = buildJsonLd(page, t, slug);
+  const robots = caseStudy?.noindex
+    ? 'noindex, follow'
+    : 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1';
 
   return (
     <Helmet>
@@ -34,6 +38,7 @@ export function SeoHead({ page, slug }: SeoHeadProps) {
       <title>{title}</title>
       <meta name="title" content={title} />
       <meta name="description" content={description} />
+      <meta name="robots" content={robots} />
       <meta name="geo.region" content="IL" />
       <meta name="geo.placename" content="Israel" />
       <meta name="geo.position" content="31.7683;35.2137" />

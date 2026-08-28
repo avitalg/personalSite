@@ -1,5 +1,6 @@
 import type { TFunction } from 'i18next';
 import { getPortfolioCase } from '../portfolio/cases';
+import { portfolioCaseOgImage } from '../portfolio/case-images';
 import { siteUrl, type PageKind } from '../routing';
 
 const sameAs = [
@@ -76,6 +77,9 @@ export function buildJsonLd(page: PageKind, t: TFunction, slug?: string) {
   };
 
   if (caseStudy) {
+    if (caseStudy.noindex) {
+      return [person, website];
+    }
     const breadcrumb = {
       '@context': 'https://schema.org',
       '@type': 'BreadcrumbList',
@@ -105,7 +109,7 @@ export function buildJsonLd(page: PageKind, t: TFunction, slug?: string) {
       url: pageUrl,
       author: { '@type': 'Person', name: 'Avital Glazer', url: homeUrl },
       keywords: caseStudy.tech.join(', '),
-      image: caseStudy.tableau.staticImageUrl,
+      image: portfolioCaseOgImage(caseStudy),
     };
 
     return [person, website, webPage, breadcrumb, creativeWork];

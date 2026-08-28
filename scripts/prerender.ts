@@ -11,6 +11,7 @@ import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import en from '../src/i18n/locales/en.json';
 import { listPortfolioCases } from '../src/portfolio/cases';
+import { portfolioCaseOgImage } from '../src/portfolio/case-images';
 import { renderPage } from '../src/entry-server';
 import { buildJsonLd } from '../src/seo/structuredData';
 import { canonicalUrl, siteUrl, type PageKind } from '../src/routing';
@@ -53,7 +54,7 @@ function buildHead(page: PageKind, slug?: string): string {
       ? en.seo.photographyDescription
       : en.seo.description;
   const canonical = canonicalUrl(page, slug);
-  const ogImage = caseStudy?.tableau.staticImageUrl ?? `${siteUrl}/logo-512.png`;
+  const ogImage = caseStudy ? portfolioCaseOgImage(caseStudy) : `${siteUrl}/logo-512.png`;
 
   const i18n = initI18n();
   const jsonLd = buildJsonLd(page, i18n.t.bind(i18n), slug);
@@ -76,7 +77,7 @@ function buildHead(page: PageKind, slug?: string): string {
     <title>${escapeHtml(title)}</title>
     <meta name="title" content="${escapeHtml(title)}" />
     <meta name="description" content="${escapeHtml(description)}" />
-    <meta name="robots" content="index, follow, max-image-preview:large" />
+    <meta name="robots" content="${caseStudy?.noindex ? 'noindex, follow' : 'index, follow, max-image-preview:large'}" />
     <meta name="geo.region" content="IL" />
     <meta name="geo.placename" content="Israel" />
     <meta name="geo.position" content="31.7683;35.2137" />

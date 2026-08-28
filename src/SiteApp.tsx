@@ -4,7 +4,7 @@ import { ContactFormWrapper } from './contact-form-wrapper';
 import { PhotographyPage } from './photography-page';
 import { PortfolioCasePage } from './portfolio-case-page';
 import { ClientOnly } from './components/ClientOnly';
-import { getPortfolioCase, listPortfolioCases } from './portfolio/cases';
+import { getPortfolioCase, listFeaturedPortfolioCases } from './portfolio/cases';
 import { pagePath, type PageKind } from './routing';
 
 const homeSectionIds = ['home', 'about', 'portfolio', 'contact'] as const;
@@ -31,7 +31,7 @@ export function SiteApp({ page, slug, onNavigate, onGoHomeSection }: SiteAppProp
   const isPhotography = page === 'photography';
   const isPortfolioCase = page === 'portfolioCase';
   const caseStudy = isPortfolioCase ? getPortfolioCase(slug) : undefined;
-  const cases = listPortfolioCases();
+  const cases = listFeaturedPortfolioCases();
   const skills = t('about.skillTags', { returnObjects: true }) as string[];
   const education = t('about.education', { returnObjects: true }) as string[];
   const companies = t('about.companies', { returnObjects: true }) as string[];

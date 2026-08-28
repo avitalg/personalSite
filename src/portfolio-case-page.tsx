@@ -2,7 +2,13 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { ClientOnly } from './components/ClientOnly';
 import { TableauEmbed, TableauStaticFallback } from './components/TableauEmbed';
 import { pagePath } from './routing';
-import type { PortfolioCase, PortfolioSection } from './portfolio/cases';
+import type {
+  PortfolioCase,
+  PortfolioFigure,
+  PortfolioSection,
+  PortfolioTable,
+  TableauEmbedConfig,
+} from './portfolio/cases';
 
 type PortfolioCasePageProps = {
   caseStudy: PortfolioCase;
@@ -32,6 +38,10 @@ function buildToc(caseStudy: PortfolioCase): TocItem[] {
     label: shortLabel(section.heading),
   }));
 
+  if (!caseStudy.tableau) {
+    return items;
+  }
+
   const dashboardItem: TocItem = { id: 'interactive-dashboard', label: 'Interactive dashboard' };
   const afterHeading = caseStudy.dashboardAfterHeading;
 
@@ -47,54 +57,123 @@ function buildToc(caseStudy: PortfolioCase): TocItem[] {
   return [...items.slice(0, insertAfter + 1), dashboardItem, ...items.slice(insertAfter + 1)];
 }
 
-/** Render plain text with optional `[label](url)` links. */
-function renderInlineLinks(text: string) {
-  const parts = text.split(/(\[[^\]]+\]\([^)]+\))/g);
+/** Render plain text with optional `[label](url)` links, **bold**, and *italic*. */
+function renderInline(text: string) {
+  const parts = text.split(/(\[[^\]]+\]\([^)]+\)|\*\*[^*]+\*\*|\*[^*]+\*)/g);
   return parts.map((part, index) => {
-    const match = /^\[([^\]]+)\]\(([^)]+)\)$/.exec(part);
-    if (!match) return <span key={index}>{part}</span>;
-    return (
-      <a key={index} href={match[2]} target="_blank" rel="noopener noreferrer">
-        {match[1]}
-      </a>
-    );
+    if (!part) return null;
+    const link = /^\[([^\]]+)\]\(([^)]+)\)$/.exec(part);
+    if (link) {
+      return (
+        <a key={index} href={link[2]} target="_blank" rel="noopener noreferrer">
+          {link[1]}
+        </a>
+      );
+    }
+    const bold = /^\*\*([^*]+)\*\*$/.exec(part);
+    if (bold) return <strong key={index}>{bold[1]}</strong>;
+    const italic = /^\*([^*]+)\*$/.exec(part);
+    if (italic) return <em key={index}>{italic[1]}</em>;
+    return <span key={index}>{part}</span>;
   });
+}
+
+function CaseTable({ table }: { table: PortfolioTable }) {
+  return (
+    <div className="case-table-wrap">
+      <table className="case-table">
+        {table.caption && <caption>{table.caption}</caption>}
+        <thead>
+          <tr>
+            {table.columns.map((col) => (
+              <th
+                key={col.header}
+                scope="col"
+                className={col.align === 'right' ? 'case-table__num' : undefined}
+              >
+                {col.header}
+              </th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          {table.rows.map((row) => (
+            <tr key={row.join('|')}>
+              {row.map((cell, index) => (
+                <td
+                  key={`${table.columns[index]?.header ?? index}-${cell}`}
+                  className={table.columns[index]?.align === 'right' ? 'case-table__num' : undefined}
+                >
+                  {cell}
+                </td>
+              ))}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+}
+
+function CaseFigure({ image }: { image: PortfolioFigure }) {
+  return (
+    <figure className="case-figure">
+      <img src={image.src} alt={image.alt} className="case-figure__img" loading="lazy" />
+      {image.caption && <figcaption className="case-figure__caption">{image.caption}</figcaption>}
+    </figure>
+  );
+}
+
+function sectionFigures(section: PortfolioSection): PortfolioFigure[] {
+  if (section.images && section.images.length > 0) return section.images;
+  return section.image ? [section.image] : [];
 }
 
 function CaseSectionBlock({ section }: { section: PortfolioSection }) {
   const id = sectionId(section.heading);
+  const figures = sectionFigures(section);
 
   return (
     <section id={id} className="case-section">
       <h2>{section.heading}</h2>
       {section.paragraphs?.map((p) => (
-        <p key={p.slice(0, 40)}>{p}</p>
+        <p key={p.slice(0, 40)}>{renderInline(p)}</p>
       ))}
-      {section.image && (
-        <figure className="case-figure">
-          <img
-            src={section.image.src}
-            alt={section.image.alt}
-            className="case-figure__img"
-            loading="lazy"
-          />
-          {section.image.caption && (
-            <figcaption className="case-figure__caption">{section.image.caption}</figcaption>
-          )}
-        </figure>
+      {figures.map((image) => (
+        <CaseFigure key={image.src} image={image} />
+      ))}
+      {section.code && (
+        <pre className="case-code">
+          <code>{section.code}</code>
+        </pre>
       )}
+      {section.tables?.map((table) => (
+        <CaseTable key={table.caption ?? table.columns.map((c) => c.header).join('-')} table={table} />
+      ))}
+      {section.subheading && <h3 className="case-section__subheading">{section.subheading}</h3>}
       {section.bullets && section.bullets.length > 0 && (
-        <ul>
-          {section.bullets.map((item) => (
-            <li key={item.slice(0, 48)}>{renderInlineLinks(item)}</li>
-          ))}
-        </ul>
+        section.ordered ? (
+          <ol>
+            {section.bullets.map((item) => (
+              <li key={item.slice(0, 48)}>{renderInline(item)}</li>
+            ))}
+          </ol>
+        ) : (
+          <ul>
+            {section.bullets.map((item) => (
+              <li key={item.slice(0, 48)}>{renderInline(item)}</li>
+            ))}
+          </ul>
+        )
       )}
+      {section.closingParagraphs?.map((p) => (
+        <p key={p.slice(0, 40)}>{renderInline(p)}</p>
+      ))}
     </section>
   );
 }
 
-function DashboardBlock({ caseStudy }: { caseStudy: PortfolioCase }) {
+function DashboardBlock({ config }: { config: TableauEmbedConfig }) {
   return (
     <section id="interactive-dashboard" className="case-dashboard" aria-labelledby="dashboard-heading">
       <div className="case-dashboard__inner">
@@ -102,15 +181,15 @@ function DashboardBlock({ caseStudy }: { caseStudy: PortfolioCase }) {
           <h2 id="dashboard-heading">Interactive dashboard</h2>
           <a
             className="case-dashboard__external"
-            href={`https://public.tableau.com/views/${caseStudy.tableau.name}`}
+            href={`https://public.tableau.com/views/${config.name}`}
             target="_blank"
             rel="noopener noreferrer"
           >
             Open full size
           </a>
         </div>
-        <ClientOnly fallback={<TableauStaticFallback config={caseStudy.tableau} />}>
-          <TableauEmbed config={caseStudy.tableau} />
+        <ClientOnly fallback={<TableauStaticFallback config={config} />}>
+          <TableauEmbed config={config} />
         </ClientOnly>
         <p className="case-dashboard__hint case-dashboard__hint--desktop-only">
           Scroll sideways inside the dashboard if charts look cramped, or open full size.
@@ -181,13 +260,14 @@ export function PortfolioCasePage({ caseStudy, onGoHome, onGoPortfolio }: Portfo
   const toc = useMemo(() => buildToc(caseStudy), [caseStudy]);
   const [activeId, setActiveId] = useState(toc[0]?.id ?? '');
 
-  const splitAt = caseStudy.dashboardAfterHeading
-    ? caseStudy.sections.findIndex((s) => s.heading === caseStudy.dashboardAfterHeading)
-    : -1;
+  const splitAt =
+    caseStudy.tableau && caseStudy.dashboardAfterHeading
+      ? caseStudy.sections.findIndex((s) => s.heading === caseStudy.dashboardAfterHeading)
+      : -1;
   const sectionsBefore =
     splitAt >= 0 ? caseStudy.sections.slice(0, splitAt + 1) : caseStudy.sections;
   const sectionsAfter = splitAt >= 0 ? caseStudy.sections.slice(splitAt + 1) : [];
-  const showDashboardMid = splitAt >= 0;
+  const showDashboardMid = splitAt >= 0 && Boolean(caseStudy.tableau);
 
   useEffect(() => {
     const nodes = toc
@@ -291,7 +371,9 @@ export function PortfolioCasePage({ caseStudy, onGoHome, onGoPortfolio }: Portfo
               ))}
             </div>
 
-            {showDashboardMid && <DashboardBlock caseStudy={caseStudy} />}
+            {showDashboardMid && caseStudy.tableau && (
+              <DashboardBlock config={caseStudy.tableau} />
+            )}
 
             {sectionsAfter.length > 0 && (
               <div className="case-container case-container--continued">
@@ -301,7 +383,9 @@ export function PortfolioCasePage({ caseStudy, onGoHome, onGoPortfolio }: Portfo
               </div>
             )}
 
-            {!showDashboardMid && <DashboardBlock caseStudy={caseStudy} />}
+            {!showDashboardMid && caseStudy.tableau && (
+              <DashboardBlock config={caseStudy.tableau} />
+            )}
           </article>
         </div>
       </div>
