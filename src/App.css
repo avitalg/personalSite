@@ -1292,6 +1292,19 @@ section {
   scroll-margin-top: 5.5rem;
 }
 
+.case-hero {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.case-hero__copy {
+  min-width: 0;
+  flex: 1;
+}
+
 .case-eyebrow {
   font-size: 0.85rem;
   font-weight: 700;
@@ -1306,8 +1319,17 @@ section {
   font-weight: 800;
   line-height: 1.2;
   letter-spacing: -0.02em;
-  margin-bottom: 1rem;
+  margin-bottom: 0;
   color: var(--text-primary);
+}
+
+.case-hero__logo {
+  flex-shrink: 0;
+  height: 3.5rem;
+  width: auto;
+  max-width: 10rem;
+  object-fit: contain;
+  margin-top: 0.1rem;
 }
 
 .case-disclaimer {
@@ -1728,6 +1750,11 @@ section {
   .case-shell__main {
     margin-left: 0;
     padding-top: 0;
+  }
+
+  .case-hero__logo {
+    height: 2.75rem;
+    max-width: 8rem;
   }
 
   .case-section,

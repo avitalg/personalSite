@@ -166,6 +166,9 @@ function CaseSectionBlock({ section }: { section: PortfolioSection }) {
           </ul>
         )
       )}
+      {section.closingSubheading && (
+        <h3 className="case-section__subheading">{section.closingSubheading}</h3>
+      )}
       {section.closingParagraphs?.map((p) => (
         <p key={p.slice(0, 40)}>{renderInline(p)}</p>
       ))}
@@ -334,8 +337,19 @@ export function PortfolioCasePage({ caseStudy, onGoHome, onGoPortfolio }: Portfo
         <div className="case-shell__main">
           <article className="case-article">
             <div className="case-container">
-              <p className="case-eyebrow">Case study</p>
-              <h1 className="case-title">{caseStudy.title}</h1>
+              <div className="case-hero">
+                <div className="case-hero__copy">
+                  <p className="case-eyebrow">Case study</p>
+                  <h1 className="case-title">{caseStudy.title}</h1>
+                </div>
+                {caseStudy.logo && (
+                  <img
+                    className="case-hero__logo"
+                    src={caseStudy.logo.src}
+                    alt={caseStudy.logo.alt}
+                  />
+                )}
+              </div>
 
               <aside className="case-disclaimer" role="note">
                 <strong>Disclaimer</strong>

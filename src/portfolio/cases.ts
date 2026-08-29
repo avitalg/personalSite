@@ -19,6 +19,8 @@ export type PortfolioSection = {
   heading: string;
   subheading?: string;
   paragraphs?: string[];
+  /** Heading rendered after lists, before closing paragraphs. */
+  closingSubheading?: string;
   /** Rendered after lists (e.g. a closing summary). */
   closingParagraphs?: string[];
   bullets?: string[];
@@ -59,6 +61,11 @@ export type PortfolioCase = {
   /** Keep the page off search indexes (direct-link only) */
   noindex?: boolean;
   tableau?: TableauEmbedConfig;
+  /** Company/product logo shown at the top right of the case header */
+  logo?: {
+    src: string;
+    alt: string;
+  };
   /** Social preview image path or absolute URL */
   ogImage?: string;
   /** Insert the Tableau dashboard after this section heading */
@@ -155,6 +162,10 @@ export const portfolioCases: PortfolioCase[] = [
   {
     slug: 'mize-rebooking-analysis',
     title: 'Mize Hotel Rebooking — SQL & Python Analytics',
+    logo: {
+      src: '/portfolio/mize/logo.png',
+      alt: 'Mize',
+    },
     summary:
       'Take-home analysis of hotel reservation and rebooking data: DuckDB/JupySQL KPI extraction by city, pandas client review, and root-cause investigation of declining rebooking volume.',
     featured: false,
@@ -189,7 +200,7 @@ export const portfolioCases: PortfolioCase[] = [
         code: `WITH cities(city) AS (
     VALUES ('Paris'), ('Dubai'), ('New York'), ('Bangkok')
 ),
-active AS (
+active_reservations AS (
     SELECT
         city,
         COUNT(*) AS active_reservations
@@ -209,7 +220,7 @@ original_cost AS (
     WHERE city IN ('Paris', 'Dubai', 'New York', 'Bangkok')
     GROUP BY city
 ),
-successful AS (
+successful_rebookings AS (
     SELECT
         r.city,
         COUNT(*) AS successful_rebookings,
@@ -228,9 +239,9 @@ SELECT
     COALESCE(s.successful_rebookings, 0) AS successful_rebookings,
     COALESCE(s.extra_savings, 0)         AS extra_savings
 FROM cities AS c
-LEFT JOIN active AS a USING (city)
+LEFT JOIN active_reservations AS a USING (city)
 LEFT JOIN original_cost AS o USING (city)
-LEFT JOIN successful AS s USING (city);`,
+LEFT JOIN successful_rebookings AS s USING (city);`,
         tables: [
           {
             caption: 'City KPIs',
@@ -330,29 +341,34 @@ LEFT JOIN successful AS s USING (city);`,
               { header: 'Week start' },
               { header: 'Reservations', align: 'right' },
               { header: 'Rebookings', align: 'right' },
-              { header: 'Rebookings per 100 reservations', align: 'right' },
             ],
             rows: [
-              ['28 Jul 2025', '1,210', '17', '1.40'],
-              ['4 Aug 2025', '2,402', '27', '1.12'],
-              ['11 Aug 2025', '2,289', '26', '1.14'],
-              ['18 Aug 2025', '2,326', '35', '1.50'],
-              ['25 Aug 2025', '2,014', '33', '1.64'],
-              ['1 Sep 2025', '1,131', '36', '3.18'],
-              ['8 Sep 2025', '901', '19', '2.11'],
-              ['15 Sep 2025', '63', '37', '58.73'],
-              ['22 Sep 2025', '76', '12', '15.79'],
-              ['29 Sep 2025', '52', '13', '25.00'],
-              ['6 Oct 2025', '73', '10', '13.70'],
-              ['13 Oct 2025', '60', '5', '8.33'],
+              ['28 Jul 2025', '1,210', '17'],
+              ['4 Aug 2025', '2,402', '27'],
+              ['11 Aug 2025', '2,289', '26'],
+              ['18 Aug 2025', '2,326', '35'],
+              ['25 Aug 2025', '2,014', '33'],
+              ['1 Sep 2025', '1,131', '36'],
+              ['8 Sep 2025', '901', '19'],
+              ['15 Sep 2025', '63', '37'],
+              ['22 Sep 2025', '76', '12'],
+              ['29 Sep 2025', '52', '13'],
+              ['6 Oct 2025', '73', '10'],
+              ['13 Oct 2025', '60', '5'],
             ],
           },
         ],
+        subheading: 'Conclusions',
         bullets: [
           'Inflow cliff after 15 Sep 2025: weekly new reservations fell from 901 to 63 and stayed around ~60; rebookings lagged as the existing pool was worked through without replenishment.',
-          'October is a partial month (data ends 16 Oct) — direct month-on-month comparison overstates decline, but the daily run-rate was still much quieter than August.',
-          'Rebooking rate per 100 new reservations trended up: ~1.3 in August, ~5.0 in September, ~13.7 in October (58.73 the week of the collapse vs 1.1–3.2 in August) — fewer bookings, not a lower hit rate.',
-          'Travel demand in this file concentrates in Aug–Sep 2026 stays; later check-in months have fewer reservations to rebook as the bookable window progresses.',
+          'The next check is **why incoming orders dropped**. The collapse starts the week of 15 Sep 2025 and stays low for a month. A one-week step-change that does not recover is not a seasonal fade. It looks like a bug or feed/pipeline break from that date.',
+          'October is a partial month (data ends 16 Oct) - direct month-on-month comparison overstates decline, but the weekly run-rate was still much quieter than August.',
+          'Travel demand in this file concentrates in Aug–Sep 2026 stays; later check-in months can leave fewer reservations to rebook, but that mix does not explain an overnight 901→63 cliff.',
+        ],
+        closingParagraphs: [
+          '**Core Issue:** The drop in rebooking volume is a direct consequence of a failure in either the generation or the reporting of new reservations. As the inflow of new reservations drops, it directly restricts the volume of rebookings the system can execute.',
+          '**Required Action:** An immediate investigation is needed to identify the root cause. We must determine if the breakdown is occurring at the business level (actual orders), in the data collection process, or within the data pipeline.',
+          '**Recommendation:** Add an alert on incoming reservation volume so a cliff like 15 Sep (901→63, then a month near ~60) is flagged immediately, rather than discovered later as a drop in rebooking amounts.',
         ],
       },
       {
@@ -368,10 +384,12 @@ LEFT JOIN successful AS s USING (city);`,
           '**Unmatched volume is structurally huge and stable (~750k–800k per bar).** Almost all inventory is not being rebooked. Rebooking is a thin slice, unmatched is the default outcome.',
           '**Four independent blockers stack every day.** A reservation fails if *any* of: no cheaper rate, no hotel match, no room match, no matching cancellation policy. Light grey (CXL mismatch) and brown (no savings) are persistent slices — content matching and price competitiveness are both ongoing constraints, not one-off spikes.',
           '**Sharp hole around 25 Oct.** Several bars drop near zero, then recover to the previous ~775k level. That pattern is a *data/pipeline/system gap*, not a real day where unmatched demand vanished and then returned overnight.',
-          '**After the dip, the stack returns to the same height and mix.** There is no sustained improvement in match quality toward year-end. The engine is not suddenly matching more hotels/rooms or finding more savings.',
+          '**After the dip, the stack returns to its immediate pre-drop state.** The recovery mirrors the exact height and mix seen just before October 25th. The data gap was a pipeline interruption, not a shift in engine behavior or market supply, as the system picked up exactly where it left off.',
+          '**Rising impact of cancellation policies over time.** Looking at the macro trend from August to December, the light grey slice (CXL mismatch) steadily widens, starting around early October. As we move toward year-end, strict cancellation policies become a progressively larger blocker for successful rebookings, replacing "no savings" (dark brown) as a primary constraint.',
         ],
+        closingSubheading: 'Conclusions & Recommendations',
         closingParagraphs: [
-          'In summary, unmatched volume remains consistently high and stable (around 750K–800K), with the vast majority of inventory going un-rebooked due to persistent, structural blockers (such as lack of cheaper rates, hotel/room mismatches, or incompatible cancellation policies). While the sharp drop around October 25th is purely a technical data/pipeline glitch rather than a genuine shift in demand, the system immediately returns to its previous baseline and mix afterward, showing no sustained organic improvement in match quality or savings discovery toward year-end.',
+          'The system’s matching logic is stable; the late-October drop was strictly a data pipeline failure, not an algorithm issue. Notably, while the "no savings" barrier is noticeably shrinking toward year-end, it is being directly overtaken by cancellation policy mismatches as the primary rebooking blocker. To improve actual rebooking performance, efforts should focus on investigating this winter shift in cancellation policies (determining if it is driven by stricter supplier terms or user booking behavior).',
         ],
       },
     ],
