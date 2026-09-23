@@ -317,7 +317,7 @@ export function PortfolioCasePage({ caseStudy, onGoHome, onGoPortfolio }: Portfo
         </a>
         <nav className="case-topbar__nav" aria-label="Case study navigation">
           <a
-            href={`${pagePath('home')}#portfolio`}
+            href={pagePath('analytics', 'portfolio')}
             onClick={(e) => {
               e.preventDefault();
               if (onGoPortfolio) onGoPortfolio();

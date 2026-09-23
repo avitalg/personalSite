@@ -1,5 +1,5 @@
 import type { TFunction } from 'i18next';
-import { getPortfolioCase } from '../portfolio/cases';
+import { getPortfolioCase, listFeaturedPortfolioCases } from '../portfolio/cases';
 import { portfolioCaseOgImage } from '../portfolio/case-images';
 import { siteUrl, type PageKind } from '../routing';
 
@@ -10,35 +10,36 @@ const sameAs = [
 ];
 
 const skills = [
-  'Product Analytics',
-  'SQL',
-  'Python',
-  'KPI Analysis',
-  'Dashboard Development',
-  'A/B Testing',
-  'Data Modeling',
-  'Event Tracking',
-  'Tableau',
-  'Mixpanel',
-  'Scripting',
-  'AI Tools',
+  'Frontend Development',
+  'Full Stack Development',
+  'UI Development',
+  'Performance Optimization',
+  'Testing',
+  'Cross-browser Compatibility',
+  'Storybook',
+  'MySQL',
+  'WordPress',
+  'SEO',
 ];
 
 export function buildJsonLd(page: PageKind, t: TFunction, slug?: string) {
   const homeUrl = siteUrl;
   const caseStudy = page === 'portfolioCase' ? getPortfolioCase(slug) : undefined;
+  const isPhoto = page === 'photography';
+  const isAnalytics = page === 'analytics';
   const pageUrl = caseStudy
     ? `${siteUrl}/portfolio/${caseStudy.slug}`
-    : page === 'photography'
+    : isPhoto
       ? `${siteUrl}/photography`
-      : homeUrl;
-  const isPhoto = page === 'photography';
+      : isAnalytics
+        ? `${siteUrl}/analytics`
+        : homeUrl;
 
   const person = {
     '@context': 'https://schema.org',
     '@type': 'Person',
     name: 'Avital Glazer',
-    jobTitle: 'Product Data Analyst',
+    jobTitle: 'Software Engineer',
     url: homeUrl,
     image: `${siteUrl}/logo-512.png`,
     email: 'avitalglazer@gmail.com',
@@ -85,7 +86,7 @@ export function buildJsonLd(page: PageKind, t: TFunction, slug?: string) {
       '@type': 'BreadcrumbList',
       itemListElement: [
         { '@type': 'ListItem', position: 1, name: t('nav.home'), item: homeUrl },
-        { '@type': 'ListItem', position: 2, name: t('nav.portfolio'), item: `${homeUrl}/#portfolio` },
+        { '@type': 'ListItem', position: 2, name: t('nav.analytics'), item: `${siteUrl}/analytics` },
         { '@type': 'ListItem', position: 3, name: caseStudy.title, item: pageUrl },
       ],
     };
@@ -131,7 +132,7 @@ export function buildJsonLd(page: PageKind, t: TFunction, slug?: string) {
       : [
           { '@type': 'ListItem', position: 1, name: t('nav.home'), item: `${homeUrl}/#home` },
           { '@type': 'ListItem', position: 2, name: t('nav.about'), item: `${homeUrl}/#about` },
-          { '@type': 'ListItem', position: 3, name: t('nav.portfolio'), item: `${homeUrl}/#portfolio` },
+          { '@type': 'ListItem', position: 3, name: t('nav.experience'), item: `${homeUrl}/#experience` },
           { '@type': 'ListItem', position: 4, name: t('nav.contact'), item: `${homeUrl}/#contact` },
         ],
   };
@@ -146,6 +147,46 @@ export function buildJsonLd(page: PageKind, t: TFunction, slug?: string) {
     isPartOf: { '@type': 'WebSite', url: homeUrl },
     about: { '@type': 'Person', name: 'Avital Glazer' },
   };
+
+  if (isAnalytics) {
+    const analyticsPerson = {
+      ...person,
+      knowsAbout: [
+        ...skills,
+        'SQL',
+        'Python',
+        'Pandas',
+        'Tableau',
+        'Data Analysis',
+        'ETL',
+        'Business Analytics',
+      ],
+    };
+    const portfolioList = {
+      '@context': 'https://schema.org',
+      '@type': 'ItemList',
+      name: t('portfolio.title'),
+      itemListElement: listFeaturedPortfolioCases().map((item, index) => ({
+        '@type': 'ListItem',
+        position: index + 1,
+        name: item.title,
+        url: `${siteUrl}/portfolio/${item.slug}`,
+      })),
+    };
+    const analyticsBreadcrumb = {
+      ...breadcrumb,
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: t('nav.home'), item: homeUrl },
+        { '@type': 'ListItem', position: 2, name: t('nav.analytics'), item: pageUrl },
+      ],
+    };
+    const analyticsPage = {
+      ...webPage,
+      name: t('seo.analyticsTitle'),
+      description: t('seo.analyticsDescription'),
+    };
+    return [analyticsPerson, website, analyticsPage, analyticsBreadcrumb, portfolioList];
+  }
 
   if (isPhoto) {
     const photographyService = {

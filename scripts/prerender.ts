@@ -25,6 +25,7 @@ type RouteSpec = { dir: string; page: PageKind; slug?: string };
 const routes: RouteSpec[] = [
   { dir: '', page: 'home' },
   { dir: 'photography', page: 'photography' },
+  { dir: 'analytics', page: 'analytics' },
   ...listPortfolioCases().map((c) => ({
     dir: `portfolio/${c.slug}`,
     page: 'portfolioCase' as const,
@@ -43,16 +44,21 @@ function escapeHtml(text: string): string {
 function buildHead(page: PageKind, slug?: string): string {
   const caseStudy = page === 'portfolioCase' ? listPortfolioCases().find((c) => c.slug === slug) : undefined;
   const isPhoto = page === 'photography';
+  const isAnalytics = page === 'analytics';
   const title = caseStudy
     ? `${caseStudy.title} | Avital Glazer`
     : isPhoto
       ? en.seo.photographyTitle
-      : en.seo.title;
+      : isAnalytics
+        ? en.seo.analyticsTitle
+        : en.seo.title;
   const description = caseStudy
     ? caseStudy.seoDescription
     : isPhoto
       ? en.seo.photographyDescription
-      : en.seo.description;
+      : isAnalytics
+        ? en.seo.analyticsDescription
+        : en.seo.description;
   const canonical = canonicalUrl(page, slug);
   const ogImage = caseStudy ? portfolioCaseOgImage(caseStudy) : `${siteUrl}/logo-512.png`;
 

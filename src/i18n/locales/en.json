@@ -1,31 +1,35 @@
 {
   "seo": {
-    "title": "Avital Glazer - Product Data Analyst | Israel",
-    "description": "Product Data Analyst with a software engineering background. SQL, Python, Tableau, Mixpanel, A/B testing, and AI tools. Open to full-time roles. Based in Israel.",
+    "title": "Avital Glazer - Software Engineer | Israel",
+    "description": "Software Engineer with 8 years of experience. End-to-end development with a front-end focus, from design through deployment. Based in Israel.",
     "photographyTitle": "Avital Glazer Photography | Professional & Catalog",
-    "photographyDescription": "Product, catalog, and brand photography. Clean lighting, accurate color, and professional delivery."
+    "photographyDescription": "Product, catalog, and brand photography. Clean lighting, accurate color, and professional delivery.",
+    "analyticsTitle": "Avital Glazer — Analytics | SQL, Python & Dashboards",
+    "analyticsDescription": "Analytics portfolio of Avital Glazer: SQL, Python, Tableau, and product data work. MBA in Data Science. Open to analytics roles."
   },
   "nav": {
     "home": "Home",
     "about": "About",
+    "experience": "Experience",
     "portfolio": "Portfolio",
     "contact": "Contact",
     "photography": "Photography",
+    "analytics": "Analytics",
     "mainNav": "Main navigation",
     "goHome": "Go to home"
   },
   "hero": {
     "techAria": "Core skills",
     "tech": {
-      "sql": "SQL",
-      "python": "Python",
-      "dashboards": "Dashboards",
-      "experiments": "A/B Testing",
-      "aiTools": "AI Tools"
+      "frontend": "Frontend",
+      "fullstack": "Full Stack",
+      "ui": "UI",
+      "testing": "Testing",
+      "performance": "Performance"
     },
-    "titleLine1": "Turning product data",
-    "titleLine2": "into clear decisions",
-    "subtitle": "Product Data Analyst with a software engineering background. I analyze large-scale product and user-behavior data, build KPI dashboards, support experiments, and deliver insights teams can act on.",
+    "titleLine1": "From design",
+    "titleLine2": "to deployment",
+    "subtitle": "Software Engineer with 8 years of experience developing end to end, with a front-end orientation. I take full ownership from design through implementation and deployment.",
     "ctaPrimary": "Get in touch",
     "ctaSecondary": "About Me",
     "ariaLabel": "Hero section",
@@ -33,21 +37,63 @@
   },
   "about": {
     "title": "About Me",
-    "subtitle": "Product Data Analyst with 8+ years in technology and a software engineering foundation",
-    "lead": "I combine strong analytical skills with an engineering background to turn product and business questions into reliable data, clear metrics, and actionable insights.",
+    "subtitle": "Software Engineer with 8 years of end-to-end experience and a front-end focus",
+    "lead": "I take full ownership of development, from design to implementation and deployment, using best practices and simple, clean, reusable code.",
     "educationLabel": "Education",
     "education": [
       "MBA, Data Science — Hebrew University",
       "B.Sc. Software Engineering — Shenkar"
     ],
-    "experienceLabel": "Where I've worked",
-    "companies": ["Outbrain", "Promo.com", "BitTech"],
     "skillsLabel": "Skills",
     "skillsAria": "Technical skills",
-    "skillTags": ["SQL", "Python", "Tableau", "Redash", "Mixpanel", "Hive", "Presto", "A/B Testing", "KPI Analysis", "Data Modeling", "Scripting", "AI Tools"],
+    "skillTags": ["Frontend", "Full Stack", "UI", "Storybook", "Testing", "Performance", "Cross-browser", "MySQL", "Redash", "WordPress", "SEO", "Agile"],
     "viewPortfolio": "View portfolio",
     "instagram": "Instagram",
     "instagramAria": "Photography on Instagram @avitalg_photography"
+  },
+  "experience": {
+    "title": "Experience",
+    "subtitle": "Eight years shipping products, from design to deployment",
+    "items": [
+      {
+        "period": "2021 – 2025",
+        "role": "Full Stack Developer",
+        "company": "Outbrain",
+        "about": "Outbrain is a content discovery platform that recommends articles, videos, and other content to website visitors.",
+        "points": [
+          "Created new UI experiences, suggested improvements and innovative solutions, optimized performance, wrote tests, and ensured cross-browser compatibility.",
+          "Guided team members, reviewed code, and trained new developers.",
+          "Integrated with internal services to enhance platform functionality.",
+          "Worked in a data-driven way, analyzing data with Redash and MySQL."
+        ]
+      },
+      {
+        "period": "2019 – 2021",
+        "role": "Full Stack Developer",
+        "company": "Promo.com",
+        "about": "Promo.com is a B2B company with a SaaS video editing product for small and medium businesses.",
+        "points": [
+          "Worked on the Core team, implementing and improving the video editor and video tools.",
+          "Started on the Growth team, responsible for on-site performance, conversion rate, and SEO.",
+          "Worked in a squad of developers, QA, product managers, designers, and BI analysts, with part of the team located abroad.",
+          "Built pixel-perfect UI with Storybook."
+        ]
+      },
+      {
+        "period": "2016 – 2019",
+        "role": "Frontend Developer",
+        "company": "BitTech",
+        "about": "BitTech is a B2B and B2C financial services company that develops and supplies trading websites.",
+        "points": [
+          "Built responsive, multi-language pages from pixel-perfect designs and PSDs.",
+          "Improved the website onboarding process.",
+          "Reviewed code and gave constructive feedback so the team kept high coding standards and best practices.",
+          "Developed WordPress plugins.",
+          "Worked with developers, QA, product and project managers, designers, content, and DevOps using Agile.",
+          "Integrated third-party libraries and platforms."
+        ]
+      }
+    ]
   },
   "portfolio": {
     "title": "Portfolio",
@@ -57,7 +103,7 @@
     "title": "Let's Work Together",
     "intro": [
       "I'm looking for opportunities to build impactful products, solve complex problems, and collaborate with talented teams.",
-      "With experience in full-stack development, product analytics, and data-driven decision making, I bring a combination of engineering expertise and business perspective to create meaningful user experiences.",
+      "I bring end-to-end ownership, a front-end orientation, and a habit of writing simple, clean, reusable code.",
       "Open to full-time opportunities where I can contribute, learn, and grow."
     ],
     "connect": "Let's Connect",
@@ -157,5 +203,35 @@
     "contactTitle": "Let's talk about your next shoot",
     "contactSubtitle": "Leave your details and I'll get back to you soon. Happy to advise on style or location.",
     "contactAvailable": "Available for new shoots"
+  },
+  "analytics": {
+    "heroAria": "Analytics",
+    "heroTitleLine1": "From the question",
+    "heroTitleLine2": "to the decision",
+    "heroSubtitle": "Software engineer with an MBA in Data Science. I analyze product and business data in SQL and Python, and turn it into dashboards and written recommendations.",
+    "ctaContact": "Get in touch",
+    "ctaPortfolio": "View portfolio",
+    "chipsAria": "Analytics skills",
+    "chips": {
+      "sql": "SQL",
+      "python": "Python",
+      "tableau": "Tableau",
+      "pandas": "Pandas",
+      "etl": "ETL"
+    },
+    "statDegree": "MBA",
+    "statDegreeLabel": "Data Science",
+    "aboutTitle": "Background",
+    "aboutSubtitle": "Product engineering, with the analysis that goes with it",
+    "aboutLead": "Eight years building software, including data-driven work at Outbrain with Redash and MySQL. The portfolio below is independent analytics work: ETL, SQL, and dashboards I can walk through.",
+    "skillsAria": "Analytics skills",
+    "skillTags": ["SQL", "Python", "Pandas", "Tableau", "DuckDB", "Redash", "MySQL", "ETL"],
+    "portfolioSubtitle": "Case studies from the current portfolio.",
+    "contactTitle": "Open to analytics roles",
+    "contactIntro": [
+      "I'm looking for analytics roles where I can investigate a question, show the evidence, and recommend what to do next.",
+      "Happy to walk through the portfolio, the SQL, or how a dashboard was built."
+    ],
+    "contactAvailable": "Open to full-time analytics roles"
   }
 }

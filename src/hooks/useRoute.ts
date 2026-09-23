@@ -47,7 +47,13 @@ export function useRoute() {
     window.history.pushState({}, '', next);
     setPathname(window.location.pathname);
 
-    if (page === 'portfolioCase' || page === 'photography') {
+    if (page === 'portfolioCase' || page === 'photography' || page === 'analytics') {
+      if ((page === 'analytics' || page === 'photography') && hashOrSlug) {
+        requestAnimationFrame(() => {
+          document.getElementById(hashOrSlug)?.scrollIntoView({ behavior: 'smooth' });
+        });
+        return;
+      }
       window.scrollTo({ top: 0, behavior: 'smooth' });
       return;
     }

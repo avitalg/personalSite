@@ -1,21 +1,30 @@
 import { useState, useEffect, type CSSProperties } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ContactFormWrapper } from './contact-form-wrapper';
+import { AnalyticsPage } from './analytics-page';
 import { PhotographyPage } from './photography-page';
 import { PortfolioCasePage } from './portfolio-case-page';
 import { ClientOnly } from './components/ClientOnly';
-import { getPortfolioCase, listFeaturedPortfolioCases } from './portfolio/cases';
+import { getPortfolioCase } from './portfolio/cases';
 import { pagePath, type PageKind } from './routing';
 
-const homeSectionIds = ['home', 'about', 'portfolio', 'contact'] as const;
+const homeSectionIds = ['home', 'about', 'experience', 'contact'] as const;
 
-const heroTechKeys = ['sql', 'python', 'dashboards', 'experiments', 'aiTools'] as const;
+const heroTechKeys = ['frontend', 'fullstack', 'ui', 'testing', 'performance'] as const;
 const heroTechIcons: Record<(typeof heroTechKeys)[number], string> = {
-  sql: '🧮',
-  python: '🐍',
-  dashboards: '📈',
-  experiments: '🧪',
-  aiTools: '✨',
+  frontend: '🖥️',
+  fullstack: '🔗',
+  ui: '✨',
+  testing: '✅',
+  performance: '⚡',
+};
+
+type ExperienceItem = {
+  period: string;
+  role: string;
+  company: string;
+  about: string;
+  points: string[];
 };
 
 export type SiteAppProps = {
@@ -29,12 +38,12 @@ export function SiteApp({ page, slug, onNavigate, onGoHomeSection }: SiteAppProp
   const { t } = useTranslation();
   const isHome = page === 'home';
   const isPhotography = page === 'photography';
+  const isAnalytics = page === 'analytics';
   const isPortfolioCase = page === 'portfolioCase';
   const caseStudy = isPortfolioCase ? getPortfolioCase(slug) : undefined;
-  const cases = listFeaturedPortfolioCases();
   const skills = t('about.skillTags', { returnObjects: true }) as string[];
   const education = t('about.education', { returnObjects: true }) as string[];
-  const companies = t('about.companies', { returnObjects: true }) as string[];
+  const experience = t('experience.items', { returnObjects: true }) as ExperienceItem[];
 
   const [isVisible, setIsVisible] = useState<Record<string, boolean>>({});
   const [activeSection, setActiveSection] = useState('home');
@@ -135,7 +144,7 @@ export function SiteApp({ page, slug, onNavigate, onGoHomeSection }: SiteAppProp
                   [
                     ['home', t('nav.home')],
                     ['about', t('nav.about')],
-                    ['portfolio', t('nav.portfolio')],
+                    ['experience', t('nav.experience')],
                     ['contact', t('nav.contact')],
                   ] as const
                 ).map(([id, label]) => (
@@ -223,22 +232,12 @@ export function SiteApp({ page, slug, onNavigate, onGoHomeSection }: SiteAppProp
                         </ul>
                       </div>
 
-                      <div className="about-meta__group">
-                        <h3 className="about-meta__label">{t('about.experienceLabel')}</h3>
-                        <ul className="about-companies" aria-label={t('about.experienceLabel')}>
-                          {companies.map((company) => (
-                            <li key={company}>
-                              <span className="about-company">{company}</span>
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
                     </div>
                   </div>
 
                   <aside className="about-aside">
-                    <p className="about-stat" aria-label={`8+ ${t('hero.years')}`}>
-                      <span className="about-stat__value">8+</span>
+                    <p className="about-stat" aria-label={`8 ${t('hero.years')}`}>
+                      <span className="about-stat__value">8</span>
                       <span className="about-stat__label">{t('hero.years')}</span>
                     </p>
 
@@ -257,33 +256,38 @@ export function SiteApp({ page, slug, onNavigate, onGoHomeSection }: SiteAppProp
               </div>
             </section>
 
-            <section id="portfolio" className="projects portfolio" aria-labelledby="portfolio-heading">
+            <section id="experience" className="experience" aria-labelledby="experience-heading">
               <div className="container">
-                <h2 id="portfolio-heading" className={`section-title ${isVisible['portfolio'] ? 'fade-in-up' : ''}`}>
-                  {t('portfolio.title')}
-                </h2>
-                <div className="projects-grid" role="list">
-                  {cases.map((item, index) => (
+                <header className={`about-header ${isVisible['experience'] ? 'fade-in-up' : ''}`}>
+                  <h2 id="experience-heading" className="section-title">
+                    {t('experience.title')}
+                  </h2>
+                  <p className="section-subtitle about-subtitle">{t('experience.subtitle')}</p>
+                </header>
+                <div className="experience-timeline">
+                  {experience.map((job) => (
                     <article
-                      key={item.slug}
-                      className={`project-card ${isVisible['portfolio'] ? 'fade-in-up' : ''}`}
-                      style={{ animationDelay: `${index * 0.1}s` }}
-                      role="listitem"
+                      key={job.company}
+                      className={`experience-item ${isVisible['experience'] ? 'fade-in-up' : ''}`}
                     >
-                      <div className="project-header">
-                        <h3 className="project-title">{item.title}</h3>
-                        <p className="project-tech">{item.tech.join(' · ')}</p>
+                      <div className="experience-content">
+                        <div className="experience-header">
+                          <div>
+                            <h3 className="experience-role">{job.role}</h3>
+                            <p className="experience-company">{job.company}</p>
+                          </div>
+                          <div className="experience-meta">
+                            <span className="experience-period">{job.period}</span>
+                          </div>
+                        </div>
+                        <p className="experience-description">{job.about}</p>
+                        <ul className="experience-points">
+                          {job.points.map((point) => (
+                            <li key={point}>{point}</li>
+                          ))}
+                        </ul>
                       </div>
-                      <p className="project-description">{item.summary}</p>
-                      <div className="project-links">
-                        <a
-                          className="project-link"
-                          href={pagePath('portfolioCase', item.slug)}
-                          onClick={(e) => openCase(item.slug, e)}
-                        >
-                          {t('portfolio.readCase')}
-                        </a>
-                      </div>
+                      <div className="experience-connector" aria-hidden="true" />
                     </article>
                   ))}
                 </div>
@@ -340,6 +344,14 @@ export function SiteApp({ page, slug, onNavigate, onGoHomeSection }: SiteAppProp
               else window.location.href = homeBase;
             }}
           />
+        ) : isAnalytics ? (
+          <AnalyticsPage
+            onGoHome={() => {
+              if (onNavigate) onNavigate('home');
+              else window.location.href = homeBase;
+            }}
+            onOpenCase={(caseSlug, event) => openCase(caseSlug, event)}
+          />
         ) : caseStudy ? (
           <PortfolioCasePage
             caseStudy={caseStudy}
@@ -348,9 +360,8 @@ export function SiteApp({ page, slug, onNavigate, onGoHomeSection }: SiteAppProp
               else window.location.href = homeBase;
             }}
             onGoPortfolio={() => {
-              if (onGoHomeSection) onGoHomeSection('portfolio');
-              else if (onNavigate) onNavigate('home', 'portfolio');
-              else window.location.href = `${homeBase}#portfolio`;
+              if (onNavigate) onNavigate('analytics', 'portfolio');
+              else window.location.href = pagePath('analytics', 'portfolio');
             }}
           />
         ) : (

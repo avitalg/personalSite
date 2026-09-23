@@ -445,6 +445,13 @@ section {
   position: relative;
 }
 
+#about,
+#experience,
+#portfolio,
+#contact {
+  scroll-margin-top: 1rem;
+}
+
 .container {
   max-width: 1200px;
   margin: 0 auto;
@@ -879,7 +886,24 @@ section {
   max-width: 900px;
   margin: 0 auto;
   position: relative;
-  padding: 2rem 0;
+  padding: 1rem 0 2rem 1.75rem;
+}
+
+.experience-points {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+}
+
+.experience-points li {
+  font-size: 1.02rem;
+  line-height: 1.65;
+  color: var(--text-secondary);
+  padding-inline-start: 0.9rem;
+  border-inline-start: 2px solid var(--pastel-blue-200);
 }
 
 .experience-item {
@@ -1190,6 +1214,27 @@ section {
 
 .case-topbar__nav a:hover {
   color: var(--pastel-blue-dark);
+}
+
+.analytics-page {
+  padding-top: 4.5rem;
+}
+
+.analytics-page .hero {
+  min-height: calc(100vh - 4.5rem);
+  min-height: calc(100dvh - 4.5rem);
+}
+
+.analytics-topbar__nav {
+  display: flex;
+  gap: 1.25rem;
+}
+
+.analytics-page #about,
+.analytics-page #experience,
+.analytics-page #portfolio,
+.analytics-page #contact {
+  scroll-margin-top: 5rem;
 }
 
 .case-shell {
@@ -2197,6 +2242,13 @@ section {
     padding: 4rem 0;
   }
 
+  #about,
+  #experience,
+  #portfolio,
+  #contact {
+    scroll-margin-top: 1.5rem;
+  }
+
   .about {
     padding-top: 4rem;
     padding-bottom: 2rem;
@@ -2258,7 +2310,8 @@ section {
     font-size: 1rem;
   }
 
-  .experience-description {
+  .experience-description,
+  .experience-points li {
     font-size: 1rem;
   }
 
@@ -2391,6 +2444,13 @@ section {
     padding: 3rem 0;
   }
 
+  #about,
+  #experience,
+  #portfolio,
+  #contact {
+    scroll-margin-top: 2.25rem;
+  }
+
   .about {
     padding-top: 3rem;
     padding-bottom: 1.5rem;
@@ -2429,7 +2489,8 @@ section {
     font-size: 0.95rem;
   }
 
-  .experience-description {
+  .experience-description,
+  .experience-points li {
     font-size: 0.95rem;
   }
 

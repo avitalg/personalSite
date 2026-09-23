@@ -13,18 +13,23 @@ type SeoHeadProps = {
 export function SeoHead({ page, slug }: SeoHeadProps) {
   const { t } = useTranslation();
   const isPhoto = page === 'photography';
+  const isAnalytics = page === 'analytics';
   const caseStudy = page === 'portfolioCase' ? getPortfolioCase(slug) : undefined;
 
   const title = caseStudy
     ? `${caseStudy.title} | Avital Glazer`
     : isPhoto
       ? t('seo.photographyTitle')
-      : t('seo.title');
+      : isAnalytics
+        ? t('seo.analyticsTitle')
+        : t('seo.title');
   const description = caseStudy
     ? caseStudy.seoDescription
     : isPhoto
       ? t('seo.photographyDescription')
-      : t('seo.description');
+      : isAnalytics
+        ? t('seo.analyticsDescription')
+        : t('seo.description');
   const canonical = canonicalUrl(page, slug);
   const ogImage = caseStudy ? portfolioCaseOgImage(caseStudy) : `${siteUrl}/logo-512.png`;
   const jsonLd = buildJsonLd(page, t, slug);
