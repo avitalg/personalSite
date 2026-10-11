@@ -106,31 +106,40 @@ function buildHead(page: PageKind, slug?: string): string {
   <body>`;
 }
 
-function extractAssets(template: string): { css: string; js: string; analytics: string } {
+function extractAssets(template: string): { css: string; js: string; analytics: string; gtag: string } {
   const cssMatch = template.match(/<link rel="stylesheet"[^>]+>/g);
   const jsMatch = template.match(/<script type="module"[^>]+><\/script>/g);
   const analyticsMatch = template.match(
     /<!--\s*GoatCounter[\s\S]*?-->\s*<script[\s\S]*?data-goatcounter[\s\S]*?<\/script>|<script[^>]*data-goatcounter[^>]*>\s*<\/script>/i
   );
+  const gtagMatch = template.match(
+    /<!--\s*Google tag \(gtag\.js\)\s*-->\s*<script[^>]*googletagmanager\.com\/gtag\/js[^>]*>\s*<\/script>\s*<script>[\s\S]*?<\/script>/i
+  );
   return {
     css: cssMatch?.join('\n    ') ?? '',
     js: jsMatch?.join('\n    ') ?? '',
     analytics: analyticsMatch?.[0]?.trim() ?? '',
+    gtag: gtagMatch?.[0]?.trim() ?? '',
   };
 }
 
 function main() {
   const templatePath = join(distDir, 'index.html');
   const template = readFileSync(templatePath, 'utf8');
-  const { css, js, analytics } = extractAssets(template);
+  const { css, js, analytics, gtag } = extractAssets(template);
 
   if (!analytics) {
     console.warn('prerender: warning — GoatCounter script not found in dist/index.html');
   }
+  if (!gtag) {
+    console.warn('prerender: warning — Google tag not found in dist/index.html');
+  }
 
   for (const route of routes) {
     const appHtml = renderPage(route.page, route.slug);
-    const head = buildHead(route.page, route.slug).replace('    PLACEHOLDER_CSS', css ? `    ${css}` : '');
+    const head = buildHead(route.page, route.slug)
+      .replace('    PLACEHOLDER_CSS', css ? `    ${css}` : '')
+      .replace('</head>', gtag ? `    ${gtag}\n  </head>` : '</head>');
     const html = `${head}
     <div id="root">${appHtml}</div>
     ${js}

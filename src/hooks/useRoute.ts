@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { trackPageview } from '../analytics/goatcounter';
+import { trackPageview as trackGoatcounterPageview } from '../analytics/goatcounter';
+import { trackPageview as trackGtagPageview } from '../analytics/gtag';
 import {
   canonicalUrl,
   pagePath,
@@ -10,7 +11,7 @@ import {
 
 export function useRoute() {
   const [pathname, setPathname] = useState(() => window.location.pathname);
-  const skipInitialGoatcounter = useRef(true);
+  const skipInitialPageview = useRef(true);
 
   const route = useMemo(() => parsePath(pathname), [pathname]);
 
@@ -33,13 +34,14 @@ export function useRoute() {
     return () => window.removeEventListener('popstate', onPopState);
   }, []);
 
-  // Script auto-counts the first load; only count SPA navigations after that.
+  // Snippets auto-count the first load; only count SPA navigations after that.
   useEffect(() => {
-    if (skipInitialGoatcounter.current) {
-      skipInitialGoatcounter.current = false;
+    if (skipInitialPageview.current) {
+      skipInitialPageview.current = false;
       return;
     }
-    trackPageview();
+    trackGoatcounterPageview();
+    trackGtagPageview();
   }, [pathname]);
 
   const navigate = useCallback((page: PageKind, hashOrSlug?: string) => {
